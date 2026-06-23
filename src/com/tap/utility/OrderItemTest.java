@@ -14,11 +14,11 @@ public class OrderItemTest {
 
 //		ADD ORDER ITEM
 //		OrderItem orderItem = new OrderItem(
-//				1,
+//				2,
 //				1,
 //				2,
-//				299.00,
-//				598.00,
+//				400.00,
+//				800.00,
 //				"Less spicy",
 //				4.5,
 //				"Very tasty"
@@ -56,11 +56,11 @@ public class OrderItemTest {
 
 
 //		GET ALL ORDER ITEMS
-//		List<OrderItem> orderItems = orderItemDAOImpl.getAllOrderItem();
-//
-//		for(OrderItem orderItem : orderItems) {
-//			System.out.println(orderItem);
-//		}
+		List<OrderItem> orderItems = orderItemDAOImpl.getAllOrderItem();
+
+		for(OrderItem orderItem : orderItems) {
+			System.out.println(orderItem);
+		}
 
 
 
