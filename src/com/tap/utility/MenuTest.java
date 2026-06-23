@@ -72,10 +72,10 @@ public class MenuTest {
 
 
 //		GET MENU BY RESTAURANT ID
-		List<Menu> menus = menuDAOImpl.getMenuByRestaurant(1);
-
-		for(Menu menu : menus) {
-			System.out.println(menu);
-		}
+//		List<Menu> menus = menuDAOImpl.getMenuByRestaurant(1);
+//
+//		for(Menu menu : menus) {
+//			System.out.println(menu);
+//		}
 	}
 }
