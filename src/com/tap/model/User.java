@@ -16,6 +16,23 @@ public class User {
 	public User() {
 
 	}
+	
+	
+	
+	public User(int userId, String userName, String email, String password, String address, String role,
+			Timestamp createdDate, Timestamp lastLoginDate) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.email = email;
+		this.password = password;
+		this.address = address;
+		this.role = role;
+		this.createdDate = createdDate;
+		this.lastLoginDate = lastLoginDate;
+	}
+
+
 
 	public User(String userName, String email, String password, String address, String role) {
 		this.userName = userName;
