@@ -56,11 +56,11 @@ public class OrderItemTest {
 
 
 //		GET ALL ORDER ITEMS
-		List<OrderItem> orderItems = orderItemDAOImpl.getAllOrderItem();
-
-		for(OrderItem orderItem : orderItems) {
-			System.out.println(orderItem);
-		}
+//		List<OrderItem> orderItems = orderItemDAOImpl.getAllOrderItem();
+//
+//		for(OrderItem orderItem : orderItems) {
+//			System.out.println(orderItem);
+//		}
 
 
 
