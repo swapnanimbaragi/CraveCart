@@ -11,7 +11,7 @@
 
 	<h1>User Login</h1>
 
-	<form action="login" method="post">
+		<form action="${pageContext.request.contextPath}/login" method="post">
 
 		Email:
 		<input type="email" name="email">

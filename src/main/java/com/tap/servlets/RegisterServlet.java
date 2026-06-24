@@ -29,6 +29,6 @@ public class RegisterServlet extends HttpServlet {
 		UserDAOimpl userDAOimpl = new UserDAOimpl();
 		userDAOimpl.addUser(user);
 
-		resp.sendRedirect("login.jsp");
+		resp.sendRedirect("JSP/login.jsp");
 	}
 }
