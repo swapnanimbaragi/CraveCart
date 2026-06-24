@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css">
 </head>
 <body>
 

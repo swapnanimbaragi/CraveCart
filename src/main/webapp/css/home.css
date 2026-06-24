@@ -1,0 +1,249 @@
+.navbar {
+    height: 75px;
+    padding: 0 8%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #4caf50;
+}
+
+.navbar nav a {
+    margin: 0 15px;
+    color: #222;
+    font-weight: 600;
+}
+
+.logout-btn {
+    background: #4caf50;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 25px;
+}
+
+.hero {
+    height: 90vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 8%;
+    transform: translateY(-50%);
+    color: white;
+    max-width: 650px;
+}
+
+.hero-content h1 {
+    font-size: 60px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+
+.search-box {
+    display: flex;
+    background: white;
+    padding: 8px;
+    border-radius: 40px;
+    max-width: 550px;
+    margin-bottom: 25px;
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 14px 20px;
+    font-size: 16px;
+    border-radius: 40px;
+}
+
+.search-box button,
+.main-btn {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.categories,
+.restaurants,
+.why {
+    padding: 70px 8%;
+    text-align: center;
+}
+
+.categories h2,
+.restaurants h2,
+.why h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.categories > p,
+.restaurants > p {
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.category-container,
+.restaurant-container,
+.why-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 28px;
+}
+
+.category-card {
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.category-card:hover,
+.restaurant-card:hover,
+.why-card:hover {
+    transform: translateY(-8px);
+}
+
+.category-card video {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}
+
+.category-card h3 {
+    padding: 18px;
+    font-size: 20px;
+}
+
+.restaurant-card {
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    text-align: left;
+    transition: 0.3s;
+}
+
+.restaurant-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.restaurant-info {
+    padding: 22px;
+}
+
+.restaurant-info h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.restaurant-info p {
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.tag {
+    color: #4caf50 !important;
+    font-weight: bold;
+}
+
+.restaurant-info a {
+    display: inline-block;
+    margin-top: 12px;
+    background: #4caf50;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 22px;
+}
+
+.why-card {
+    background: white;
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.why-card h3 {
+    margin-bottom: 12px;
+}
+
+footer {
+    background: #1b3b22;
+    color: white;
+    text-align: center;
+    padding: 35px;
+}
+
+footer h3 {
+    color: #8ee28e;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+@media(max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 15px;
+    }
+
+    .navbar nav {
+        margin: 12px 0;
+    }
+
+    .navbar nav a {
+        display: inline-block;
+        margin: 8px;
+    }
+
+    .hero-content h1 {
+        font-size: 38px;
+    }
+
+    .search-box {
+        flex-direction: column;
+        border-radius: 20px;
+    }
+
+    .search-box button {
+        margin-top: 8px;
+    }
+}
