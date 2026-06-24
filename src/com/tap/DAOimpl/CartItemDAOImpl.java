@@ -1,0 +1,173 @@
+package com.tap.DAOimpl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.tap.DAO.CartItemDAO;
+import com.tap.model.CartItem;
+import com.tap.utility.DBConnection;
+
+public class CartItemDAOImpl implements CartItemDAO {
+
+	private static final String ADD_CART_ITEM =
+			"INSERT INTO cartitem (cartId, menuId, quantity) VALUES (?, ?, ?)";
+
+	private static final String GET_CART_ITEM =
+			"SELECT * FROM cartitem WHERE cartItemId = ?";
+
+	private static final String UPDATE_CART_ITEM =
+			"UPDATE cartitem SET cartId = ?, menuId = ?, quantity = ? WHERE cartItemId = ?";
+
+	private static final String DELETE_CART_ITEM =
+			"DELETE FROM cartitem WHERE cartItemId = ?";
+
+	private static final String GET_ALL_CART_ITEM =
+			"SELECT * FROM cartitem";
+
+	private static final String GET_CART_ITEMS_BY_CART =
+			"SELECT * FROM cartitem WHERE cartId = ?";
+
+	@Override
+	public void addCartItem(CartItem cartItem) {
+
+		Connection connection = DBConnection.getConnection();
+
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(ADD_CART_ITEM);
+
+			pstmt.setInt(1, cartItem.getCartId());
+			pstmt.setInt(2, cartItem.getMenuId());
+			pstmt.setInt(3, cartItem.getQuantity());
+
+			int i = pstmt.executeUpdate();
+			System.out.println(i);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public CartItem getCartItem(int cartItemId) {
+
+		Connection connection = DBConnection.getConnection();
+		CartItem cartItem = null;
+
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(GET_CART_ITEM);
+
+			pstmt.setInt(1, cartItemId);
+
+			ResultSet res = pstmt.executeQuery();
+
+			if (res.next()) {
+				cartItem = extractCartItem(res);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return cartItem;
+	}
+
+	@Override
+	public void updateCartItem(CartItem cartItem) {
+
+		Connection connection = DBConnection.getConnection();
+
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(UPDATE_CART_ITEM);
+
+			pstmt.setInt(1, cartItem.getCartId());
+			pstmt.setInt(2, cartItem.getMenuId());
+			pstmt.setInt(3, cartItem.getQuantity());
+			pstmt.setInt(4, cartItem.getCartItemId());
+
+			int i = pstmt.executeUpdate();
+			System.out.println(i);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteCartItem(int cartItemId) {
+
+		Connection connection = DBConnection.getConnection();
+
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(DELETE_CART_ITEM);
+
+			pstmt.setInt(1, cartItemId);
+
+			int i = pstmt.executeUpdate();
+			System.out.println(i);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public List<CartItem> getAllCartItem() {
+
+		Connection connection = DBConnection.getConnection();
+		List<CartItem> cartItemList = new ArrayList<CartItem>();
+
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(GET_ALL_CART_ITEM);
+
+			ResultSet res = pstmt.executeQuery();
+
+			while (res.next()) {
+				cartItemList.add(extractCartItem(res));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return cartItemList;
+	}
+
+	@Override
+	public List<CartItem> getCartItemsByCart(int cartId) {
+
+		Connection connection = DBConnection.getConnection();
+		List<CartItem> cartItemList = new ArrayList<CartItem>();
+
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(GET_CART_ITEMS_BY_CART);
+
+			pstmt.setInt(1, cartId);
+
+			ResultSet res = pstmt.executeQuery();
+
+			while (res.next()) {
+				cartItemList.add(extractCartItem(res));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return cartItemList;
+	}
+
+	private CartItem extractCartItem(ResultSet res) throws SQLException {
+
+		return new CartItem(
+				res.getInt("cartItemId"),
+				res.getInt("cartId"),
+				res.getInt("menuId"),
+				res.getInt("quantity"),
+				res.getTimestamp("addedAt")
+		);
+	}
+}
