@@ -5,9 +5,11 @@ import java.util.List;
 import com.tap.DAOimpl.OrderItemDAOImpl;
 import com.tap.model.OrderItem;
 
-public class OrderItemTest {
+public class OrderItemTest 
+{
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 
 		OrderItemDAOImpl orderItemDAOImpl = new OrderItemDAOImpl();
 
@@ -58,11 +60,13 @@ public class OrderItemTest {
 //		GET ALL ORDER ITEMS
 //		List<OrderItem> orderItems = orderItemDAOImpl.getAllOrderItem();
 //
-//		for(OrderItem orderItem : orderItems) {
+//		for(OrderItem orderItem : orderItems) 
+//		{
 //			System.out.println(orderItem);
 //		}
 
 
+		
 
 //		GET ORDER ITEMS BY ORDER ID
 //		List<OrderItem> orderItems = orderItemDAOImpl.getOrderItemsByOrder(1);
