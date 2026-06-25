@@ -20,6 +20,6 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("Email: " + email);
 		System.out.println("Password: " + password);
 
-		resp.sendRedirect("JSP/home.jsp");
+		resp.sendRedirect("home");
 	}
 }

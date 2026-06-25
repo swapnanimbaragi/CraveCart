@@ -127,267 +127,261 @@
 <!-- ================= RESTAURANTS SECTION START ================= -->
 <section class="restaurants" id="restaurants">
 
-    <h2>Top Restaurants Around You</h2>
+    <div class="section-badge">⭐ TOP RESTAURANTS</div>
+
+    <h2>Curated for <span>Every Craving</span></h2>
+
     <p>
-        Handpicked restaurants serving delicious meals with fast delivery.
+        Discover exceptional restaurants, signature dishes, and flavors you'll keep coming back for.
     </p>
 
     <div class="restaurant-container">
 
-        <!-- Restaurant 1 -->
+        <!-- RESTAURANT 1 -->
         <div class="restaurant-card">
-            <img src="${pageContext.request.contextPath}/images/meghana.webp">
-            <div class="restaurant-info">
-                <h3>Meghana Foods</h3>
+            <div class="restaurant-image">
+                <img src="${pageContext.request.contextPath}/images/meghana.webp" alt="Meghana Foods">
+                
+                <span class="time">⏱ 25 mins</span>
+                <span class="wishlist">♡</span>
+            </div>
 
+            <div class="restaurant-body">
+                <h3>Meghana Foods <span class="verified">✔</span></h3>
                 <p>Biryani • Andhra</p>
 
-                <div class="restaurant-details">
+                <div class="restaurant-meta">
                     <span>⭐ 4.8</span>
-                    <span>25 mins</span>
+                    <span>200+</span>
+                    <span>North Indian</span>
                 </div>
 
-                <div class="restaurant-tag">
-                    Best Seller
+                <div class="card-bottom">
+                    <span class="card-tag best">🔥 Best Seller</span>
+                    <a href="${pageContext.request.contextPath}/menu?restaurantId=1" class="menu-btn">
+                        View Menu →
+                    </a>
                 </div>
-
-                <a href="#">View Menu</a>
             </div>
         </div>
 
-        <!-- Restaurant 2 -->
+        <!-- RESTAURANT 2 -->
         <div class="restaurant-card">
-            <img src="${pageContext.request.contextPath}/images/empire.webp">
+            <div class="restaurant-image">
+                <img src="${pageContext.request.contextPath}/images/empire.webp" alt="Empire Restaurant">
+                
+                <span class="time">⏱ 30 mins</span>
+                <span class="wishlist">♡</span>
+            </div>
 
-            <div class="restaurant-info">
-                <h3>Empire Restaurant</h3>
-
+            <div class="restaurant-body">
+                <h3>Empire Restaurant <span class="verified">✔</span></h3>
                 <p>North Indian • Mughlai</p>
 
-                <div class="restaurant-details">
+                <div class="restaurant-meta">
                     <span>⭐ 4.6</span>
-                    <span>30 mins</span>
+                    <span>350+</span>
+                    <span>Mughlai</span>
                 </div>
 
-                <div class="restaurant-tag">
-                    Open Late
+                <div class="card-bottom">
+                    <span class="card-tag purple">🌙 Open Late</span>
+                    <a href="${pageContext.request.contextPath}/menu?restaurantId=2" class="menu-btn">
+                        View Menu →
+                    </a>
                 </div>
-
-                <a href="#">View Menu</a>
             </div>
         </div>
 
-        <!-- Restaurant 3 -->
+        <!-- RESTAURANT 3 -->
         <div class="restaurant-card">
+            <div class="restaurant-image">
+                <img src="${pageContext.request.contextPath}/images/pizzahut.webp" alt="Pizza Hut">
+               
+                <span class="time">⏱ 28 mins</span>
+                <span class="wishlist">♡</span>
+            </div>
 
-            <img src="${pageContext.request.contextPath}/images/pizzahut.webp">
-
-            <div class="restaurant-info">
-
-                <h3>Pizza Hut</h3>
-
+            <div class="restaurant-body">
+                <h3>Pizza Hut <span class="verified">✔</span></h3>
                 <p>Pizza • Italian</p>
 
-                <div class="restaurant-details">
+                <div class="restaurant-meta">
                     <span>⭐ 4.5</span>
-                    <span>28 mins</span>
+                    <span>250+</span>
+                    <span>Italian</span>
                 </div>
 
-                <div class="restaurant-tag">
-                    Cheesy Favourite
+                <div class="card-bottom">
+                    <span class="card-tag orange">🍕 Cheesy Favourite</span>
+                    <a href="${pageContext.request.contextPath}/menu?restaurantId=3" class="menu-btn">
+                        View Menu →
+                    </a>
                 </div>
-
-                <a href="#">View Menu</a>
-
             </div>
-
         </div>
 
-        <!-- Restaurant 4 -->
-
+        <!-- RESTAURANT 4 -->
         <div class="restaurant-card">
+            <div class="restaurant-image">
+                <img src="${pageContext.request.contextPath}/images/dominos.webp" alt="Domino's Pizza">
+                
+                <span class="time">⏱ 20 mins</span>
+                <span class="wishlist">♡</span>
+            </div>
 
-            <img src="${pageContext.request.contextPath}/images/dominos.webp">
-
-            <div class="restaurant-info">
-
-                <h3>Domino's Pizza</h3>
-
+            <div class="restaurant-body">
+                <h3>Domino's Pizza <span class="verified">✔</span></h3>
                 <p>Pizza • Fast Food</p>
 
-                <div class="restaurant-details">
-
+                <div class="restaurant-meta">
                     <span>⭐ 4.4</span>
-
-                    <span>20 mins</span>
-
+                    <span>220+</span>
+                    <span>Pizza</span>
                 </div>
 
-                <div class="restaurant-tag">
-                    Fast Delivery
+                <div class="card-bottom">
+                    <span class="card-tag green">🚀 Fast Delivery</span>
+                    <a href="#" class="menu-btn">View Menu →</a>
                 </div>
-
-                <a href="#">View Menu</a>
-
             </div>
-
         </div>
 
-        <!-- Restaurant 5 -->
-
+        <!-- RESTAURANT 5 -->
         <div class="restaurant-card">
+            <div class="restaurant-image">
+                <img src="${pageContext.request.contextPath}/images/kfc.webp" alt="KFC">
+                
+                <span class="time">⏱ 22 mins</span>
+                <span class="wishlist">♡</span>
+            </div>
 
-            <img src="${pageContext.request.contextPath}/images/kfc2.jpg">
-
-            <div class="restaurant-info">
-
-                <h3>KFC</h3>
-
+            <div class="restaurant-body">
+                <h3>KFC <span class="verified">✔</span></h3>
                 <p>Chicken • Burgers</p>
 
-                <div class="restaurant-details">
-
+                <div class="restaurant-meta">
                     <span>⭐ 4.5</span>
-
-                    <span>22 mins</span>
-
+                    <span>300+</span>
+                    <span>Chicken</span>
                 </div>
 
-                <div class="restaurant-tag">
-                    Crispy Chicken
+                <div class="card-bottom">
+                    <span class="card-tag orange">🍗 Crispy Chicken</span>
+                    <a href="#" class="menu-btn">View Menu →</a>
                 </div>
-
-                <a href="#">View Menu</a>
-
             </div>
-
         </div>
 
-        <!-- Restaurant 6 -->
-
+        <!-- RESTAURANT 6 -->
         <div class="restaurant-card">
+            <div class="restaurant-image">
+                <img src="${pageContext.request.contextPath}/images/california.webp" alt="California Burrito">
+                <span class="time">⏱ 24 mins</span>
+                <span class="wishlist">♡</span>
+            </div>
 
-            <img src="${pageContext.request.contextPath}/images/california.webp">
-
-            <div class="restaurant-info">
-
-                <h3>California Burrito</h3>
-
+            <div class="restaurant-body">
+                <h3>California Burrito <span class="verified">✔</span></h3>
                 <p>Mexican • Healthy</p>
 
-                <div class="restaurant-details">
-
+                <div class="restaurant-meta">
                     <span>⭐ 4.7</span>
-
-                    <span>24 mins</span>
-
+                    <span>400+</span>
+                    <span>Mexican</span>
                 </div>
 
-                <div class="restaurant-tag">
-                    Healthy Choice
+                <div class="card-bottom">
+                    <span class="card-tag green">🥗 Healthy Choice</span>
+                    <a href="#" class="menu-btn">View Menu →</a>
                 </div>
-
-                <a href="#">View Menu</a>
-
             </div>
-
         </div>
 
-        <!-- Restaurant 7 -->
-
+        <!-- RESTAURANT 7 -->
         <div class="restaurant-card">
-
-            <img src="${pageContext.request.contextPath}/images/beijingbites.webp">
-
-            <div class="restaurant-info">
-
-                <h3>Beijing Bites</h3>
-
-                <p>Chinese</p>
-
-                <div class="restaurant-details">
-
-                    <span>⭐ 4.5</span>
-
-                    <span>26 mins</span>
-
-                </div>
-
-                <div class="restaurant-tag">
-                    Chinese Special
-                </div>
-
-                <a href="#">View Menu</a>
-
+            <div class="restaurant-image">
+                <img src="${pageContext.request.contextPath}/images/beijingbites.webp" alt="Beijing Bites">
+              
+                <span class="time">⏱ 26 mins</span>
+                <span class="wishlist">♡</span>
             </div>
 
+            <div class="restaurant-body">
+                <h3>Beijing Bites <span class="verified">✔</span></h3>
+                <p>Chinese • Asian</p>
+
+                <div class="restaurant-meta">
+                    <span>⭐ 4.4</span>
+                    <span>280+</span>
+                    <span>Chinese</span>
+                </div>
+
+                <div class="card-bottom">
+                    <span class="card-tag red">🥢 Chinese Special</span>
+                    <a href="#" class="menu-btn">View Menu →</a>
+                </div>
+            </div>
         </div>
 
-        <!-- Restaurant 8 -->
-
+        <!-- RESTAURANT 8 -->
         <div class="restaurant-card">
-
-            <img src="${pageContext.request.contextPath}/images/a2b.webp">
-
-            <div class="restaurant-info">
-
-                <h3>A2B</h3>
-
-                <p>South Indian</p>
-
-                <div class="restaurant-details">
-
-                    <span>⭐ 4.6</span>
-
-                    <span>18 mins</span>
-
-                </div>
-
-                <div class="restaurant-tag">
-                    Pure Veg
-                </div>
-
-                <a href="#">View Menu</a>
-
+            <div class="restaurant-image">
+                <img src="${pageContext.request.contextPath}/images/a2b.webp" alt="A2B">
+              
+                <span class="time">⏱ 18 mins</span>
+                <span class="wishlist">♡</span>
             </div>
 
-        </div>
+            <div class="restaurant-body">
+                <h3>A2B <span class="verified">✔</span></h3>
+                <p>South Indian • Veg</p>
 
-        <!-- Restaurant 9 -->
-
-        <div class="restaurant-card">
-
-            <img src="${pageContext.request.contextPath}/images/bbq2.jpg">
-
-            <div class="restaurant-info">
-
-                <h3>Barbeque Nation</h3>
-
-                <p>BBQ • Grill</p>
-
-                <div class="restaurant-details">
-
+                <div class="restaurant-meta">
                     <span>⭐ 4.7</span>
-
-                    <span>35 mins</span>
-
+                    <span>180+</span>
+                    <span>Vegetarian</span>
                 </div>
 
-                <div class="restaurant-tag">
-                    Premium Dining
+                <div class="card-bottom">
+                    <span class="card-tag green">🥘 Pure Veg</span>
+                    <a href="#" class="menu-btn">View Menu →</a>
                 </div>
+            </div>
+        </div>
 
-                <a href="#">View Menu</a>
+        <!-- RESTAURANT 9 -->
+        <div class="restaurant-card">
+            <div class="restaurant-image">
+                <img src="${pageContext.request.contextPath}/images/bbq.webp" alt="Barbeque Nation">
 
+                <span class="time">⏱ 35 mins</span>
+                <span class="wishlist">♡</span>
             </div>
 
+            <div class="restaurant-body">
+                <h3>Barbeque Nation <span class="verified">✔</span></h3>
+                <p>BBQ • Buffet</p>
+
+                <div class="restaurant-meta">
+                    <span>⭐ 4.8</span>
+                    <span>500+</span>
+                    <span>Buffet</span>
+                </div>
+
+                <div class="card-bottom">
+                    <span class="card-tag orange">🔥 Grill Special</span>
+                    <a href="#" class="menu-btn">View Menu →</a>
+                </div>
+            </div>
         </div>
 
     </div>
 
+    <a href="#" class="view-all-btn">View All Restaurants →</a>
+
 </section>
 <!-- ================= RESTAURANTS SECTION END ================= -->
-
 
 <!-- ================= WHY CHOOSE SECTION START ================= -->
 <section class="why">
