@@ -7,8 +7,8 @@ html {
 
 /* ================= GLOBAL PAGE STYLE START ================= */
 body {
-    background: #eef8e9;
-    color: #171717;
+    background: #F7FCF6;
+    color: #222222;
 }
 /* ================= GLOBAL PAGE STYLE END ================= */
 
@@ -21,7 +21,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -30,25 +30,29 @@ body {
 .logo {
     font-size: 30px;
     font-weight: 800;
-    color: #5fbd73;
+    color: #34C759;
 }
 
 .navbar nav a {
     margin: 0 18px;
-    color: #1f1f1f;
+    color: #222222;
     font-weight: 600;
 }
 
 .navbar nav a:hover {
-    color: #5fbd73;
+    color: #34C759;
 }
 
 .logout-btn {
-    background: #5fbd73;
+    background: #34C759;
     color: white;
     padding: 11px 25px;
     border-radius: 30px;
     font-weight: 700;
+}
+
+.logout-btn:hover {
+    background: #1F9D4C;
 }
 /* ================= NAVBAR END ================= */
 
@@ -58,7 +62,7 @@ body {
     height: 88vh;
     position: relative;
     overflow: hidden;
-    background: #eef8e9;
+    background: #F7FCF6;
 }
 
 .hero-video {
@@ -70,7 +74,7 @@ body {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.28);
+    background: rgba(0,0,0,0.30);
 }
 
 .hero-content {
@@ -114,13 +118,17 @@ body {
 }
 
 .search-box button {
-    background: #5fbd73;
+    background: #34C759;
     color: white;
     border: none;
     padding: 14px 26px;
     border-radius: 30px;
     font-weight: 700;
     cursor: pointer;
+}
+
+.search-box button:hover {
+    background: #1F9D4C;
 }
 
 .hero-buttons {
@@ -142,82 +150,68 @@ body {
 }
 
 .main-btn {
-    background: #5fbd73;
+    background: #34C759;
     color: white;
 }
 
 .secondary-btn {
     background: rgba(255,255,255,0.95);
-    color: #2e7d32;
-    border: 2px solid #5fbd73;
+    color: #34C759;
+    border: 2px solid #34C759;
 }
 
 .main-btn:hover,
 .secondary-btn:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(76,175,80,0.35);
+    box-shadow: 0 10px 25px rgba(52,199,89,0.35);
 }
 
 .secondary-btn:hover {
-    background: #5fbd73;
+    background: #34C759;
     color: #ffffff;
 }
 /* ================= HERO SECTION END ================= */
 
 
+/* ================= SECTION BADGE COMMON START ================= */
+.section-badge {
+    display: inline-block;
+    background: #ffffff;
+    color: #1F9D4C;
+    padding: 9px 22px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 900;
+    box-shadow: 0 8px 20px rgba(52,199,89,0.15);
+    margin-bottom: 18px;
+}
+/* ================= SECTION BADGE COMMON END ================= */
+
+
 /* ================= CATEGORY SECTION START ================= */
-/* ================= CATEGORY HEADING START ================= */
-
-.section-badge{
-    display:inline-block;
-    background:#ffffff;
-    color:#16833a;
-    padding:9px 22px;
-    border-radius:30px;
-    font-size:14px;
-    font-weight:800;
-    box-shadow:0 8px 20px rgba(95,189,115,.18);
-    margin-bottom:18px;
-}
-
-.category-title{
-    font-size:58px;
-    font-weight:900;
-    color:#111827;
-    margin-bottom:12px;
-    line-height:1.15;
-}
-
-.category-title span{
-    color:#1b9448;
-    font-style:italic;
-}
-
-.category-subtitle{
-    font-size:20px;
-    color:#5f6368;
-    margin-bottom:55px;
-}
-
-/* ================= CATEGORY HEADING END ================= */
 .categories {
-    padding:100px 8% 75px;
-    background: #eef8e9;
+    padding: 100px 8% 75px;
+    background: #F7FCF6;
     text-align: center;
 }
 
-.categories h2 {
-    font-size: 40px;
-    color: #171717;
-    margin-bottom: 10px;
-    font-weight: 800;
+.category-title {
+    font-size: 58px;
+    font-weight: 900;
+    color: #222222;
+    margin-bottom: 12px;
+    line-height: 1.15;
 }
 
+.category-title span {
+    color: #34C759;
+    font-style: italic;
+}
 
-.categories > p {
-    color: #606060;
-    font-size: 18px;
-    margin-bottom: 45px;
+.category-subtitle {
+    font-size: 20px;
+    color: #777777;
+    margin-bottom: 55px;
 }
 
 .category-container {
@@ -230,7 +224,7 @@ body {
     background: #ffffff;
     border-radius: 28px;
     overflow: hidden;
-    box-shadow: 0 16px 35px rgba(80,120,80,0.13);
+    box-shadow: 0 12px 35px rgba(52,199,89,0.12);
     transition: 0.3s ease;
     cursor: pointer;
     height: 230px;
@@ -238,7 +232,7 @@ body {
 
 .category-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 22px 45px rgba(80,120,80,0.22);
+    box-shadow: 0 18px 45px rgba(52,199,89,0.22);
 }
 
 .category-card img {
@@ -259,46 +253,33 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 22px;
-    color: #1d1d1d;
+    color: #222222;
     font-weight: 800;
 }
 /* ================= CATEGORY SECTION END ================= */
 
 
 /* ================= RESTAURANT SECTION START ================= */
-
 .restaurants {
     padding: 90px 6%;
-    background: #eef8e9;
+    background: #F7FCF6;
     text-align: center;
-}
-
-.section-badge {
-    display: inline-block;
-    background: #ffffff;
-    color: #16833a;
-    padding: 8px 24px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 900;
-    margin-bottom: 18px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
 }
 
 .restaurants h2 {
     font-size: 48px;
     font-weight: 900;
-    color: #111827;
+    color: #222222;
     margin-bottom: 10px;
 }
 
 .restaurants h2 span {
-    color: #16833a;
+    color: #34C759;
     font-style: italic;
 }
 
 .restaurants > p {
-    color: #5f6368;
+    color: #777777;
     font-size: 18px;
     margin-bottom: 45px;
 }
@@ -313,14 +294,14 @@ body {
     background: #ffffff;
     border-radius: 24px;
     overflow: hidden;
-    box-shadow: 0 18px 45px rgba(67,120,80,0.18);
+    box-shadow: 0 12px 35px rgba(52,199,89,0.12);
     text-align: left;
     transition: 0.35s ease;
 }
 
 .restaurant-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 24px 55px rgba(67,120,80,0.25);
+    box-shadow: 0 18px 45px rgba(52,199,89,0.22);
 }
 
 .restaurant-image {
@@ -346,11 +327,12 @@ body {
     top: 16px;
     right: 16px;
     background: #ffffff;
-    color: #111827;
+    color: #222222;
     padding: 8px 16px;
     border-radius: 22px;
     font-size: 14px;
     font-weight: 900;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
 
 .wishlist {
@@ -359,8 +341,8 @@ body {
     bottom: 18px;
     width: 42px;
     height: 42px;
-    background: white;
-    color: #e63946;
+    background: #ffffff;
+    color: #FF4D5A;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -376,17 +358,17 @@ body {
 .restaurant-body h3 {
     font-size: 24px;
     font-weight: 900;
-    color: #111827;
+    color: #222222;
     margin-bottom: 8px;
 }
 
 .verified {
-    color: #16a34a;
+    color: #34C759;
     font-size: 17px;
 }
 
 .restaurant-body p {
-    color: #5f6368;
+    color: #777777;
     font-size: 16px;
     margin-bottom: 18px;
 }
@@ -395,14 +377,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #5f6368;
+    color: #777777;
     font-size: 15px;
     font-weight: 700;
     margin-bottom: 22px;
 }
 
 .restaurant-meta span {
-    border-right: 1px solid #d8ddd8;
+    border-right: 1px solid #E8ECEF;
     padding-right: 18px;
 }
 
@@ -425,33 +407,29 @@ body {
     white-space: nowrap;
 }
 
-.card-tag.best {
-    background: #e6f7e9;
-    color: #16833a;
+.card-tag.best,
+.card-tag.green {
+    background: #E9FBEF;
+    color: #1F9D4C;
 }
 
 .card-tag.purple {
-    background: #efe7ff;
-    color: #6b3fd1;
+    background: #F0E9FF;
+    color: #6B3FD1;
 }
 
 .card-tag.orange {
-    background: #ffe7d6;
-    color: #e85d04;
-}
-
-.card-tag.green {
-    background: #e6f7e9;
-    color: #16833a;
+    background: #FFF1E0;
+    color: #FF8A00;
 }
 
 .card-tag.red {
-    background: #ffe5e5;
-    color: #d62828;
+    background: #FFE8E8;
+    color: #FF4D5A;
 }
 
 .menu-btn {
-    background: #16833a;
+    background: #34C759;
     color: #ffffff;
     padding: 12px 24px;
     border-radius: 25px;
@@ -462,7 +440,7 @@ body {
 }
 
 .menu-btn:hover {
-    background: #0f6d2d;
+    background: #1F9D4C;
     transform: translateY(-2px);
 }
 
@@ -470,26 +448,31 @@ body {
     display: inline-block;
     margin-top: 45px;
     background: #ffffff;
-    border: 2px solid #16833a;
-    color: #16833a;
+    border: 2px solid #34C759;
+    color: #34C759;
     padding: 13px 38px;
     border-radius: 30px;
     font-weight: 900;
 }
 
+.view-all-btn:hover {
+    background: #34C759;
+    color: #ffffff;
+}
 /* ================= RESTAURANT SECTION END ================= */
 
 
 /* ================= WHY CHOOSE SECTION START ================= */
 .why {
     padding: 75px 8%;
-    background: #eef8e9;
+    background: #F7FCF6;
     text-align: center;
 }
 
 .why h2 {
     font-size: 40px;
     margin-bottom: 40px;
+    color: #222222;
 }
 
 .why-container {
@@ -502,12 +485,13 @@ body {
     background: white;
     padding: 32px;
     border-radius: 28px;
-    box-shadow: 0 16px 35px rgba(80,120,80,0.13);
+    box-shadow: 0 12px 35px rgba(52,199,89,0.12);
     transition: 0.3s;
 }
 
 .why-card:hover {
     transform: translateY(-8px);
+    box-shadow: 0 18px 45px rgba(52,199,89,0.22);
 }
 
 .why-card h3 {
@@ -518,14 +502,14 @@ body {
 
 /* ================= FOOTER START ================= */
 footer {
-    background: #1f3d26;
+    background: #133B20;
     color: white;
     text-align: center;
     padding: 38px;
 }
 
 footer h3 {
-    color: #9be58f;
+    color: #7DFFA2;
     font-size: 30px;
     margin-bottom: 10px;
 }
