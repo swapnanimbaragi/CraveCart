@@ -167,7 +167,7 @@ body {
 
 /* ================= CATEGORY SECTION START ================= */
 .categories {
-    padding: 75px 8%;
+    padding:100px 8% 75px;
     background: #eef8e9;
     text-align: center;
 }
