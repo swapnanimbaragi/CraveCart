@@ -64,49 +64,59 @@
 
 <!-- ================= CATEGORY SECTION START ================= -->
 <section class="categories" id="categories">
-    <h2>Explore Food Categories</h2>
-    <p>Choose from your favorite dishes and cuisines.</p>
+    <h2>Choose. Crave. Celebrate.</h2>
+    <p>Every craving begins here. Fresh flavors, endless choices, delivered with love.</p>
 
     <div class="category-container">
 
-        <!-- CATEGORY 1 -->
         <div class="category-card">
-            <video autoplay muted loop playsinline>
-                <source src="${pageContext.request.contextPath}/videos/Veggs.mp4" type="video/mp4">
-            </video>
-            <h3>Veg Specials</h3>
-        </div>
-
-        <!-- CATEGORY 2 -->
-        <div class="category-card">
-            <video autoplay muted loop playsinline>
-                <source src="${pageContext.request.contextPath}/videos/Panner2.mp4" type="video/mp4">
-            </video>
-            <h3>Paneer Delights</h3>
-        </div>
-
-        <!-- CATEGORY 3 -->
-        <div class="category-card">
-            <video autoplay muted loop playsinline>
-                <source src="${pageContext.request.contextPath}/videos/Biriyani.mp4" type="video/mp4">
-            </video>
+            <img src="${pageContext.request.contextPath}/images/biriyani.webp" alt="Biryani">
             <h3>Biryani</h3>
         </div>
 
-        <!-- CATEGORY 4 -->
         <div class="category-card">
-            <video autoplay muted loop playsinline>
-                <source src="${pageContext.request.contextPath}/videos/Chicken.mp4" type="video/mp4">
-            </video>
-            <h3>Chicken</h3>
+            <img src="${pageContext.request.contextPath}/images/burger.webp" alt="Burger">
+            <h3>Burger</h3>
         </div>
 
-        <!-- CATEGORY 5 -->
         <div class="category-card">
-            <video autoplay muted loop playsinline>
-                <source src="${pageContext.request.contextPath}/videos/Chicken2.mp4" type="video/mp4">
-            </video>
-            <h3>Spicy Bites</h3>
+            <img src="${pageContext.request.contextPath}/images/chole.webp" alt="Chole">
+            <h3>Chole Bhature</h3>
+        </div>
+
+        <div class="category-card">
+            <img src="${pageContext.request.contextPath}/images/dosa.webp" alt="Dosa">
+            <h3>Dosa Idali</h3>
+        </div>
+
+        <div class="category-card">
+            <img src="${pageContext.request.contextPath}/images/north.webp" alt="North Indian">
+            <h3>North Indian</h3>
+        </div>
+
+        <div class="category-card">
+            <img src="${pageContext.request.contextPath}/images/paneer.webp" alt="Paneer">
+            <h3>Paneer</h3>
+        </div>
+
+        <div class="category-card">
+            <img src="${pageContext.request.contextPath}/images/pizza.webp" alt="Pizza">
+            <h3>Pizza</h3>
+        </div>
+
+        <div class="category-card">
+            <img src="${pageContext.request.contextPath}/images/ramen.webp" alt="Ramen">
+            <h3>Ramen</h3>
+        </div>
+
+        <div class="category-card">
+            <img src="${pageContext.request.contextPath}/images/sweet.webp" alt="Desserts">
+            <h3>Desserts</h3>
+        </div>
+
+        <div class="category-card">
+            <img src="${pageContext.request.contextPath}/images/salad.webp" alt="Salad">
+            <h3>Salad</h3>
         </div>
 
     </div>
@@ -114,67 +124,269 @@
 <!-- ================= CATEGORY SECTION END ================= -->
 
 
-<!-- ================= RESTAURANT SECTION START ================= -->
+<!-- ================= RESTAURANTS SECTION START ================= -->
 <section class="restaurants" id="restaurants">
-    <h2>Popular Restaurants Near You</h2>
-    <p>Handpicked restaurants loved by food lovers.</p>
+
+    <h2>Top Restaurants Around You</h2>
+    <p>
+        Handpicked restaurants serving delicious meals with fast delivery.
+    </p>
 
     <div class="restaurant-container">
 
-        <!-- RESTAURANT CARD 1 -->
+        <!-- Restaurant 1 -->
         <div class="restaurant-card">
-            <img src="${pageContext.request.contextPath}/images/restaurant1.jpg" alt="Restaurant">
-
+            <img src="${pageContext.request.contextPath}/images/meghana.webp">
             <div class="restaurant-info">
                 <h3>Meghana Foods</h3>
-                <p>Biryani • South Indian</p>
-                <span>⭐ 4.7</span>
-                <span> • 30 mins</span>
-                <p class="tag">Best Seller</p>
 
-                <a href="${pageContext.request.contextPath}/menu?restaurantId=1">
-                    View Menu
-                </a>
+                <p>Biryani • Andhra</p>
+
+                <div class="restaurant-details">
+                    <span>⭐ 4.8</span>
+                    <span>25 mins</span>
+                </div>
+
+                <div class="restaurant-tag">
+                    Best Seller
+                </div>
+
+                <a href="#">View Menu</a>
             </div>
         </div>
 
-        <!-- RESTAURANT CARD 2 -->
+        <!-- Restaurant 2 -->
         <div class="restaurant-card">
-            <img src="${pageContext.request.contextPath}/images/restaurant2.jpg" alt="Restaurant">
+            <img src="${pageContext.request.contextPath}/images/empire.webp">
 
             <div class="restaurant-info">
-                <h3>Pizza Hub</h3>
-                <p>Pizza • Italian • Fast Food</p>
-                <span>⭐ 4.5</span>
-                <span> • 25 mins</span>
-                <p class="tag">Hot Deals</p>
+                <h3>Empire Restaurant</h3>
 
-                <a href="${pageContext.request.contextPath}/menu?restaurantId=2">
-                    View Menu
-                </a>
+                <p>North Indian • Mughlai</p>
+
+                <div class="restaurant-details">
+                    <span>⭐ 4.6</span>
+                    <span>30 mins</span>
+                </div>
+
+                <div class="restaurant-tag">
+                    Open Late
+                </div>
+
+                <a href="#">View Menu</a>
             </div>
         </div>
 
-        <!-- RESTAURANT CARD 3 -->
+        <!-- Restaurant 3 -->
         <div class="restaurant-card">
-            <img src="${pageContext.request.contextPath}/images/restaurant3.jpg" alt="Restaurant">
+
+            <img src="${pageContext.request.contextPath}/images/pizzahut.webp">
 
             <div class="restaurant-info">
-                <h3>Green Bowl</h3>
-                <p>Veg • Healthy • Salads</p>
-                <span>⭐ 4.6</span>
-                <span> • 20 mins</span>
-                <p class="tag">Recommended</p>
 
-                <a href="${pageContext.request.contextPath}/menu?restaurantId=3">
-                    View Menu
-                </a>
+                <h3>Pizza Hut</h3>
+
+                <p>Pizza • Italian</p>
+
+                <div class="restaurant-details">
+                    <span>⭐ 4.5</span>
+                    <span>28 mins</span>
+                </div>
+
+                <div class="restaurant-tag">
+                    Cheesy Favourite
+                </div>
+
+                <a href="#">View Menu</a>
+
             </div>
+
+        </div>
+
+        <!-- Restaurant 4 -->
+
+        <div class="restaurant-card">
+
+            <img src="${pageContext.request.contextPath}/images/dominos.webp">
+
+            <div class="restaurant-info">
+
+                <h3>Domino's Pizza</h3>
+
+                <p>Pizza • Fast Food</p>
+
+                <div class="restaurant-details">
+
+                    <span>⭐ 4.4</span>
+
+                    <span>20 mins</span>
+
+                </div>
+
+                <div class="restaurant-tag">
+                    Fast Delivery
+                </div>
+
+                <a href="#">View Menu</a>
+
+            </div>
+
+        </div>
+
+        <!-- Restaurant 5 -->
+
+        <div class="restaurant-card">
+
+            <img src="${pageContext.request.contextPath}/images/kfc2.jpg">
+
+            <div class="restaurant-info">
+
+                <h3>KFC</h3>
+
+                <p>Chicken • Burgers</p>
+
+                <div class="restaurant-details">
+
+                    <span>⭐ 4.5</span>
+
+                    <span>22 mins</span>
+
+                </div>
+
+                <div class="restaurant-tag">
+                    Crispy Chicken
+                </div>
+
+                <a href="#">View Menu</a>
+
+            </div>
+
+        </div>
+
+        <!-- Restaurant 6 -->
+
+        <div class="restaurant-card">
+
+            <img src="${pageContext.request.contextPath}/images/california.webp">
+
+            <div class="restaurant-info">
+
+                <h3>California Burrito</h3>
+
+                <p>Mexican • Healthy</p>
+
+                <div class="restaurant-details">
+
+                    <span>⭐ 4.7</span>
+
+                    <span>24 mins</span>
+
+                </div>
+
+                <div class="restaurant-tag">
+                    Healthy Choice
+                </div>
+
+                <a href="#">View Menu</a>
+
+            </div>
+
+        </div>
+
+        <!-- Restaurant 7 -->
+
+        <div class="restaurant-card">
+
+            <img src="${pageContext.request.contextPath}/images/beijingbites.webp">
+
+            <div class="restaurant-info">
+
+                <h3>Beijing Bites</h3>
+
+                <p>Chinese</p>
+
+                <div class="restaurant-details">
+
+                    <span>⭐ 4.5</span>
+
+                    <span>26 mins</span>
+
+                </div>
+
+                <div class="restaurant-tag">
+                    Chinese Special
+                </div>
+
+                <a href="#">View Menu</a>
+
+            </div>
+
+        </div>
+
+        <!-- Restaurant 8 -->
+
+        <div class="restaurant-card">
+
+            <img src="${pageContext.request.contextPath}/images/a2b.webp">
+
+            <div class="restaurant-info">
+
+                <h3>A2B</h3>
+
+                <p>South Indian</p>
+
+                <div class="restaurant-details">
+
+                    <span>⭐ 4.6</span>
+
+                    <span>18 mins</span>
+
+                </div>
+
+                <div class="restaurant-tag">
+                    Pure Veg
+                </div>
+
+                <a href="#">View Menu</a>
+
+            </div>
+
+        </div>
+
+        <!-- Restaurant 9 -->
+
+        <div class="restaurant-card">
+
+            <img src="${pageContext.request.contextPath}/images/bbq2.jpg">
+
+            <div class="restaurant-info">
+
+                <h3>Barbeque Nation</h3>
+
+                <p>BBQ • Grill</p>
+
+                <div class="restaurant-details">
+
+                    <span>⭐ 4.7</span>
+
+                    <span>35 mins</span>
+
+                </div>
+
+                <div class="restaurant-tag">
+                    Premium Dining
+                </div>
+
+                <a href="#">View Menu</a>
+
+            </div>
+
         </div>
 
     </div>
+
 </section>
-<!-- ================= RESTAURANT SECTION END ================= -->
+<!-- ================= RESTAURANTS SECTION END ================= -->
 
 
 <!-- ================= WHY CHOOSE SECTION START ================= -->

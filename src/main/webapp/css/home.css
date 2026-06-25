@@ -232,14 +232,17 @@ body {
 
 
 /* ================= RESTAURANT SECTION START ================= */
+
 .restaurants {
-    padding: 75px 8%;
+    padding: 80px 8%;
     background: #ffffff;
     text-align: center;
 }
 
 .restaurants h2 {
-    font-size: 40px;
+    font-size: 42px;
+    font-weight: 900;
+    color: #171717;
     margin-bottom: 10px;
 }
 
@@ -252,26 +255,34 @@ body {
 .restaurant-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    gap: 32px;
 }
 
 .restaurant-card {
-    background: white;
+    background: #ffffff;
     border-radius: 28px;
     overflow: hidden;
-    box-shadow: 0 16px 35px rgba(0,0,0,0.10);
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.10);
     text-align: left;
-    transition: 0.3s;
+    transition: 0.35s ease;
+    cursor: pointer;
 }
 
 .restaurant-card:hover {
     transform: translateY(-10px);
+    box-shadow: 0 22px 45px rgba(80, 120, 80, 0.22);
 }
 
 .restaurant-card img {
     width: 100%;
     height: 220px;
     object-fit: cover;
+    display: block;
+    transition: 0.4s ease;
+}
+
+.restaurant-card:hover img {
+    transform: scale(1.05);
 }
 
 .restaurant-info {
@@ -280,31 +291,71 @@ body {
 
 .restaurant-info h3 {
     font-size: 24px;
+    font-weight: 900;
+    color: #171717;
     margin-bottom: 8px;
 }
 
 .restaurant-info p {
-    color: #666;
-    margin-bottom: 8px;
+    color: #606060;
+    font-size: 15px;
+    margin-bottom: 12px;
 }
 
-.tag {
-    color: #5fbd73 !important;
+.restaurant-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.restaurant-details span {
+    background: #eef8e9;
+    color: #2e7d32;
+    padding: 7px 13px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.restaurant-tag {
+    display: inline-block;
+    background: #fff3cd;
+    color: #8a6500;
+    padding: 7px 14px;
+    border-radius: 20px;
     font-weight: 800;
+    font-size: 14px;
+    margin-bottom: 16px;
 }
 
 .restaurant-info a {
-    display: inline-block;
-    margin-top: 12px;
+    display: block;
+    text-align: center;
     background: #5fbd73;
     color: white;
-    padding: 11px 24px;
+    padding: 12px 24px;
     border-radius: 25px;
-    font-weight: 700;
+    font-weight: 800;
+    transition: 0.3s ease;
 }
+
+.restaurant-info a:hover {
+    background: #43a856;
+}
+
 /* ================= RESTAURANT SECTION END ================= */
 
+@media(max-width: 900px) {
+    .restaurant-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 
+@media(max-width: 600px) {
+    .restaurant-container {
+        grid-template-columns: 1fr;
+    }
+}
 /* ================= WHY CHOOSE SECTION START ================= */
 .why {
     padding: 75px 8%;
