@@ -64,8 +64,23 @@
 
 <!-- ================= CATEGORY SECTION START ================= -->
 <section class="categories" id="categories">
-    <h2>Choose. Crave. Celebrate.</h2>
-    <p>Every craving begins here. Fresh flavors, endless choices, delivered with love.</p>
+    
+	    <!-- ================= CATEGORIES HEADING START ================= -->
+	
+	<div class="section-badge">
+	    🍽️ POPULAR CATEGORIES
+	</div>
+	
+	<h2 class="category-title">
+	    Choose. Crave.
+	    <span>Celebrate.</span>
+	</h2>
+	
+	<p class="category-subtitle">
+	    Every craving begins here. Fresh flavors, endless choices, delivered with love.
+	</p>
+	
+	<!-- ================= CATEGORIES HEADING END ================= -->
 
     <div class="category-container">
 
@@ -152,7 +167,7 @@
 
                 <div class="restaurant-meta">
                     <span>⭐ 4.8</span>
-                    <span>200+</span>
+                    <span>₹200+</span>
                     <span>North Indian</span>
                 </div>
 
@@ -180,7 +195,7 @@
 
                 <div class="restaurant-meta">
                     <span>⭐ 4.6</span>
-                    <span>350+</span>
+                    <span>₹350+</span>
                     <span>Mughlai</span>
                 </div>
 
@@ -208,7 +223,7 @@
 
                 <div class="restaurant-meta">
                     <span>⭐ 4.5</span>
-                    <span>250+</span>
+                    <span>₹250+</span>
                     <span>Italian</span>
                 </div>
 
@@ -236,7 +251,7 @@
 
                 <div class="restaurant-meta">
                     <span>⭐ 4.4</span>
-                    <span>220+</span>
+                    <span>₹220+</span>
                     <span>Pizza</span>
                 </div>
 
@@ -287,7 +302,7 @@
 
                 <div class="restaurant-meta">
                     <span>⭐ 4.7</span>
-                    <span>400+</span>
+                    <span>₹400+</span>
                     <span>Mexican</span>
                 </div>
 
@@ -313,7 +328,7 @@
 
                 <div class="restaurant-meta">
                     <span>⭐ 4.4</span>
-                    <span>280+</span>
+                    <span>₹280+</span>
                     <span>Chinese</span>
                 </div>
 
@@ -339,7 +354,7 @@
 
                 <div class="restaurant-meta">
                     <span>⭐ 4.7</span>
-                    <span>180+</span>
+                    <span>₹180+</span>
                     <span>Vegetarian</span>
                 </div>
 
@@ -365,7 +380,7 @@
 
                 <div class="restaurant-meta">
                     <span>⭐ 4.8</span>
-                    <span>500+</span>
+                    <span>₹500+</span>
                     <span>Buffet</span>
                 </div>
 
