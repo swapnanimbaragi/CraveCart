@@ -10,20 +10,14 @@
 <meta charset="UTF-8">
 <title>Restaurant Menu | CraveCart</title>
 
-<link rel="stylesheet"
-      href="${pageContext.request.contextPath}/css/common.css">
-
-<link rel="stylesheet"
-      href="${pageContext.request.contextPath}/css/menu.css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/menu.css">
 </head>
 
 <body>
 
 <!-- ================= NAVBAR START ================= -->
-
 <header class="navbar">
-
     <div class="logo">CraveCart</div>
 
     <nav>
@@ -31,79 +25,84 @@
         <a href="${pageContext.request.contextPath}/home#restaurants">Restaurants</a>
         <a href="#">Cart</a>
     </nav>
-
 </header>
-
 <!-- ================= NAVBAR END ================= -->
 
-
-<!-- ================= PAGE TITLE ================= -->
-
 <section class="menu-header">
-
     <h1>Explore Delicious Meals</h1>
-
-    <p>
-        Freshly prepared dishes waiting for you.
-    </p>
-
+    <div class="title-line">✤</div>
+    <p>Freshly prepared dishes waiting for you.</p>
 </section>
 
-
-<!-- ================= MENU ITEMS ================= -->
-
 <section class="menu-section">
+    <div class="menu-container">
 
-<div class="menu-container">
+        <%
+            List<Menu> menuList = (List<Menu>) request.getAttribute("menuList");
 
-<%
+            if(menuList != null && !menuList.isEmpty()) {
+                for(Menu menu : menuList) {
+        %>
 
-List<Menu> menuList=(List<Menu>)request.getAttribute("menuList");
+        <div class="menu-card">
 
-if(menuList!=null){
+            <div class="menu-image-box">
+                <img src="<%= request.getContextPath() %>/images/<%= menu.getImageUrl() %>"
+                     alt="<%= menu.getItemName() %>">
 
-for(Menu menu:menuList){
+                <% if(menu.isBestSeller()) { %>
+                    <span class="best-badge">🔥 Best Seller</span>
+                <% } %>
 
-%>
+                <% if(menu.isVeg()) { %>
+                    <span class="food-type veg-dot">● Veg</span>
+                <% } else { %>
+                    <span class="food-type nonveg-dot">● Non-Veg</span>
+                <% } %>
+            </div>
 
-<div class="menu-card">
+            <div class="menu-info">
 
-    <img src="${pageContext.request.contextPath}/images/<%=menu.getImageUrl()%>"
-    alt="<%=menu.getItemName()%>">
+                <div class="rating-row">
+                    <span class="rating">⭐ <%= menu.getRating() %></span>
+                    <span class="price">₹<%= menu.getPrice() %></span>
+                </div>
 
-    <div class="menu-info">
+                <h3><%= menu.getItemName() %></h3>
 
-        <h3><%=menu.getItemName()%></h3>
+                <p><%= menu.getDescription() %></p>
 
-        <p><%=menu.getDescription()%></p>
+                <div class="details-row">
+                    <span>🌶 <%= menu.getSpiceLevel() %> Spice</span>
+                    <span>🍽 <%= menu.getPortionSize() %></span>
+                </div>
 
-        <div class="menu-bottom">
+	                <div class="qty-box">
+					    <button class="minus">-</button>
+					    <span class="quantity">1</span>
+					    <button class="plus">+</button>
+					</div>
 
-            <span class="price">
-                ₹<%=menu.getPrice()%>
-            </span>
+                    <a href="#" class="add-btn">🛒 Add +</a>
+                </div>
 
-            <a href="#" class="add-btn">
-                Add +
-            </a>
+            </div>
 
         </div>
 
+        <%
+                }
+            } else {
+        %>
+
+        <p class="empty-menu">No menu items available.</p>
+
+        <%
+            }
+        %>
+
     </div>
-
-</div>
-
-<%
-
-}
-
-}
-
-%>
-
-</div>
-
 </section>
-
+<script src="${pageContext.request.contextPath}/js/menu.js"></script>
 </body>
 </html>
