@@ -265,7 +265,7 @@
         <!-- RESTAURANT 5 -->
         <div class="restaurant-card">
             <div class="restaurant-image">
-                <img src="${pageContext.request.contextPath}/images/kfc.webp" alt="KFC">
+                <img src="${pageContext.request.contextPath}/images/kfc2.jpg" alt="KFC">
                 
                 <span class="time">⏱ 22 mins</span>
                 <span class="wishlist">♡</span>
@@ -368,7 +368,7 @@
         <!-- RESTAURANT 9 -->
         <div class="restaurant-card">
             <div class="restaurant-image">
-                <img src="${pageContext.request.contextPath}/images/bbq.webp" alt="Barbeque Nation">
+                <img src="${pageContext.request.contextPath}/images/bbq2.jpg" alt="Barbeque Nation">
 
                 <span class="time">⏱ 35 mins</span>
                 <span class="wishlist">♡</span>
