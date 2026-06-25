@@ -1,39 +1,64 @@
+/* ================= SMOOTH SCROLL START ================= */
+html {
+    scroll-behavior: smooth;
+}
+/* ================= SMOOTH SCROLL END ================= */
+
+
+/* ================= GLOBAL PAGE STYLE START ================= */
+body {
+    background: #eef8e9;
+    color: #171717;
+}
+/* ================= GLOBAL PAGE STYLE END ================= */
+
+
+/* ================= NAVBAR START ================= */
 .navbar {
-    height: 75px;
+    height: 76px;
     padding: 0 8%;
     background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .logo {
-    font-size: 28px;
-    font-weight: bold;
-    color: #4caf50;
+    font-size: 30px;
+    font-weight: 800;
+    color: #5fbd73;
 }
 
 .navbar nav a {
-    margin: 0 15px;
-    color: #222;
+    margin: 0 18px;
+    color: #1f1f1f;
     font-weight: 600;
 }
 
-.logout-btn {
-    background: #4caf50;
-    color: white;
-    padding: 10px 22px;
-    border-radius: 25px;
+.navbar nav a:hover {
+    color: #5fbd73;
 }
 
+.logout-btn {
+    background: #5fbd73;
+    color: white;
+    padding: 11px 25px;
+    border-radius: 30px;
+    font-weight: 700;
+}
+/* ================= NAVBAR END ================= */
+
+
+/* ================= HERO SECTION START ================= */
 .hero {
-    height: 90vh;
+    height: 88vh;
     position: relative;
     overflow: hidden;
+    background: #eef8e9;
 }
 
 .hero-video {
@@ -45,7 +70,7 @@
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.45);
+    background: rgba(0,0,0,0.28);
 }
 
 .hero-content {
@@ -53,14 +78,15 @@
     top: 50%;
     left: 8%;
     transform: translateY(-50%);
-    color: white;
-    max-width: 650px;
+    max-width: 700px;
+    color: #ffffff;
 }
 
 .hero-content h1 {
-    font-size: 60px;
+    font-size: 62px;
     line-height: 1.1;
     margin-bottom: 20px;
+    font-weight: 900;
 }
 
 .hero-content p {
@@ -73,8 +99,9 @@
     background: white;
     padding: 8px;
     border-radius: 40px;
-    max-width: 550px;
-    margin-bottom: 25px;
+    max-width: 560px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
 
 .search-box input {
@@ -86,77 +113,159 @@
     border-radius: 40px;
 }
 
-.search-box button,
-.main-btn {
-    background: #4caf50;
+.search-box button {
+    background: #5fbd73;
     color: white;
     border: none;
-    padding: 14px 25px;
+    padding: 14px 26px;
     border-radius: 30px;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
 }
 
-.categories,
-.restaurants,
-.why {
-    padding: 70px 8%;
+.hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.main-btn,
+.secondary-btn {
+    display: inline-block;
+    width: 240px;
+    text-align: center;
+    padding: 14px 26px;
+    border-radius: 30px;
+    font-weight: 700;
+    transition: 0.35s ease;
+}
+
+.main-btn {
+    background: #5fbd73;
+    color: white;
+}
+
+.secondary-btn {
+    background: rgba(255,255,255,0.95);
+    color: #2e7d32;
+    border: 2px solid #5fbd73;
+}
+
+.main-btn:hover,
+.secondary-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(76,175,80,0.35);
+}
+
+.secondary-btn:hover {
+    background: #5fbd73;
+    color: #ffffff;
+}
+/* ================= HERO SECTION END ================= */
+
+
+/* ================= CATEGORY SECTION START ================= */
+.categories {
+    padding: 75px 8%;
+    background: #eef8e9;
     text-align: center;
 }
 
-.categories h2,
-.restaurants h2,
-.why h2 {
-    font-size: 36px;
+.categories h2 {
+    font-size: 40px;
+    color: #171717;
     margin-bottom: 10px;
+    font-weight: 800;
 }
 
-.categories > p,
-.restaurants > p {
-    color: #666;
-    margin-bottom: 40px;
+
+.categories > p {
+    color: #606060;
+    font-size: 18px;
+    margin-bottom: 45px;
 }
 
-.category-container,
-.restaurant-container,
-.why-container {
+.category-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 28px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 32px;
 }
 
 .category-card {
-    background: white;
-    border-radius: 25px;
+    background: #ffffff;
+    border-radius: 28px;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    transition: 0.3s;
+    box-shadow: 0 16px 35px rgba(80,120,80,0.13);
+    transition: 0.3s ease;
+    cursor: pointer;
+    height: 230px;
 }
 
-.category-card:hover,
-.restaurant-card:hover,
-.why-card:hover {
-    transform: translateY(-8px);
+.category-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 22px 45px rgba(80,120,80,0.22);
 }
 
-.category-card video {
+.category-card img {
     width: 100%;
-    height: 260px;
+    height: 155px;
     object-fit: cover;
+    display: block;
+    transition: 0.4s ease;
+}
+
+.category-card:hover img {
+    transform: scale(1.08);
 }
 
 .category-card h3 {
-    padding: 18px;
-    font-size: 20px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #1d1d1d;
+    font-weight: 800;
+}
+/* ================= CATEGORY SECTION END ================= */
+
+
+/* ================= RESTAURANT SECTION START ================= */
+.restaurants {
+    padding: 75px 8%;
+    background: #ffffff;
+    text-align: center;
+}
+
+.restaurants h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.restaurants > p {
+    color: #606060;
+    font-size: 18px;
+    margin-bottom: 45px;
+}
+
+.restaurant-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
 }
 
 .restaurant-card {
     background: white;
-    border-radius: 25px;
+    border-radius: 28px;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    box-shadow: 0 16px 35px rgba(0,0,0,0.10);
     text-align: left;
     transition: 0.3s;
+}
+
+.restaurant-card:hover {
+    transform: translateY(-10px);
 }
 
 .restaurant-card img {
@@ -180,45 +289,92 @@
 }
 
 .tag {
-    color: #4caf50 !important;
-    font-weight: bold;
+    color: #5fbd73 !important;
+    font-weight: 800;
 }
 
 .restaurant-info a {
     display: inline-block;
     margin-top: 12px;
-    background: #4caf50;
+    background: #5fbd73;
     color: white;
-    padding: 10px 22px;
-    border-radius: 22px;
+    padding: 11px 24px;
+    border-radius: 25px;
+    font-weight: 700;
+}
+/* ================= RESTAURANT SECTION END ================= */
+
+
+/* ================= WHY CHOOSE SECTION START ================= */
+.why {
+    padding: 75px 8%;
+    background: #eef8e9;
+    text-align: center;
+}
+
+.why h2 {
+    font-size: 40px;
+    margin-bottom: 40px;
+}
+
+.why-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
 }
 
 .why-card {
     background: white;
-    padding: 30px;
-    border-radius: 25px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    padding: 32px;
+    border-radius: 28px;
+    box-shadow: 0 16px 35px rgba(80,120,80,0.13);
     transition: 0.3s;
+}
+
+.why-card:hover {
+    transform: translateY(-8px);
 }
 
 .why-card h3 {
     margin-bottom: 12px;
 }
+/* ================= WHY CHOOSE SECTION END ================= */
 
+
+/* ================= FOOTER START ================= */
 footer {
-    background: #1b3b22;
+    background: #1f3d26;
     color: white;
     text-align: center;
-    padding: 35px;
+    padding: 38px;
 }
 
 footer h3 {
-    color: #8ee28e;
-    font-size: 28px;
+    color: #9be58f;
+    font-size: 30px;
     margin-bottom: 10px;
 }
+/* ================= FOOTER END ================= */
 
-@media(max-width: 768px) {
+
+/* ================= RESPONSIVE DESIGN START ================= */
+@media(max-width: 900px) {
+    .category-container,
+    .restaurant-container,
+    .why-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero-content h1 {
+        font-size: 42px;
+    }
+
+    .hero-buttons {
+        flex-wrap: wrap;
+    }
+}
+
+@media(max-width: 600px) {
     .navbar {
         flex-direction: column;
         height: auto;
@@ -234,16 +390,24 @@ footer h3 {
         margin: 8px;
     }
 
-    .hero-content h1 {
-        font-size: 38px;
+    .category-container,
+    .restaurant-container,
+    .why-container {
+        grid-template-columns: 1fr;
     }
 
     .search-box {
         flex-direction: column;
-        border-radius: 20px;
+        border-radius: 22px;
     }
 
     .search-box button {
         margin-top: 8px;
     }
+
+    .main-btn,
+    .secondary-btn {
+        width: 100%;
+    }
 }
+/* ================= RESPONSIVE DESIGN END ================= */
