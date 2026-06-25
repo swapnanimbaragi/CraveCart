@@ -28,14 +28,20 @@
 </header>
 <!-- ================= NAVBAR END ================= -->
 
+
+<!-- ================= MENU HEADER START ================= -->
 <section class="menu-header">
     <h1>Explore Delicious Meals</h1>
     <div class="title-line">✤</div>
     <p>Freshly prepared dishes waiting for you.</p>
 </section>
+<!-- ================= MENU HEADER END ================= -->
 
+
+<!-- ================= MENU ITEMS START ================= -->
 <section class="menu-section">
-    <div class="menu-container">
+
+    <div class="food-grid">
 
         <%
             List<Menu> menuList = (List<Menu>) request.getAttribute("menuList");
@@ -44,9 +50,9 @@
                 for(Menu menu : menuList) {
         %>
 
-        <div class="menu-card">
+        <div class="food-card">
 
-            <div class="menu-image-box">
+            <div class="food-image-box">
                 <img src="<%= request.getContextPath() %>/images/<%= menu.getImageUrl() %>"
                      alt="<%= menu.getItemName() %>">
 
@@ -61,7 +67,7 @@
                 <% } %>
             </div>
 
-            <div class="menu-info">
+            <div class="food-info">
 
                 <div class="rating-row">
                     <span class="rating">⭐ <%= menu.getRating() %></span>
@@ -77,11 +83,12 @@
                     <span>🍽 <%= menu.getPortionSize() %></span>
                 </div>
 
-	                <div class="qty-box">
-					    <button class="minus">-</button>
-					    <span class="quantity">1</span>
-					    <button class="plus">+</button>
-					</div>
+                <div class="cart-row">
+                    <div class="qty-box">
+                        <button type="button" class="minus">-</button>
+                        <span class="quantity">1</span>
+                        <button type="button" class="plus">+</button>
+                    </div>
 
                     <a href="#" class="add-btn">🛒 Add +</a>
                 </div>
@@ -102,7 +109,12 @@
         %>
 
     </div>
+
 </section>
+<!-- ================= MENU ITEMS END ================= -->
+
+
 <script src="${pageContext.request.contextPath}/js/menu.js"></script>
+
 </body>
 </html>

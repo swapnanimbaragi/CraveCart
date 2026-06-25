@@ -59,25 +59,25 @@ body {
     color: #777;
 }
 
-/* ================= MENU GRID ================= */
+/* ================= MENU SECTION ================= */
 .menu-section {
-    padding: 35px 6% 90px;
+    padding: 35px 5% 90px;
 }
 
-.menu-container {
+/* ================= FOOD GRID ================= */
+.food-grid {
+    width: 100%;
     max-width: 1500px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(4, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 28px;
 }
 
-/* ================= MENU CARD ================= */
-.menu-card {
+/* ================= FOOD CARD ================= */
+.food-card {
     width: 100%;
-    max-width: 340px;
     height: 520px;
-    margin: 0 auto;
     background: #ffffff;
     border-radius: 18px;
     overflow: hidden;
@@ -87,20 +87,20 @@ body {
     flex-direction: column;
 }
 
-.menu-card:hover {
+.food-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 18px 42px rgba(52,199,89,0.20);
 }
 
 /* ================= IMAGE AREA ================= */
-.menu-image-box {
+.food-image-box {
     position: relative;
     height: 195px;
     overflow: hidden;
     flex-shrink: 0;
 }
 
-.menu-image-box img {
+.food-image-box img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -108,7 +108,7 @@ body {
     transition: 0.35s ease;
 }
 
-.menu-card:hover .menu-image-box img {
+.food-card:hover .food-image-box img {
     transform: scale(1.06);
 }
 
@@ -146,7 +146,7 @@ body {
 }
 
 /* ================= CARD CONTENT ================= */
-.menu-info {
+.food-info {
     padding: 18px;
     flex: 1;
     display: flex;
@@ -172,7 +172,7 @@ body {
     color: #1F9D4C;
 }
 
-.menu-info h3 {
+.food-info h3 {
     font-size: 20px;
     font-weight: 900;
     color: #111827;
@@ -181,7 +181,7 @@ body {
     line-height: 1.25;
 }
 
-.menu-info p {
+.food-info p {
     color: #666;
     font-size: 14px;
     min-height: 42px;
@@ -266,14 +266,14 @@ body {
 
 /* ================= RESPONSIVE ================= */
 @media(max-width: 1200px) {
-    .menu-container {
-        grid-template-columns: repeat(3, minmax(250px, 1fr));
+    .food-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media(max-width: 900px) {
-    .menu-container {
-        grid-template-columns: repeat(2, minmax(250px, 1fr));
+    .food-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .menu-header h1 {
@@ -297,11 +297,12 @@ body {
         margin: 8px;
     }
 
-    .menu-container {
+    .food-grid {
         grid-template-columns: 1fr;
     }
 
-    .menu-card {
+    .food-card {
         max-width: 360px;
+        margin: 0 auto;
     }
 }
