@@ -1,10 +1,43 @@
+/* ================= MENU PAGE GLOBAL ================= */
 body {
     background: #F7FCF6;
     color: #222;
 }
 
+/* ================= NAVBAR ================= */
+.navbar {
+    height: 76px;
+    padding: 0 8%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: 800;
+    color: #34C759;
+}
+
+.navbar nav a {
+    margin: 0 18px;
+    color: #222;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.navbar nav a:hover {
+    color: #34C759;
+}
+
+/* ================= MENU HEADER ================= */
 .menu-header {
-    padding: 75px 8% 35px;
+    padding: 70px 8% 35px;
     text-align: center;
 }
 
@@ -12,13 +45,13 @@ body {
     font-size: 54px;
     font-weight: 900;
     color: #171717;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .title-line {
     color: #1F9D4C;
     font-size: 22px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .menu-header p {
@@ -26,22 +59,32 @@ body {
     color: #777;
 }
 
+/* ================= MENU GRID ================= */
 .menu-section {
     padding: 35px 6% 90px;
 }
 
 .menu-container {
+    max-width: 1500px;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(250px, 1fr));
     gap: 28px;
 }
 
+/* ================= MENU CARD ================= */
 .menu-card {
+    width: 100%;
+    max-width: 340px;
+    height: 520px;
+    margin: 0 auto;
     background: #ffffff;
     border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 12px 32px rgba(0,0,0,0.08);
     transition: 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .menu-card:hover {
@@ -49,10 +92,12 @@ body {
     box-shadow: 0 18px 42px rgba(52,199,89,0.20);
 }
 
+/* ================= IMAGE AREA ================= */
 .menu-image-box {
     position: relative;
-    height: 205px;
+    height: 195px;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 .menu-image-box img {
@@ -67,6 +112,7 @@ body {
     transform: scale(1.06);
 }
 
+/* ================= BADGES ================= */
 .best-badge {
     position: absolute;
     top: 12px;
@@ -88,6 +134,7 @@ body {
     border-radius: 8px;
     font-size: 13px;
     font-weight: 800;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
 .veg-dot {
@@ -98,8 +145,12 @@ body {
     color: #e11d48;
 }
 
+/* ================= CARD CONTENT ================= */
 .menu-info {
     padding: 18px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .rating-row {
@@ -126,6 +177,8 @@ body {
     font-weight: 900;
     color: #111827;
     margin-bottom: 8px;
+    min-height: 50px;
+    line-height: 1.25;
 }
 
 .menu-info p {
@@ -136,39 +189,49 @@ body {
     margin-bottom: 14px;
 }
 
+/* ================= DETAILS ================= */
 .details-row {
     display: flex;
     justify-content: space-between;
     color: #444;
     font-size: 14px;
     font-weight: 700;
+    margin-top: auto;
     margin-bottom: 18px;
 }
 
+/* ================= CART ROW ================= */
 .cart-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 14px;
 }
 
 .qty-box {
-    width: 115px;
+    width: 110px;
     height: 43px;
     border: 1px solid #d8ddd8;
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    flex-shrink: 0;
 }
 
 .qty-box button {
+    width: 32px;
+    height: 32px;
     border: none;
     background: transparent;
     font-size: 20px;
     font-weight: 900;
     cursor: pointer;
     color: #222;
+}
+
+.qty-box button:hover {
+    background: #f0f8f2;
+    border-radius: 6px;
 }
 
 .qty-box span {
@@ -185,6 +248,7 @@ body {
     align-items: center;
     justify-content: center;
     font-weight: 900;
+    text-decoration: none;
     transition: 0.3s ease;
 }
 
@@ -193,21 +257,23 @@ body {
     transform: translateY(-2px);
 }
 
+/* ================= EMPTY MENU ================= */
 .empty-menu {
     font-size: 20px;
     font-weight: 700;
     color: #777;
 }
 
-@media(max-width: 1100px) {
+/* ================= RESPONSIVE ================= */
+@media(max-width: 1200px) {
     .menu-container {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(250px, 1fr));
     }
 }
 
-@media(max-width: 800px) {
+@media(max-width: 900px) {
     .menu-container {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
     }
 
     .menu-header h1 {
@@ -215,88 +281,27 @@ body {
     }
 }
 
-@media(max-width: 550px) {
+@media(max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 15px;
+    }
+
+    .navbar nav {
+        margin-top: 12px;
+    }
+
+    .navbar nav a {
+        display: inline-block;
+        margin: 8px;
+    }
+
     .menu-container {
         grid-template-columns: 1fr;
     }
 
-    .cart-row {
-        flex-direction: column;
+    .menu-card {
+        max-width: 360px;
     }
-
-    .qty-box,
-    .add-btn {
-        width: 100%;
-    }
-}
-
-/* ================= FIX MENU CARD HEIGHT ================= */
-
-.menu-card {
-    height: 590px;
-    display: flex;
-    flex-direction: column;
-}
-
-.menu-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.menu-info h3 {
-    min-height: 56px;
-}
-
-.menu-info p {
-    min-height: 48px;
-}
-
-.details-row {
-    margin-top: auto;
-}
-
-.cart-row {
-    margin-top: 18px;
-}
-
-.qty-box button {
-    width: 35px;
-    height: 35px;
-}
-
-.qty-box button:hover {
-    background: #f0f8f2;
-    border-radius: 6px;
-}
-
-/* FORCE NAVBAR STYLE */
-.navbar {
-    height: 76px !important;
-    padding: 0 8% !important;
-    background: #ffffff !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 1000 !important;
-}
-
-.logo {
-    font-size: 30px !important;
-    font-weight: 800 !important;
-    color: #34C759 !important;
-}
-
-.navbar nav a {
-    margin: 0 18px !important;
-    color: #222 !important;
-    font-weight: 600 !important;
-    text-decoration: none !important;
-}
-
-.navbar nav a:hover {
-    color: #34C759 !important;
 }
