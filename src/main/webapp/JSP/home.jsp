@@ -142,8 +142,8 @@
     <div class="restaurant-container">
 
         <%
-            List<Restaurant> restaurants =
-                (List<Restaurant>) request.getAttribute("restaurants");
+	        List<Restaurant> restaurants =
+	        	(List<Restaurant>) request.getAttribute("restaurants");
 
             if (restaurants != null && !restaurants.isEmpty()) {
 

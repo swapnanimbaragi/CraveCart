@@ -23,7 +23,10 @@ public class MenuServlet extends HttpServlet {
 
         MenuDAOImpl menuDAO = new MenuDAOImpl();
 
-        List<Menu> menuList = menuDAO.getMenuByRestaurantId(restaurantId);
+        List<Menu> menuList = menuDAO.getMenuByRestaurant(restaurantId);
+
+        System.out.println("Restaurant Id = " + restaurantId);
+        System.out.println("Menu count = " + menuList.size());
 
         req.setAttribute("menuList", menuList);
 

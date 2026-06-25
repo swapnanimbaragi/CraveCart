@@ -1,0 +1,137 @@
+body {
+    background: #F7FCF6;
+    color: #222;
+}
+
+.menu-header {
+    padding: 80px 8% 40px;
+    text-align: center;
+    background: #F7FCF6;
+}
+
+.menu-header h1 {
+    font-size: 48px;
+    font-weight: 900;
+    margin-bottom: 12px;
+}
+
+.menu-header p {
+    font-size: 18px;
+    color: #777;
+}
+
+.menu-section {
+    padding: 40px 8% 90px;
+}
+
+.menu-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.menu-card {
+    background: #fff;
+    border-radius: 26px;
+    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(52,199,89,0.12);
+    transition: 0.3s ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 45px rgba(52,199,89,0.22);
+}
+
+.menu-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.menu-info {
+    padding: 22px;
+}
+
+.menu-info h3 {
+    font-size: 24px;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.menu-info p {
+    color: #777;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.menu-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.price {
+    font-size: 22px;
+    font-weight: 900;
+    color: #1F9D4C;
+}
+
+.add-btn {
+    background: #34C759;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 900;
+}
+
+.add-btn:hover {
+    background: #1F9D4C;
+}
+
+@media(max-width: 900px) {
+    .menu-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 600px) {
+    .menu-container {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-header h1 {
+        font-size: 36px;
+    }
+}
+
+/* FORCE NAVBAR STYLE */
+.navbar {
+    height: 76px !important;
+    padding: 0 8% !important;
+    background: #ffffff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+}
+
+.logo {
+    font-size: 30px !important;
+    font-weight: 800 !important;
+    color: #34C759 !important;
+}
+
+.navbar nav a {
+    margin: 0 18px !important;
+    color: #222 !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+}
+
+.navbar nav a:hover {
+    color: #34C759 !important;
+}

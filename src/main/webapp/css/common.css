@@ -17,3 +17,33 @@ a {
 html {
     scroll-behavior: smooth;
 }
+
+
+.navbar {
+    height: 76px;
+    padding: 0 8%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: 800;
+    color: #34C759;
+}
+
+.navbar nav a {
+    margin: 0 18px;
+    color: #222;
+    font-weight: 600;
+}
+
+.navbar nav a:hover {
+    color: #34C759;
+}

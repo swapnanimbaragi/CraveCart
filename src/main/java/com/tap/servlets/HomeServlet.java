@@ -23,6 +23,9 @@ public class HomeServlet extends HttpServlet {
 
         List<Restaurant> restaurantList = restaurantDAO.getAllRestaurant();
 
+        // Debug
+        System.out.println("Restaurant count = " + restaurantList.size());
+
         req.setAttribute("restaurants", restaurantList);
 
         req.getRequestDispatcher("/JSP/home.jsp").forward(req, resp);

@@ -11,10 +11,10 @@
 <title>Restaurant Menu | CraveCart</title>
 
 <link rel="stylesheet"
-href="${pageContext.request.contextPath}/css/common.css">
+      href="${pageContext.request.contextPath}/css/common.css">
 
 <link rel="stylesheet"
-href="${pageContext.request.contextPath}/css/menu.css">
+      href="${pageContext.request.contextPath}/css/menu.css">
 
 </head>
 
