@@ -27,9 +27,10 @@ public class CartServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 
 		User user = (User) session.getAttribute("loggedInUser");
+		System.out.println("Cart user = " + user);
 
 		if (user == null) {
-			resp.sendRedirect(req.getContextPath() + "/login");
+			resp.sendRedirect(req.getContextPath() + "/JSP/login.jsp");
 			return;
 		}
 
@@ -40,7 +41,6 @@ public class CartServlet extends HttpServlet {
 		Menu menu = menuDAO.getMenu(menuId);
 
 		CartDAOImpl cartDAO = new CartDAOImpl();
-
 		Cart cart = cartDAO.getCartByUserId(user.getUserId());
 
 		if (cart == null) {
@@ -62,18 +62,59 @@ public class CartServlet extends HttpServlet {
 			cart = cartDAO.getCartByUserId(user.getUserId());
 		}
 
-		CartItem cartItem = new CartItem();
-
-		cartItem.setCartId(cart.getCartId());
-		cartItem.setMenuId(menuId);
-		cartItem.setQuantity(quantity);
-		cartItem.setItemTotal(menu.getPrice() * quantity);
-		cartItem.setSavedForLater(false);
-
 		CartItemDAOImpl cartItemDAO = new CartItemDAOImpl();
 
-		cartItemDAO.addCartItem(cartItem);
+		CartItem existingItem =
+		        cartItemDAO.getCartItemByCartIdAndMenuId(cart.getCartId(), menuId);
 
-		resp.sendRedirect(req.getContextPath() + "/cart.jsp");
+		if (existingItem != null) {
+
+		    existingItem.setQuantity(existingItem.getQuantity() + quantity);
+
+		    existingItem.setItemTotal(
+		            existingItem.getQuantity() * menu.getPrice());
+
+		    cartItemDAO.updateCartItem(existingItem);
+
+		} else {
+
+		    CartItem cartItem = new CartItem();
+
+		    cartItem.setCartId(cart.getCartId());
+		    cartItem.setMenuId(menuId);
+		    cartItem.setQuantity(quantity);
+		    cartItem.setItemTotal(menu.getPrice() * quantity);
+		    cartItem.setSavedForLater(false);
+
+		    cartItemDAO.addCartItem(cartItem);
+		}
+
+		resp.sendRedirect(req.getContextPath() + "/cart");
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+	        throws ServletException, IOException {
+
+	    HttpSession session = req.getSession();
+
+	    User user = (User) session.getAttribute("loggedInUser");
+
+	    if (user == null) {
+	        resp.sendRedirect(req.getContextPath() + "/JSP/login.jsp");
+	        return;
+	    }
+
+	    CartDAOImpl cartDAO = new CartDAOImpl();
+	    CartItemDAOImpl cartItemDAO = new CartItemDAOImpl();
+
+	    Cart cart = cartDAO.getCartByUserId(user.getUserId());
+
+	    if (cart != null) {
+	        req.setAttribute("cart", cart);
+	        req.setAttribute("cartItems", cartItemDAO.getCartItemsByCartId(cart.getCartId()));
+	    }
+
+	    req.getRequestDispatcher("/JSP/cart.jsp").forward(req, resp);
 	}
 }

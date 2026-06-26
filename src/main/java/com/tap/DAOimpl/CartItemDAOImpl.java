@@ -30,6 +30,9 @@ public class CartItemDAOImpl implements CartItemDAO {
 
 	private static final String GET_CART_ITEMS_BY_CART_ID =
 			"SELECT * FROM cartitem WHERE cartId=?";
+	
+	private static final String GET_CART_ITEM_BY_CART_AND_MENU =
+	        "SELECT * FROM cartitem WHERE cartId=? AND menuId=?";
 
 	@Override
 	public void addCartItem(CartItem cartItem) {
@@ -163,6 +166,32 @@ public class CartItemDAOImpl implements CartItemDAO {
 
 		return cartItemList;
 	}
+	
+	@Override
+	public CartItem getCartItemByCartIdAndMenuId(int cartId, int menuId) {
+
+	    Connection connection = DBConnection.getConnection();
+	    CartItem cartItem = null;
+
+	    try {
+	        PreparedStatement pstmt =
+	                connection.prepareStatement(GET_CART_ITEM_BY_CART_AND_MENU);
+
+	        pstmt.setInt(1, cartId);
+	        pstmt.setInt(2, menuId);
+
+	        ResultSet res = pstmt.executeQuery();
+
+	        if (res.next()) {
+	            cartItem = extractCartItem(res);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return cartItem;
+	}
 
 	private CartItem extractCartItem(ResultSet res) throws SQLException {
 
@@ -176,4 +205,6 @@ public class CartItemDAOImpl implements CartItemDAO {
 				res.getBoolean("isSavedForLater")
 		);
 	}
+	
+	
 }
