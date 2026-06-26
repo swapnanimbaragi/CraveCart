@@ -98,11 +98,11 @@
 
 						<div class="qty-box">
 
-							<button class="minus">-</button>
+							<a href="<%=request.getContextPath()%>/cart?action=decrease&cartItemId=<%=item.getCartItemId()%>" class="qty-btn">-</a>
 
 							<span class="quantity"><%=item.getQuantity()%></span>
-
-							<button class="plus">+</button>
+							
+							<a href="<%=request.getContextPath()%>/cart?action=increase&cartItemId=<%=item.getCartItemId()%>" class="qty-btn">+</a>
 
 						</div>
 

@@ -27,7 +27,6 @@ public class CartServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 
 		User user = (User) session.getAttribute("loggedInUser");
-		System.out.println("Cart user = " + user);
 
 		if (user == null) {
 			resp.sendRedirect(req.getContextPath() + "/JSP/login.jsp");
@@ -65,28 +64,26 @@ public class CartServlet extends HttpServlet {
 		CartItemDAOImpl cartItemDAO = new CartItemDAOImpl();
 
 		CartItem existingItem =
-		        cartItemDAO.getCartItemByCartIdAndMenuId(cart.getCartId(), menuId);
+				cartItemDAO.getCartItemByCartIdAndMenuId(cart.getCartId(), menuId);
 
 		if (existingItem != null) {
 
-		    existingItem.setQuantity(existingItem.getQuantity() + quantity);
+			existingItem.setQuantity(existingItem.getQuantity() + quantity);
+			existingItem.setItemTotal(existingItem.getQuantity() * menu.getPrice());
 
-		    existingItem.setItemTotal(
-		            existingItem.getQuantity() * menu.getPrice());
-
-		    cartItemDAO.updateCartItem(existingItem);
+			cartItemDAO.updateCartItem(existingItem);
 
 		} else {
 
-		    CartItem cartItem = new CartItem();
+			CartItem cartItem = new CartItem();
 
-		    cartItem.setCartId(cart.getCartId());
-		    cartItem.setMenuId(menuId);
-		    cartItem.setQuantity(quantity);
-		    cartItem.setItemTotal(menu.getPrice() * quantity);
-		    cartItem.setSavedForLater(false);
+			cartItem.setCartId(cart.getCartId());
+			cartItem.setMenuId(menuId);
+			cartItem.setQuantity(quantity);
+			cartItem.setItemTotal(menu.getPrice() * quantity);
+			cartItem.setSavedForLater(false);
 
-		    cartItemDAO.addCartItem(cartItem);
+			cartItemDAO.addCartItem(cartItem);
 		}
 
 		resp.sendRedirect(req.getContextPath() + "/cart");
@@ -94,27 +91,61 @@ public class CartServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-	        throws ServletException, IOException {
+			throws ServletException, IOException {
 
-	    HttpSession session = req.getSession();
+		HttpSession session = req.getSession();
 
-	    User user = (User) session.getAttribute("loggedInUser");
+		User user = (User) session.getAttribute("loggedInUser");
 
-	    if (user == null) {
-	        resp.sendRedirect(req.getContextPath() + "/JSP/login.jsp");
-	        return;
-	    }
+		if (user == null) {
+			resp.sendRedirect(req.getContextPath() + "/JSP/login.jsp");
+			return;
+		}
 
-	    CartDAOImpl cartDAO = new CartDAOImpl();
-	    CartItemDAOImpl cartItemDAO = new CartItemDAOImpl();
+		CartItemDAOImpl cartItemDAO = new CartItemDAOImpl();
+		MenuDAOImpl menuDAO = new MenuDAOImpl();
 
-	    Cart cart = cartDAO.getCartByUserId(user.getUserId());
+		String action = req.getParameter("action");
+		String cartItemIdParam = req.getParameter("cartItemId");
 
-	    if (cart != null) {
-	        req.setAttribute("cart", cart);
-	        req.setAttribute("cartItems", cartItemDAO.getCartItemsByCartId(cart.getCartId()));
-	    }
+		if (action != null && cartItemIdParam != null) {
 
-	    req.getRequestDispatcher("/JSP/cart.jsp").forward(req, resp);
+			int cartItemId = Integer.parseInt(cartItemIdParam);
+
+			CartItem cartItem = cartItemDAO.getCartItem(cartItemId);
+
+			if (cartItem != null) {
+
+				Menu menu = menuDAO.getMenu(cartItem.getMenuId());
+
+				if ("increase".equals(action)) {
+					cartItem.setQuantity(cartItem.getQuantity() + 1);
+				}
+				else if ("decrease".equals(action)) {
+					if (cartItem.getQuantity() > 1) {
+						cartItem.setQuantity(cartItem.getQuantity() - 1);
+					}
+				}
+
+				cartItem.setItemTotal(cartItem.getQuantity() * menu.getPrice());
+
+				cartItemDAO.updateCartItem(cartItem);
+			}
+
+			resp.sendRedirect(req.getContextPath() + "/cart");
+			return;
+		}
+
+		CartDAOImpl cartDAO = new CartDAOImpl();
+
+		Cart cart = cartDAO.getCartByUserId(user.getUserId());
+
+		if (cart != null) {
+			req.setAttribute("cart", cart);
+			req.setAttribute("cartItems",
+					cartItemDAO.getCartItemsByCartId(cart.getCartId()));
+		}
+
+		req.getRequestDispatcher("/JSP/cart.jsp").forward(req, resp);
 	}
 }
