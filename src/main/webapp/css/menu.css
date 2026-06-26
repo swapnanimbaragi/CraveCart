@@ -75,16 +75,14 @@ body {
 }
 
 /* ================= FOOD CARD ================= */
-.food-card {
-    width: 100%;
-    height: 520px;
-    background: #ffffff;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-    transition: 0.3s ease;
-    display: flex;
-    flex-direction: column;
+.food-card{
+    background:#fff;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.3s;
+    display:flex;
+    flex-direction:column;
 }
 
 .food-card:hover {
@@ -93,11 +91,10 @@ body {
 }
 
 /* ================= IMAGE AREA ================= */
-.food-image-box {
-    position: relative;
-    height: 195px;
-    overflow: hidden;
-    flex-shrink: 0;
+.food-image-box{
+    position:relative;
+    height:170px;
+    overflow:hidden;
 }
 
 .food-image-box img {
@@ -146,11 +143,8 @@ body {
 }
 
 /* ================= CARD CONTENT ================= */
-.food-info {
-    padding: 18px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+.food-info{
+    padding:15px;
 }
 
 .rating-row {
@@ -172,39 +166,35 @@ body {
     color: #1F9D4C;
 }
 
-.food-info h3 {
-    font-size: 20px;
-    font-weight: 900;
-    color: #111827;
-    margin-bottom: 8px;
-    min-height: 50px;
-    line-height: 1.25;
+.food-info h3{
+    font-size:18px;
+    font-weight:800;
+    margin:10px 0 8px;
+    line-height:1.3;
 }
 
-.food-info p {
-    color: #666;
-    font-size: 14px;
-    min-height: 42px;
-    line-height: 1.5;
-    margin-bottom: 14px;
+.food-info p{
+    font-size:14px;
+    color:#666;
+    margin-bottom:12px;
+    line-height:1.5;
 }
 
 /* ================= DETAILS ================= */
-.details-row {
-    display: flex;
-    justify-content: space-between;
-    color: #444;
-    font-size: 14px;
-    font-weight: 700;
-    margin-top: auto;
-    margin-bottom: 18px;
+.details-row{
+    display:flex;
+    justify-content:space-between;
+    margin:12px 0;
+    font-size:14px;
+    font-weight:600;
 }
 
 /* ================= CART ROW ================= */
-.cart-row {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+.cart-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:12px;
 }
 
 .qty-box {
