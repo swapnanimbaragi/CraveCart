@@ -14,22 +14,22 @@ import com.tap.utility.DBConnection;
 public class CartDAOImpl implements CartDAO {
 
 	private static final String ADD_CART =
-			"INSERT INTO cart (userId) VALUES (?)";
+			"INSERT INTO cart (userId, couponCode, discountAmount, deliveryFee, platformFee, gstAmount, specialInstructions, deliveryAddress, estimatedDeliveryTime) VALUES (?,?,?,?,?,?,?,?,?)";
 
 	private static final String GET_CART =
-			"SELECT * FROM cart WHERE cartId = ?";
+			"SELECT * FROM cart WHERE cartId=?";
 
 	private static final String UPDATE_CART =
-			"UPDATE cart SET userId = ? WHERE cartId = ?";
+			"UPDATE cart SET userId=?, couponCode=?, discountAmount=?, deliveryFee=?, platformFee=?, gstAmount=?, specialInstructions=?, deliveryAddress=?, estimatedDeliveryTime=? WHERE cartId=?";
 
 	private static final String DELETE_CART =
-			"DELETE FROM cart WHERE cartId = ?";
+			"DELETE FROM cart WHERE cartId=?";
 
 	private static final String GET_ALL_CART =
 			"SELECT * FROM cart";
 
-	private static final String GET_CART_BY_USER =
-			"SELECT * FROM cart WHERE userId = ?";
+	private static final String GET_CART_BY_USER_ID =
+			"SELECT * FROM cart WHERE userId=? ORDER BY cartId DESC LIMIT 1";
 
 	@Override
 	public void addCart(Cart cart) {
@@ -40,6 +40,14 @@ public class CartDAOImpl implements CartDAO {
 			PreparedStatement pstmt = connection.prepareStatement(ADD_CART);
 
 			pstmt.setInt(1, cart.getUserId());
+			pstmt.setString(2, cart.getCouponCode());
+			pstmt.setDouble(3, cart.getDiscountAmount());
+			pstmt.setDouble(4, cart.getDeliveryFee());
+			pstmt.setDouble(5, cart.getPlatformFee());
+			pstmt.setDouble(6, cart.getGstAmount());
+			pstmt.setString(7, cart.getSpecialInstructions());
+			pstmt.setString(8, cart.getDeliveryAddress());
+			pstmt.setInt(9, cart.getEstimatedDeliveryTime());
 
 			int i = pstmt.executeUpdate();
 			System.out.println(i);
@@ -57,7 +65,6 @@ public class CartDAOImpl implements CartDAO {
 
 		try {
 			PreparedStatement pstmt = connection.prepareStatement(GET_CART);
-
 			pstmt.setInt(1, cartId);
 
 			ResultSet res = pstmt.executeQuery();
@@ -82,7 +89,15 @@ public class CartDAOImpl implements CartDAO {
 			PreparedStatement pstmt = connection.prepareStatement(UPDATE_CART);
 
 			pstmt.setInt(1, cart.getUserId());
-			pstmt.setInt(2, cart.getCartId());
+			pstmt.setString(2, cart.getCouponCode());
+			pstmt.setDouble(3, cart.getDiscountAmount());
+			pstmt.setDouble(4, cart.getDeliveryFee());
+			pstmt.setDouble(5, cart.getPlatformFee());
+			pstmt.setDouble(6, cart.getGstAmount());
+			pstmt.setString(7, cart.getSpecialInstructions());
+			pstmt.setString(8, cart.getDeliveryAddress());
+			pstmt.setInt(9, cart.getEstimatedDeliveryTime());
+			pstmt.setInt(10, cart.getCartId());
 
 			int i = pstmt.executeUpdate();
 			System.out.println(i);
@@ -99,7 +114,6 @@ public class CartDAOImpl implements CartDAO {
 
 		try {
 			PreparedStatement pstmt = connection.prepareStatement(DELETE_CART);
-
 			pstmt.setInt(1, cartId);
 
 			int i = pstmt.executeUpdate();
@@ -133,14 +147,13 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public Cart getCartByUser(int userId) {
+	public Cart getCartByUserId(int userId) {
 
 		Connection connection = DBConnection.getConnection();
 		Cart cart = null;
 
 		try {
-			PreparedStatement pstmt = connection.prepareStatement(GET_CART_BY_USER);
-
+			PreparedStatement pstmt = connection.prepareStatement(GET_CART_BY_USER_ID);
 			pstmt.setInt(1, userId);
 
 			ResultSet res = pstmt.executeQuery();
@@ -162,7 +175,15 @@ public class CartDAOImpl implements CartDAO {
 				res.getInt("cartId"),
 				res.getInt("userId"),
 				res.getTimestamp("createdAt"),
-				res.getTimestamp("updatedAt")
+				res.getTimestamp("updatedAt"),
+				res.getString("couponCode"),
+				res.getDouble("discountAmount"),
+				res.getDouble("deliveryFee"),
+				res.getDouble("platformFee"),
+				res.getDouble("gstAmount"),
+				res.getString("specialInstructions"),
+				res.getString("deliveryAddress"),
+				res.getInt("estimatedDeliveryTime")
 		);
 	}
 }

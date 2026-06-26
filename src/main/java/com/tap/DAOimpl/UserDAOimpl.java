@@ -160,4 +160,30 @@ public class UserDAOimpl implements UserDAO {
 		User user = new User(id, name, email, password, address, role, createdDate, lastLoginDate);
 		return user;
 	}
+	@Override
+	public User getUserByEmail(String email) {
+
+	    String GET_USER_BY_EMAIL = "SELECT * FROM user WHERE email=?";
+
+	    User user = null;
+
+	    Connection connection = DBConnection.getConnection();
+
+	    try {
+	        PreparedStatement pstmt = connection.prepareStatement(GET_USER_BY_EMAIL);
+
+	        pstmt.setString(1, email);
+
+	        ResultSet rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            user = extractUserFromResultSet(rs);
+	        }
+	    }
+	    catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return user;
+	}
 }

@@ -31,9 +31,20 @@
 
 <!-- ================= MENU HEADER START ================= -->
 <section class="menu-header">
-    <h1>Explore Delicious Meals</h1>
-    <div class="title-line">✤</div>
-    <p>Freshly prepared dishes waiting for you.</p>
+
+    <div class="section-badge">
+        🍽 MENU COLLECTION
+    </div>
+
+    <h2>
+        Crafted for
+        <span>Every Craving</span>
+    </h2>
+
+    <p>
+        Freshly prepared dishes, authentic flavors, and irresistible meals made just for you.
+    </p>
+
 </section>
 <!-- ================= MENU HEADER END ================= -->
 
@@ -90,7 +101,24 @@
                         <button type="button" class="plus">+</button>
                     </div>
 
-                    <a href="#" class="add-btn">🛒 Add +</a>
+                    <form action="${pageContext.request.contextPath}/cart" method="post">
+
+					    <input type="hidden" name="menuId"
+					           value="<%=menu.getMenuId()%>">
+					
+					    <input type="hidden" name="restaurantId"
+					           value="<%=menu.getRestaurantId()%>">
+					
+					    <input type="hidden" name="quantity"
+					           class="qtyInput"
+					           value="1">
+					
+					    <button type="submit" class="add-btn">
+					         Add 
+					    </button>
+					
+					</form>
+					
                 </div>
 
             </div>

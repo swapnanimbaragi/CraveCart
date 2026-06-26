@@ -14,22 +14,22 @@ import com.tap.utility.DBConnection;
 public class CartItemDAOImpl implements CartItemDAO {
 
 	private static final String ADD_CART_ITEM =
-			"INSERT INTO cartitem (cartId, menuId, quantity) VALUES (?, ?, ?)";
+			"INSERT INTO cartitem (cartId, menuId, quantity, itemTotal, isSavedForLater) VALUES (?,?,?,?,?)";
 
 	private static final String GET_CART_ITEM =
-			"SELECT * FROM cartitem WHERE cartItemId = ?";
+			"SELECT * FROM cartitem WHERE cartItemId=?";
 
 	private static final String UPDATE_CART_ITEM =
-			"UPDATE cartitem SET cartId = ?, menuId = ?, quantity = ? WHERE cartItemId = ?";
+			"UPDATE cartitem SET cartId=?, menuId=?, quantity=?, itemTotal=?, isSavedForLater=? WHERE cartItemId=?";
 
 	private static final String DELETE_CART_ITEM =
-			"DELETE FROM cartitem WHERE cartItemId = ?";
+			"DELETE FROM cartitem WHERE cartItemId=?";
 
-	private static final String GET_ALL_CART_ITEM =
+	private static final String GET_ALL_CART_ITEMS =
 			"SELECT * FROM cartitem";
 
-	private static final String GET_CART_ITEMS_BY_CART =
-			"SELECT * FROM cartitem WHERE cartId = ?";
+	private static final String GET_CART_ITEMS_BY_CART_ID =
+			"SELECT * FROM cartitem WHERE cartId=?";
 
 	@Override
 	public void addCartItem(CartItem cartItem) {
@@ -42,6 +42,8 @@ public class CartItemDAOImpl implements CartItemDAO {
 			pstmt.setInt(1, cartItem.getCartId());
 			pstmt.setInt(2, cartItem.getMenuId());
 			pstmt.setInt(3, cartItem.getQuantity());
+			pstmt.setDouble(4, cartItem.getItemTotal());
+			pstmt.setBoolean(5, cartItem.isSavedForLater());
 
 			int i = pstmt.executeUpdate();
 			System.out.println(i);
@@ -86,7 +88,9 @@ public class CartItemDAOImpl implements CartItemDAO {
 			pstmt.setInt(1, cartItem.getCartId());
 			pstmt.setInt(2, cartItem.getMenuId());
 			pstmt.setInt(3, cartItem.getQuantity());
-			pstmt.setInt(4, cartItem.getCartItemId());
+			pstmt.setDouble(4, cartItem.getItemTotal());
+			pstmt.setBoolean(5, cartItem.isSavedForLater());
+			pstmt.setInt(6, cartItem.getCartItemId());
 
 			int i = pstmt.executeUpdate();
 			System.out.println(i);
@@ -115,13 +119,13 @@ public class CartItemDAOImpl implements CartItemDAO {
 	}
 
 	@Override
-	public List<CartItem> getAllCartItem() {
+	public List<CartItem> getAllCartItems() {
 
 		Connection connection = DBConnection.getConnection();
 		List<CartItem> cartItemList = new ArrayList<CartItem>();
 
 		try {
-			PreparedStatement pstmt = connection.prepareStatement(GET_ALL_CART_ITEM);
+			PreparedStatement pstmt = connection.prepareStatement(GET_ALL_CART_ITEMS);
 
 			ResultSet res = pstmt.executeQuery();
 
@@ -137,13 +141,13 @@ public class CartItemDAOImpl implements CartItemDAO {
 	}
 
 	@Override
-	public List<CartItem> getCartItemsByCart(int cartId) {
+	public List<CartItem> getCartItemsByCartId(int cartId) {
 
 		Connection connection = DBConnection.getConnection();
 		List<CartItem> cartItemList = new ArrayList<CartItem>();
 
 		try {
-			PreparedStatement pstmt = connection.prepareStatement(GET_CART_ITEMS_BY_CART);
+			PreparedStatement pstmt = connection.prepareStatement(GET_CART_ITEMS_BY_CART_ID);
 
 			pstmt.setInt(1, cartId);
 
@@ -167,7 +171,9 @@ public class CartItemDAOImpl implements CartItemDAO {
 				res.getInt("cartId"),
 				res.getInt("menuId"),
 				res.getInt("quantity"),
-				res.getTimestamp("addedAt")
+				res.getTimestamp("addedAt"),
+				res.getDouble("itemTotal"),
+				res.getBoolean("isSavedForLater")
 		);
 	}
 }
