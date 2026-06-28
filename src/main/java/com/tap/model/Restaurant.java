@@ -22,15 +22,20 @@ public class Restaurant {
 	private String restaurantTag;
 	private int adminUserId;
 
+	// NEW FIELDS
+	private double latitude;
+	private double longitude;
+
 	public Restaurant() {
-		
+
 	}
 
 	public Restaurant(int restaurantId, String restaurantName, String restaurantImg, String cuisineType,
 			int deliveryTime, String address, double rating, boolean isActive, String description,
 			Time openingTime, Time closingTime, String contactNumber, double minimumOrderAmount,
-			double deliveryFee, String signatureDish, String restaurantTag, int adminUserId) {
-		
+			double deliveryFee, String signatureDish, String restaurantTag, int adminUserId,
+			double latitude, double longitude) {
+
 		this.restaurantId = restaurantId;
 		this.restaurantName = restaurantName;
 		this.restaurantImg = restaurantImg;
@@ -48,13 +53,16 @@ public class Restaurant {
 		this.signatureDish = signatureDish;
 		this.restaurantTag = restaurantTag;
 		this.adminUserId = adminUserId;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
 	public Restaurant(String restaurantName, String restaurantImg, String cuisineType, int deliveryTime,
 			String address, double rating, boolean isActive, String description, Time openingTime,
 			Time closingTime, String contactNumber, double minimumOrderAmount, double deliveryFee,
-			String signatureDish, String restaurantTag, int adminUserId) {
-		
+			String signatureDish, String restaurantTag, int adminUserId,
+			double latitude, double longitude) {
+
 		this.restaurantName = restaurantName;
 		this.restaurantImg = restaurantImg;
 		this.cuisineType = cuisineType;
@@ -71,6 +79,8 @@ public class Restaurant {
 		this.signatureDish = signatureDish;
 		this.restaurantTag = restaurantTag;
 		this.adminUserId = adminUserId;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
 	public int getRestaurantId() {
@@ -209,6 +219,24 @@ public class Restaurant {
 		this.adminUserId = adminUserId;
 	}
 
+	// NEW GETTERS & SETTERS
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
 	@Override
 	public String toString() {
 		return "Restaurant [restaurantId=" + restaurantId + ", restaurantName=" + restaurantName
@@ -218,6 +246,8 @@ public class Restaurant {
 				+ openingTime + ", closingTime=" + closingTime + ", contactNumber=" + contactNumber
 				+ ", minimumOrderAmount=" + minimumOrderAmount + ", deliveryFee=" + deliveryFee
 				+ ", signatureDish=" + signatureDish + ", restaurantTag=" + restaurantTag
-				+ ", adminUserId=" + adminUserId + "]";
+				+ ", adminUserId=" + adminUserId
+				+ ", latitude=" + latitude
+				+ ", longitude=" + longitude + "]";
 	}
 }

@@ -7,6 +7,7 @@
 <%@ page import="com.tap.model.Menu"%>
 <%@ page import="com.tap.model.User"%>
 <%@ page import="com.tap.DAOimpl.MenuDAOImpl"%>
+<%@ page import="com.tap.model.Restaurant"%>
 
 <!DOCTYPE html>
 <html>
@@ -51,6 +52,7 @@
 User user = (User) session.getAttribute("loggedInUser");
 
 Cart cart = (Cart) request.getAttribute("cart");
+Restaurant restaurant = (Restaurant) request.getAttribute("restaurant");
 List<CartItem> cartItems = (List<CartItem>) request.getAttribute("cartItems");
 
 String couponCode = (String) request.getAttribute("couponCode");
@@ -135,6 +137,16 @@ if (grandTotal < 0) {
 						</button>
 
 					</div>
+					
+					<div class="live-search-wrapper">
+						<input type="text" id="addressSearchInput"
+							placeholder="🔍 Search area, street, landmark..."
+							oninput="liveSearchAddress()">
+					
+						<div id="searchResults" class="search-results"></div>
+					</div>
+					
+					<div id="searchResults" class="search-results"></div>
 
 					<!-- ================= HIDDEN ADDRESS FIELD ================= -->
 					<!-- This value is submitted to backend as deliveryAddress -->
@@ -157,6 +169,27 @@ if (grandTotal < 0) {
 							</div>
 						</div>
 
+					</div>
+					
+					<!-- ================= DELIVERY ETA CARD ================= -->
+					<div id="etaCard" class="eta-card" style="display:none;">
+					
+						<div class="eta-item">
+							<div class="eta-icon">📏</div>
+							<div>
+								<span>Distance</span>
+								<h3 id="distanceText">-- km</h3>
+							</div>
+						</div>
+					
+						<div class="eta-item">
+							<div class="eta-icon">🛵</div>
+							<div>
+								<span>Estimated Delivery</span>
+								<h3 id="etaText">-- mins</h3>
+							</div>
+						</div>
+					
 					</div>
 
 					<!-- ================= MANUAL ADDRESS SECTION ================= -->
@@ -297,6 +330,12 @@ if (grandTotal < 0) {
 </section>
 
 <!-- ================= CHECKOUT JS ================= -->
+<script>
+
+const restaurantLat = <%= restaurant != null ? restaurant.getLatitude() : 12.934533 %>;
+const restaurantLon = <%= restaurant != null ? restaurant.getLongitude() : 77.610116 %>;
+
+</script>
 <script src="${pageContext.request.contextPath}/js/checkout.js"></script>
 
 </body>

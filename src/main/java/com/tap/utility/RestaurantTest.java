@@ -12,28 +12,29 @@ public class RestaurantTest {
 		RestaurantDAOImpl restaurantDAOImpl = new RestaurantDAOImpl();
 //Add Resturant 
 //		Restaurant restaurant = new Restaurant(
-//				"Pizza Hut",
-//				"https://example.com/pizza.jpg",
-//				"Pizza",
-//				30,
-//				"Bangalore",
-//				4.5,
-//				true,
-//				"Famous for Pizza",
-//				Time.valueOf("10:00:00"),
-//				Time.valueOf("11:00:00"),
-//				"9872583610",
-//				250.00,
-//				30.00,
-//				"Corn Pizza",
-//				"Best Seller",
-//				2
-//				);
+//		"Pizza Hut",
+//		"https://example.com/pizza.jpg",
+//		"Pizza",
+//		30,
+//		"Bangalore",
+//		4.5,
+//		true,
+//		"Famous for Pizza",
+//		Time.valueOf("10:00:00"),
+//		Time.valueOf("11:00:00"),
+//		"9872583610",
+//		250.00,
+//		30.00,
+//		"Corn Pizza",
+//		"Best Seller",
+//		2,
+//		12.934533,
+//		77.610116
+//);
 //
-//		restaurantDAOImpl.addRestaurant(restaurant);
+//restaurantDAOImpl.addRestaurant(restaurant);
 //
-//		System.out.println("Restaurant Added Successfully");
-//		
+//System.out.println("Restaurant Added Successfully");
 //		GET ONE RESTAURANT
 //		Restaurant restaurant = restaurantDAOImpl.getRestaurant(1);
 //		System.out.println(restaurant);

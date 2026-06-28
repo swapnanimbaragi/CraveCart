@@ -17,8 +17,8 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 			"INSERT INTO restaurant "
 			+ "(restaurantName, restaurantImg, cuisineType, deliveryTime, address, rating, isActive, "
 			+ "description, openingTime, closingTime, contactNumber, minimumOrderAmount, deliveryFee, "
-			+ "signatureDish, restaurantTag, adminUserId) "
-			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "signatureDish, restaurantTag, adminUserId, latitude, longitude) "
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	private static final String GET_RESTAURANT =
 			"SELECT * FROM restaurant WHERE restaurantId = ?";
@@ -27,7 +27,8 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 			"UPDATE restaurant SET restaurantName = ?, restaurantImg = ?, cuisineType = ?, deliveryTime = ?, "
 			+ "address = ?, rating = ?, isActive = ?, description = ?, openingTime = ?, closingTime = ?, "
 			+ "contactNumber = ?, minimumOrderAmount = ?, deliveryFee = ?, signatureDish = ?, "
-			+ "restaurantTag = ?, adminUserId = ? WHERE restaurantId = ?";
+			+ "restaurantTag = ?, adminUserId = ?, latitude = ?, longitude = ? "
+			+ "WHERE restaurantId = ?";
 
 	private static final String DELETE_RESTAURANT =
 			"DELETE FROM restaurant WHERE restaurantId = ?";
@@ -59,9 +60,10 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 			pstmt.setString(14, restaurant.getSignatureDish());
 			pstmt.setString(15, restaurant.getRestaurantTag());
 			pstmt.setInt(16, restaurant.getAdminUserId());
+			pstmt.setDouble(17, restaurant.getLatitude());
+			pstmt.setDouble(18, restaurant.getLongitude());
 
 			int i = pstmt.executeUpdate();
-
 			System.out.println(i);
 		}
 		catch (SQLException e) {
@@ -82,7 +84,7 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 
 			ResultSet res = pstmt.executeQuery();
 
-			if(res.next()) {
+			if (res.next()) {
 				restaurant = extractRestaurant(res);
 			}
 		}
@@ -117,10 +119,11 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 			pstmt.setString(14, restaurant.getSignatureDish());
 			pstmt.setString(15, restaurant.getRestaurantTag());
 			pstmt.setInt(16, restaurant.getAdminUserId());
-			pstmt.setInt(17, restaurant.getRestaurantId());
+			pstmt.setDouble(17, restaurant.getLatitude());
+			pstmt.setDouble(18, restaurant.getLongitude());
+			pstmt.setInt(19, restaurant.getRestaurantId());
 
 			int i = pstmt.executeUpdate();
-
 			System.out.println(i);
 		}
 		catch (SQLException e) {
@@ -139,7 +142,6 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 			pstmt.setInt(1, restaurantId);
 
 			int i = pstmt.executeUpdate();
-
 			System.out.println(i);
 		}
 		catch (SQLException e) {
@@ -158,7 +160,7 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 
 			ResultSet res = pstmt.executeQuery();
 
-			while(res.next()) {
+			while (res.next()) {
 				Restaurant restaurant = extractRestaurant(res);
 				restaurantList.add(restaurant);
 			}
@@ -189,7 +191,9 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 				res.getDouble("deliveryFee"),
 				res.getString("signatureDish"),
 				res.getString("restaurantTag"),
-				res.getInt("adminUserId")
-				);
+				res.getInt("adminUserId"),
+				res.getDouble("latitude"),
+				res.getDouble("longitude")
+		);
 	}
 }
