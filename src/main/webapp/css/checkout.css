@@ -1,0 +1,227 @@
+*{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	font-family:Arial,sans-serif;
+}
+
+body{
+	background:linear-gradient(180deg,#f8fcf5,#ffffff);
+	color:#1e2432;
+}
+
+/* ================= PAGE ================= */
+
+.checkout-page{
+	padding:55px 7%;
+	min-height:100vh;
+}
+
+/* ================= HEADER ================= */
+
+.checkout-header{
+	margin-bottom:40px;
+}
+
+.checkout-badge{
+	display:inline-block;
+	padding:10px 22px;
+	border-radius:40px;
+	background:#ffffff;
+	border:1px solid #e3efe0;
+	font-size:15px;
+	font-weight:800;
+	color:#6fc06f;
+	box-shadow:0 10px 30px rgba(123,198,123,.15);
+}
+
+.checkout-header h1{
+	margin-top:18px;
+	font-size:58px;
+	font-weight:900;
+	color:#1e2432;
+}
+
+.checkout-header h1 span{
+	color:#7bc67b;
+}
+
+.checkout-header p{
+	margin-top:10px;
+	font-size:20px;
+	color:#667085;
+}
+
+/* ================= LAYOUT ================= */
+
+.checkout-layout{
+	display:grid;
+	grid-template-columns:1.7fr 420px;
+	gap:40px;
+	align-items:start;
+}
+
+/* ================= LEFT CARD ================= */
+
+.checkout-card{
+	background:#fff;
+	border-radius:28px;
+	padding:35px;
+	border:1px solid #e5efe3;
+	box-shadow:0 20px 45px rgba(123,198,123,.12);
+}
+
+.section-title{
+	display:flex;
+	align-items:center;
+	gap:18px;
+	margin-bottom:30px;
+}
+
+.section-icon{
+	width:60px;
+	height:60px;
+	border-radius:18px;
+	background:#eef8ec;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	font-size:28px;
+}
+
+.section-title h2{
+	font-size:38px;
+	font-weight:900;
+	color:#1e2432;
+}
+
+.green-line{
+	width:50px;
+	height:4px;
+	background:#7bc67b;
+	border-radius:20px;
+	margin-top:8px;
+}
+
+/* ================= FORM ================= */
+
+label{
+	display:block;
+	margin-top:20px;
+	margin-bottom:10px;
+	font-size:18px;
+	font-weight:700;
+	color:#1e2432;
+}
+
+textarea,
+select{
+	width:100%;
+	border:1px solid #dce9d8;
+	border-radius:18px;
+	padding:18px;
+	font-size:16px;
+	background:#fafdf8;
+	outline:none;
+}
+
+textarea{
+	height:110px;
+	resize:none;
+}
+
+textarea:focus,
+select:focus{
+	border-color:#7bc67b;
+	box-shadow:0 0 0 4px rgba(123,198,123,.15);
+}
+
+/* ================= PLACE ORDER BUTTON ================= */
+
+.place-order-btn{
+	width:100%;
+	margin-top:35px;
+	height:68px;
+	border:none;
+	border-radius:22px;
+	background:#7bc67b;
+	color:white;
+	font-size:22px;
+	font-weight:900;
+	cursor:pointer;
+	transition:.3s;
+	box-shadow:0 15px 35px rgba(123,198,123,.30);
+}
+
+.place-order-btn:hover{
+	background:#89cf89;
+	transform:translateY(-2px);
+}
+
+/* ================= ORDER SUMMARY ================= */
+
+.summary-card{
+	background:#fff;
+	border-radius:28px;
+	padding:30px;
+	border:1px solid #e5efe3;
+	box-shadow:0 20px 45px rgba(123,198,123,.12);
+	position:sticky;
+	top:100px;
+}
+
+.summary-card h2{
+	font-size:38px;
+	font-weight:900;
+	color:#1e2432;
+	margin-bottom:25px;
+}
+
+.summary-row{
+	display:flex;
+	justify-content:space-between;
+	padding:18px 0;
+	border-bottom:1px solid #eef4ec;
+	font-size:18px;
+	color:#5d6572;
+}
+
+.summary-row strong{
+	color:#1e2432;
+}
+
+.total-box{
+	margin-top:25px;
+	padding:22px;
+	border-radius:22px;
+	background:#f8fcf5;
+	border:1px solid #dcefd8;
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	font-size:24px;
+	font-weight:900;
+}
+
+.total-box strong{
+	font-size:34px;
+	color:#7bc67b;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:1000px){
+
+.checkout-layout{
+	grid-template-columns:1fr;
+}
+
+.summary-card{
+	position:static;
+}
+
+.checkout-header h1{
+	font-size:42px;
+}
+
+}
