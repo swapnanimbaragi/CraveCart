@@ -207,7 +207,52 @@ function clearLocation() {
 
 	status.innerText = "✏️ Enter your delivery address manually.";
 }
+/* ================= SHOW MANUAL ADDRESS ================= */
 
+function showManualAddress() {
+
+	const mapSection = document.getElementById("mapSection");
+	const manualSection = document.getElementById("manualAddressSection");
+	const selectedCard = document.getElementById("selectedAddressCard");
+	const status = document.getElementById("locationStatus");
+
+	if (mapSection) {
+		mapSection.style.display = "none";
+	}
+
+	if (selectedCard) {
+		selectedCard.style.display = "none";
+	}
+
+	if (manualSection) {
+		manualSection.style.display = "block";
+	}
+
+	if (status) {
+		status.innerText = "✏️ Enter your delivery address manually.";
+	}
+}
+
+/* ================= CONFIRM MANUAL ADDRESS ================= */
+
+function confirmManualAddress() {
+
+	const manualInput = document.getElementById("manualAddressInput");
+	const hiddenAddress = document.getElementById("deliveryAddress");
+
+	if (manualInput.value.trim() === "") {
+		alert("Please enter your delivery address.");
+		return;
+	}
+
+	hiddenAddress.value = manualInput.value;
+
+	updateSelectedAddress("Manual Address", manualInput.value);
+
+	document.getElementById("selectedAddressCard").style.display = "flex";
+
+	document.getElementById("manualAddressSection").style.display = "none";
+}
 /* ================= SAVED ADDRESS SELECTION ================= */
 
 function selectSavedAddress(type, address) {
@@ -239,4 +284,50 @@ function selectSavedAddress(type, address) {
 
 /* ================= LOAD MAP ================= */
 
-window.onload = initMap;
+window.onload = function() {
+	initMap();
+	loadSavedAddresses();
+};
+
+
+function saveCurrentAddressAs(type) {
+	const addressBox = document.getElementById("deliveryAddress");
+
+	if (!addressBox || addressBox.value.trim() === "") {
+		alert("Please select or enter address first.");
+		return;
+	}
+
+	localStorage.setItem("cravecart_" + type, addressBox.value);
+
+	alert(type + " address saved successfully!");
+
+	loadSavedAddresses();
+}
+
+function loadSavedAddresses() {
+	const home = localStorage.getItem("cravecart_Home");
+	const office = localStorage.getItem("cravecart_Office");
+
+	const homeText = document.getElementById("homeAddressText");
+	const officeText = document.getElementById("officeAddressText");
+
+	if (home && homeText) {
+		homeText.innerText = home.substring(0, 35) + "...";
+	}
+
+	if (office && officeText) {
+		officeText.innerText = office.substring(0, 35) + "...";
+	}
+}
+
+function handleSavedAddressClick(type) {
+	const address = localStorage.getItem("cravecart_" + type);
+
+	if (!address) {
+		alert(type + " address not saved yet.");
+		return;
+	}
+
+	selectSavedAddress(type, address);
+}

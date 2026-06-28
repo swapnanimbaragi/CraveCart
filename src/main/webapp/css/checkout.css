@@ -713,3 +713,52 @@ height:220px;
 #deliveryAddress {
 	display: none !important;
 }
+
+.manual-address-section {
+	margin: 20px 0;
+}
+
+#manualAddressInput {
+	width: 100%;
+	height: 120px;
+	padding: 15px;
+	border: 1px solid #dcefd8;
+	border-radius: 18px;
+	font-size: 15px;
+	resize: none;
+	outline: none;
+	background: #fff;
+}
+
+.manual-save-btn {
+	margin-top: 15px;
+	padding: 14px 25px;
+	background: #82c784;
+	color: white;
+	border: none;
+	border-radius: 15px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+
+.save-address-actions {
+	display: flex;
+	gap: 10px;
+	margin-top: 14px;
+}
+
+.save-address-actions button {
+	border: none;
+	padding: 10px 16px;
+	border-radius: 20px;
+	background: #eaf7e7;
+	color: #5da85d;
+	font-weight: 900;
+	cursor: pointer;
+}
+
+.save-address-actions button:hover {
+	background: #7bc67b;
+	color: white;
+}
