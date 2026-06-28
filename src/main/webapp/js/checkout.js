@@ -1,9 +1,13 @@
 let map;
 let marker;
+
 let currentLat = 12.9716;
 let currentLon = 77.5946;
 
+/* ================= INITIAL MAP ================= */
+
 function initMap() {
+
 	map = L.map("checkoutMap", {
 		center: [currentLat, currentLon],
 		zoom: 13,
@@ -32,8 +36,26 @@ function initMap() {
 	}, 500);
 }
 
+/* ================= USE CURRENT LOCATION ================= */
+
 function useCurrentLocation() {
+
 	const status = document.getElementById("locationStatus");
+	const mapSection = document.getElementById("mapSection");
+	const manualAddressSection = document.getElementById("manualAddressSection");
+	const selectedCard = document.getElementById("selectedAddressCard");
+
+	if (mapSection) {
+		mapSection.style.display = "block";
+	}
+
+	if (manualAddressSection) {
+		manualAddressSection.style.display = "none";
+	}
+
+	if (selectedCard) {
+		selectedCard.style.display = "none";
+	}
 
 	status.innerText = "📍 Detecting your current location...";
 
@@ -44,6 +66,7 @@ function useCurrentLocation() {
 
 	navigator.geolocation.getCurrentPosition(
 		function(position) {
+
 			currentLat = position.coords.latitude;
 			currentLon = position.coords.longitude;
 
@@ -67,7 +90,7 @@ function useCurrentLocation() {
 
 			status.innerText = "🔎 Finding your address...";
 
-			fetchAddress(currentLat, currentLon);
+			fetchAddress(currentLat, currentLon, "Current Location");
 		},
 		function() {
 			status.innerText = "❌ Unable to fetch location. Please allow location permission.";
@@ -80,7 +103,10 @@ function useCurrentLocation() {
 	);
 }
 
-function fetchAddress(lat, lon) {
+/* ================= FETCH REAL ADDRESS ================= */
+
+function fetchAddress(lat, lon, type) {
+
 	const addressBox = document.getElementById("deliveryAddress");
 	const status = document.getElementById("locationStatus");
 
@@ -96,47 +122,121 @@ function fetchAddress(lat, lon) {
 			return response.json();
 		})
 		.then(function(data) {
+
 			if (data && data.display_name) {
+
 				addressBox.value = data.display_name;
+
+				updateSelectedAddress(type, data.display_name);
+
 				status.innerText = "✅ Address detected successfully.";
-
-				const selectedCard = document.getElementById("selectedAddressCard");
-				const selectedText = document.getElementById("selectedAddressText");
-
-				if (selectedCard && selectedText) {
-					selectedCard.style.display = "flex";
-					selectedText.innerText = data.display_name;
-				}
 
 				if (marker) {
 					marker.bindPopup("📍 Deliver Here").openPopup();
 				}
+
 			} else {
-				addressBox.value =
+
+				const coordinates =
 					"Latitude: " + lat.toFixed(6) + ", Longitude: " + lon.toFixed(6);
+
+				addressBox.value = coordinates;
+
+				updateSelectedAddress(type, coordinates);
 
 				status.innerText = "⚠️ Address not found. Coordinates added.";
 			}
 		})
 		.catch(function() {
-			addressBox.value =
+
+			const coordinates =
 				"Latitude: " + lat.toFixed(6) + ", Longitude: " + lon.toFixed(6);
+
+			addressBox.value = coordinates;
+
+			updateSelectedAddress(type, coordinates);
 
 			status.innerText = "⚠️ Address lookup failed. Coordinates added.";
 		});
 }
 
+/* ================= UPDATE SELECTED ADDRESS CARD ================= */
+
+function updateSelectedAddress(type, address) {
+
+	const selectedCard = document.getElementById("selectedAddressCard");
+	const selectedText = document.getElementById("selectedAddressText");
+	const selectedTitle = document.getElementById("selectedAddressTitle");
+
+	if (selectedCard) {
+		selectedCard.style.display = "flex";
+	}
+
+	if (selectedText) {
+		selectedText.innerText = address;
+	}
+
+	if (selectedTitle) {
+		selectedTitle.innerText = type;
+	}
+}
+
+/* ================= MANUAL ADDRESS ================= */
+
 function clearLocation() {
+
 	const addressBox = document.getElementById("deliveryAddress");
 	const status = document.getElementById("locationStatus");
 	const selectedCard = document.getElementById("selectedAddressCard");
+	const mapSection = document.getElementById("mapSection");
+	const manualAddressSection = document.getElementById("manualAddressSection");
 
 	addressBox.value = "";
-	status.innerText = "You can type your address manually.";
+
+	if (mapSection) {
+		mapSection.style.display = "none";
+	}
 
 	if (selectedCard) {
 		selectedCard.style.display = "none";
 	}
+
+	if (manualAddressSection) {
+		manualAddressSection.style.display = "block";
+	}
+
+	status.innerText = "✏️ Enter your delivery address manually.";
 }
+
+/* ================= SAVED ADDRESS SELECTION ================= */
+
+function selectSavedAddress(type, address) {
+
+	const addressBox = document.getElementById("deliveryAddress");
+	const status = document.getElementById("locationStatus");
+	const selectedCard = document.getElementById("selectedAddressCard");
+	const mapSection = document.getElementById("mapSection");
+	const manualAddressSection = document.getElementById("manualAddressSection");
+
+	addressBox.value = address;
+
+	updateSelectedAddress(type, address);
+
+	if (selectedCard) {
+		selectedCard.style.display = "flex";
+	}
+
+	if (mapSection) {
+		mapSection.style.display = "none";
+	}
+
+	if (manualAddressSection) {
+		manualAddressSection.style.display = "none";
+	}
+
+	status.innerText = "✅ " + type + " address selected.";
+}
+
+/* ================= LOAD MAP ================= */
 
 window.onload = initMap;
