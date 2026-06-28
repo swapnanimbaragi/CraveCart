@@ -269,43 +269,47 @@ if (grandTotal < 0) {
 				<span>Items Total</span>
 				<strong>₹<%=itemsTotal%></strong>
 			</div>
-
+			
 			<div class="bill-row">
 				<span>Delivery Fee</span>
 				<strong>₹<%=deliveryFee%></strong>
 			</div>
-
+			
 			<div class="bill-row">
 				<span>Platform Fee</span>
 				<strong>₹<%=platformFee%></strong>
 			</div>
-
+			
 			<div class="bill-row">
 				<span>GST</span>
 				<strong>₹<%=gstAmount%></strong>
 			</div>
-
+			
 			<div class="bill-row discount-row">
 				<span>Discount</span>
 				<strong>- ₹<%=discountAmount%></strong>
 			</div>
 
-			<div class="grand-total">
-				<span>Grand Total</span>
-				<strong>₹<%=grandTotal%></strong>
-			</div>
+<%
+if (couponMessage != null && !couponMessage.equals("")) {
+%>
+	<p class="coupon-msg"><%=couponMessage%></p>
+<%
+}
+%>
 
-			<a class="checkout-btn"
-				href="<%=request.getContextPath()%>/checkout?couponCode=<%=couponCode != null ? couponCode : ""%>&discountAmount=<%=discountAmount%>">
-				<span>Proceed To Checkout</span>
-				<b>→</b>
-			</a>
+<div class="grand-total">
+	<span>Grand Total</span>
+	<strong>₹<%=grandTotal%></strong>
+</div>
 
-			<p class="coin-text">🪙 You will earn <b>146 CraveCoins</b> on this order</p>
+<a class="checkout-btn"
+	href="<%=request.getContextPath()%>/checkout?couponCode=<%=couponCode != null ? couponCode : ""%>&discountAmount=<%=discountAmount%>">
+	<span>Proceed To Checkout</span>
+	<b>→</b>
+</a>
 
-		</div>
-
-	</div>
+<p class="coin-text">🪙 You will earn <b>146 CraveCoins</b> on this order</p>
 
 <%
 } else {
