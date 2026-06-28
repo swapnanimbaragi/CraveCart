@@ -336,3 +336,16 @@ select:focus{
 	font-size: 15px;
 	line-height: 1.5;
 }
+
+#checkoutMap {
+	cursor: grab;
+	touch-action: none;
+}
+
+#checkoutMap:active {
+	cursor: grabbing;
+}
+
+.leaflet-container {
+	touch-action: none;
+}

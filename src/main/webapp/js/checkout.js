@@ -2,7 +2,17 @@ let map;
 let marker;
 
 function initMap() {
-	map = L.map("checkoutMap").setView([12.9716, 77.5946], 13);
+	map = L.map("checkoutMap", {
+		center: [12.9716, 77.5946],
+		zoom: 13,
+		scrollWheelZoom: true,
+		dragging: true,
+		touchZoom: true,
+		doubleClickZoom: true,
+		boxZoom: true,
+		keyboard: true,
+		zoomControl: true
+	});
 
 	L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 		maxZoom: 19,
@@ -12,6 +22,10 @@ function initMap() {
 	marker = L.marker([12.9716, 77.5946]).addTo(map)
 		.bindPopup("Default Location: Bengaluru")
 		.openPopup();
+
+	setTimeout(function () {
+		map.invalidateSize();
+	}, 500);
 }
 
 function useCurrentLocation() {
