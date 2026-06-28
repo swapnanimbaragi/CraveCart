@@ -106,7 +106,26 @@ if (grandTotal < 0) {
 						value="<%=grandTotal%>">
 
 					<label>Delivery Address</label>
-					<textarea name="deliveryAddress" required><%=user != null && user.getAddress() != null ? user.getAddress() : ""%></textarea>
+
+						<div class="address-actions">
+							<button type="button" class="location-btn" onclick="useCurrentLocation()">
+								📍 Use Current Location
+							</button>
+						
+							<button type="button" class="location-btn secondary-btn" onclick="clearLocation()">
+								✏️ Enter Manually
+							</button>
+						</div>
+						
+						<textarea id="deliveryAddress" name="deliveryAddress" required><%=user != null && user.getAddress() != null ? user.getAddress() : ""%></textarea>
+						
+						<div class="map-card">
+							<div id="checkoutMap"></div>
+						</div>
+						
+						<p id="locationStatus" class="location-status">
+							Select current location to show map preview.
+						</p>
 
 					<label>Special Instructions</label>
 					<textarea name="specialInstructions"

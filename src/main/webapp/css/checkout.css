@@ -225,3 +225,77 @@ select:focus{
 }
 
 }
+
+
+/* ================= LOCATION ================= */
+
+.address-actions{
+    display:flex;
+    gap:15px;
+    margin:15px 0 20px;
+}
+
+.location-btn{
+    background:#79c875;
+    color:#fff;
+    border:none;
+    border-radius:14px;
+    padding:12px 22px;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.location-btn:hover{
+    background:#67bb63;
+    transform:translateY(-2px);
+}
+
+.secondary-btn{
+    background:#ffffff;
+    color:#79c875;
+    border:2px solid #79c875;
+}
+
+.secondary-btn:hover{
+    background:#eef9ed;
+}
+
+#deliveryAddress{
+    width:100%;
+    height:120px;
+    border-radius:18px;
+    border:1px solid #d9ead6;
+    padding:18px;
+    resize:none;
+    font-size:15px;
+    background:#fbfefb;
+    outline:none;
+    margin-bottom:20px;
+}
+
+#deliveryAddress:focus{
+    border-color:#79c875;
+    box-shadow:0 0 0 4px rgba(121,200,117,.15);
+}
+
+.map-card{
+    margin-top:15px;
+    border-radius:22px;
+    overflow:hidden;
+    border:1px solid #dfeedd;
+    box-shadow:0 15px 35px rgba(121,200,117,.12);
+}
+
+#checkoutMap{
+    width:100%;
+    height:320px;
+}
+
+.location-status{
+    margin-top:15px;
+    color:#6b7280;
+    font-size:15px;
+    font-weight:600;
+}
