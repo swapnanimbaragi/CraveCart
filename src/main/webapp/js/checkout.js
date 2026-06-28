@@ -1,14 +1,18 @@
 let map;
 let marker;
+let currentLat = 12.9716;
+let currentLon = 77.5946;
 
 function initMap() {
 	map = L.map("checkoutMap", {
-		center: [12.9716, 77.5946],
+		center: [currentLat, currentLon],
 		zoom: 13,
-		scrollWheelZoom: true,
+		minZoom: 5,
+		maxZoom: 19,
 		dragging: true,
-		touchZoom: true,
+		scrollWheelZoom: true,
 		doubleClickZoom: true,
+		touchZoom: true,
 		boxZoom: true,
 		keyboard: true,
 		zoomControl: true
@@ -19,18 +23,17 @@ function initMap() {
 		attribution: "© OpenStreetMap"
 	}).addTo(map);
 
-	marker = L.marker([12.9716, 77.5946]).addTo(map)
-		.bindPopup("📍 Default Location: Bengaluru")
-		.openPopup();
+	marker = L.marker([currentLat, currentLon]).addTo(map)
+		.bindPopup("📍 Bengaluru");
 
 	setTimeout(function () {
 		map.invalidateSize();
+		map.setView([currentLat, currentLon], 13);
 	}, 500);
 }
 
 function useCurrentLocation() {
 	const status = document.getElementById("locationStatus");
-	const addressBox = document.getElementById("deliveryAddress");
 
 	status.innerText = "📍 Detecting your current location...";
 
@@ -41,36 +44,37 @@ function useCurrentLocation() {
 
 	navigator.geolocation.getCurrentPosition(
 		function(position) {
-			const lat = position.coords.latitude;
-			const lon = position.coords.longitude;
+			currentLat = position.coords.latitude;
+			currentLon = position.coords.longitude;
 
 			if (marker) {
 				map.removeLayer(marker);
 			}
 
-			marker = L.marker([lat, lon]).addTo(map)
-				.bindPopup("📍 Your Delivery Location")
-				.openPopup();
+			marker = L.marker([currentLat, currentLon]).addTo(map)
+				.bindPopup("📍 Deliver Here");
+
+			map.invalidateSize();
+
+			map.flyTo([currentLat, currentLon], 16, {
+				animate: true,
+				duration: 1.2
+			});
 
 			setTimeout(function () {
-				map.invalidateSize();
-
-				map.setView([lat, lon], 14, {
-					animate: true,
-					duration: 1
-				});
-			}, 300);
+				marker.openPopup();
+			}, 1300);
 
 			status.innerText = "🔎 Finding your address...";
 
-			fetchAddress(lat, lon);
+			fetchAddress(currentLat, currentLon);
 		},
 		function() {
 			status.innerText = "❌ Unable to fetch location. Please allow location permission.";
 		},
 		{
 			enableHighAccuracy: true,
-			timeout: 10000,
+			timeout: 15000,
 			maximumAge: 0
 		}
 	);
@@ -92,9 +96,7 @@ function fetchAddress(lat, lon) {
 			return response.json();
 		})
 		.then(function(data) {
-
 			if (data && data.display_name) {
-
 				addressBox.value = data.display_name;
 				status.innerText = "✅ Address detected successfully.";
 
@@ -107,11 +109,9 @@ function fetchAddress(lat, lon) {
 				}
 
 				if (marker) {
-					marker.bindPopup("📍 Deliver Here<br>" + data.display_name).openPopup();
+					marker.bindPopup("📍 Deliver Here").openPopup();
 				}
-
 			} else {
-
 				addressBox.value =
 					"Latitude: " + lat.toFixed(6) + ", Longitude: " + lon.toFixed(6);
 
@@ -119,7 +119,6 @@ function fetchAddress(lat, lon) {
 			}
 		})
 		.catch(function() {
-
 			addressBox.value =
 				"Latitude: " + lat.toFixed(6) + ", Longitude: " + lon.toFixed(6);
 
