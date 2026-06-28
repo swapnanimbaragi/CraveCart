@@ -67,6 +67,9 @@ function fetchAddress(lat, lon) {
 			if (data && data.display_name) {
 				addressBox.value = data.display_name;
 				status.innerText = "✅ Address detected successfully.";
+
+				document.getElementById("selectedAddressCard").style.display = "flex";
+				document.getElementById("selectedAddressText").innerText = data.display_name;
 			} else {
 				addressBox.value =
 					"Latitude: " + lat.toFixed(6) + ", Longitude: " + lon.toFixed(6);

@@ -299,3 +299,40 @@ select:focus{
     font-size:15px;
     font-weight:600;
 }
+
+.selected-address-card {
+	display: none;
+	margin-top: 18px;
+	padding: 18px;
+	border-radius: 20px;
+	background: #ffffff;
+	border: 1px solid #dcefd8;
+	box-shadow: 0 12px 30px rgba(123, 198, 123, 0.14);
+	align-items: flex-start;
+	gap: 15px;
+}
+
+.selected-icon {
+	width: 48px;
+	height: 48px;
+	border-radius: 16px;
+	background: #eaf7e7;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 24px;
+}
+
+.selected-address-card h3 {
+	margin: 0 0 6px;
+	color: #1e2432;
+	font-size: 18px;
+	font-weight: 900;
+}
+
+.selected-address-card p {
+	margin: 0;
+	color: #667085;
+	font-size: 15px;
+	line-height: 1.5;
+}

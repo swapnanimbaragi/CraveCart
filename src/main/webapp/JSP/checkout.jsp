@@ -126,6 +126,15 @@ if (grandTotal < 0) {
 						<p id="locationStatus" class="location-status">
 							Select current location to show map preview.
 						</p>
+						
+						<div id="selectedAddressCard" class="selected-address-card">
+							<div class="selected-icon">📍</div>
+						
+							<div>
+								<h3>Delivering to Current Location</h3>
+								<p id="selectedAddressText">Your detected address will appear here.</p>
+							</div>
+						</div>
 
 					<label>Special Instructions</label>
 					<textarea name="specialInstructions"
