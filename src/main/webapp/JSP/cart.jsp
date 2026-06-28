@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ page import="java.util.List"%>
 <%@ page import="com.tap.model.Cart"%>
@@ -23,6 +22,7 @@
 
 <header class="navbar">
 	<div class="logo">CraveCart</div>
+
 	<nav>
 		<a href="${pageContext.request.contextPath}/home">Home</a>
 		<a href="${pageContext.request.contextPath}/home#restaurants">Restaurants</a>
@@ -75,6 +75,7 @@ if (cartItems != null && !cartItems.isEmpty() && cart != null) {
 for (CartItem item : cartItems) {
 
 	Menu menu = menuDAO.getMenu(item.getMenuId());
+
 	if (menu == null) {
 		continue;
 	}
@@ -94,7 +95,10 @@ for (CartItem item : cartItems) {
 
 				<div class="food-details">
 					<h2><%=menu.getItemName()%></h2>
-					<p class="restaurant">🏪 <%=restaurant != null ? restaurant.getRestaurantName() : "Restaurant"%></p>
+
+					<p class="restaurant">
+						🏪 <%=restaurant != null ? restaurant.getRestaurantName() : "Restaurant"%>
+					</p>
 
 					<div class="meta">
 						<span>⭐ <%=menu.getRating()%></span>
@@ -108,7 +112,9 @@ for (CartItem item : cartItems) {
 
 					<div class="qty-box">
 						<a href="<%=request.getContextPath()%>/cart?action=decrease&cartItemId=<%=item.getCartItemId()%><%=couponCode != null ? "&couponCode=" + couponCode : ""%>">-</a>
+
 						<span><%=item.getQuantity()%></span>
+
 						<a href="<%=request.getContextPath()%>/cart?action=increase&cartItemId=<%=item.getCartItemId()%><%=couponCode != null ? "&couponCode=" + couponCode : ""%>">+</a>
 					</div>
 
@@ -165,6 +171,7 @@ if (couponCode != null && !couponCode.equals("")) {
 }
 
 double grandTotal = itemsTotal + deliveryFee + platformFee + gstAmount - discountAmount;
+
 if (grandTotal < 0) {
 	grandTotal = 0;
 }
