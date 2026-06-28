@@ -20,7 +20,7 @@ function initMap() {
 	}).addTo(map);
 
 	marker = L.marker([12.9716, 77.5946]).addTo(map)
-		.bindPopup("Default Location: Bengaluru")
+		.bindPopup("📍 Default Location: Bengaluru")
 		.openPopup();
 
 	setTimeout(function () {
@@ -35,7 +35,7 @@ function useCurrentLocation() {
 	status.innerText = "📍 Detecting your current location...";
 
 	if (!navigator.geolocation) {
-		status.innerText = "Geolocation is not supported by this browser.";
+		status.innerText = "❌ Geolocation is not supported by this browser.";
 		return;
 	}
 
@@ -44,21 +44,22 @@ function useCurrentLocation() {
 			const lat = position.coords.latitude;
 			const lon = position.coords.longitude;
 
-			setTimeout(function () {
-				map.invalidateSize();
-				map.setView([lat, lon], 17, {
-					animate: true,
-					duration: 1
-				});
-			}, 300);
-
 			if (marker) {
 				map.removeLayer(marker);
 			}
 
 			marker = L.marker([lat, lon]).addTo(map)
-				.bindPopup("📍 Delivery Location")
+				.bindPopup("📍 Your Delivery Location")
 				.openPopup();
+
+			setTimeout(function () {
+				map.invalidateSize();
+
+				map.setView([lat, lon], 14, {
+					animate: true,
+					duration: 1
+				});
+			}, 300);
 
 			status.innerText = "🔎 Finding your address...";
 
@@ -66,6 +67,11 @@ function useCurrentLocation() {
 		},
 		function() {
 			status.innerText = "❌ Unable to fetch location. Please allow location permission.";
+		},
+		{
+			enableHighAccuracy: true,
+			timeout: 10000,
+			maximumAge: 0
 		}
 	);
 }
@@ -82,31 +88,56 @@ function fetchAddress(lat, lon) {
 		"&zoom=18&addressdetails=1";
 
 	fetch(url)
-		.then(response => response.json())
-		.then(data => {
+		.then(function(response) {
+			return response.json();
+		})
+		.then(function(data) {
+
 			if (data && data.display_name) {
+
 				addressBox.value = data.display_name;
 				status.innerText = "✅ Address detected successfully.";
 
-				document.getElementById("selectedAddressCard").style.display = "flex";
-				document.getElementById("selectedAddressText").innerText = data.display_name;
+				const selectedCard = document.getElementById("selectedAddressCard");
+				const selectedText = document.getElementById("selectedAddressText");
+
+				if (selectedCard && selectedText) {
+					selectedCard.style.display = "flex";
+					selectedText.innerText = data.display_name;
+				}
+
+				if (marker) {
+					marker.bindPopup("📍 Deliver Here<br>" + data.display_name).openPopup();
+				}
+
 			} else {
+
 				addressBox.value =
 					"Latitude: " + lat.toFixed(6) + ", Longitude: " + lon.toFixed(6);
-				status.innerText = "Address not found. Location coordinates added.";
+
+				status.innerText = "⚠️ Address not found. Coordinates added.";
 			}
 		})
-		.catch(() => {
+		.catch(function() {
+
 			addressBox.value =
 				"Latitude: " + lat.toFixed(6) + ", Longitude: " + lon.toFixed(6);
-			status.innerText = "Address lookup failed. Coordinates added.";
+
+			status.innerText = "⚠️ Address lookup failed. Coordinates added.";
 		});
 }
 
 function clearLocation() {
-	document.getElementById("deliveryAddress").value = "";
-	document.getElementById("locationStatus").innerText =
-		"You can type your address manually.";
+	const addressBox = document.getElementById("deliveryAddress");
+	const status = document.getElementById("locationStatus");
+	const selectedCard = document.getElementById("selectedAddressCard");
+
+	addressBox.value = "";
+	status.innerText = "You can type your address manually.";
+
+	if (selectedCard) {
+		selectedCard.style.display = "none";
+	}
 }
 
 window.onload = initMap;
