@@ -15,7 +15,7 @@
 <title>My Cart | CraveCart</title>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css?v=20">
 </head>
 
 <body>

@@ -560,3 +560,87 @@ body {
 		text-align: center;
 	}
 }
+.cart-page .cart-layout {
+	display: grid !important;
+	grid-template-columns: 1.7fr 430px !important;
+	gap: 35px !important;
+	align-items: flex-start !important;
+}
+
+.cart-page .cart-card {
+	display: grid !important;
+	grid-template-columns: 160px 1fr 190px !important;
+	gap: 22px !important;
+	align-items: center !important;
+	background: #ffffff !important;
+	border: 1px solid #e5efe3 !important;
+	border-radius: 26px !important;
+	padding: 20px !important;
+	margin-bottom: 20px !important;
+	box-shadow: 0 15px 35px rgba(123, 198, 123, 0.12) !important;
+}
+
+.cart-page .food-img {
+	width: 160px !important;
+	height: 135px !important;
+	border-radius: 22px !important;
+	overflow: hidden !important;
+}
+
+.cart-page .food-img img {
+	width: 160px !important;
+	height: 135px !important;
+	object-fit: cover !important;
+	display: block !important;
+	border-radius: 22px !important;
+}
+
+.cart-page .food-details {
+	display: block !important;
+}
+
+.cart-page .cart-actions {
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: flex-end !important;
+	gap: 18px !important;
+}
+
+.cart-page .qty-box {
+	display: flex !important;
+	align-items: center !important;
+	overflow: hidden !important;
+	border-radius: 30px !important;
+	border: 1px solid #d9ead6 !important;
+	background: #f1faed !important;
+}
+
+.cart-page .qty-box a,
+.cart-page .qty-box span {
+	width: 45px !important;
+	height: 40px !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	text-decoration: none !important;
+	font-size: 20px !important;
+	font-weight: 900 !important;
+	color: #1e2432 !important;
+}
+
+.cart-page .qty-box span {
+	background: white !important;
+}
+
+.cart-page .bill-box {
+	width: 430px !important;
+}
+
+.cart-page .checkout-btn {
+	width: 100% !important;
+	height: 64px !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	border-radius: 22px !important;
+}
