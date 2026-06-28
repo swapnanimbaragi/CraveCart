@@ -272,7 +272,21 @@ if (grandTotal < 0) {
 			
 			<div class="bill-row">
 				<span>Delivery Fee</span>
-				<strong>₹<%=deliveryFee%></strong>
+			
+				<%
+				if ("FREESHIP".equals(couponCode) && discountAmount == deliveryFee) {
+				%>
+					<strong>
+						<del>₹<%=deliveryFee%></del>
+						<span class="free-text">FREE</span>
+					</strong>
+				<%
+				} else {
+				%>
+					<strong>₹<%=deliveryFee%></strong>
+				<%
+				}
+				%>
 			</div>
 			
 			<div class="bill-row">
