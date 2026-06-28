@@ -90,7 +90,7 @@ if (grandTotal < 0) {
 	<!-- ================= MAIN CHECKOUT LAYOUT ================= -->
 	<div class="checkout-layout">
 
-		<!-- ================= LEFT SIDE : DELIVERY DETAILS ================= -->
+		<!-- ================= LEFT SIDE : DELIVERY SETUP ================= -->
 		<div class="checkout-left">
 
 			<div class="checkout-card">
@@ -100,7 +100,7 @@ if (grandTotal < 0) {
 					<div class="section-icon">📍</div>
 					<div>
 						<h2>Delivery Setup</h2>
-						
+						<div class="green-line"></div>
 					</div>
 				</div>
 
@@ -117,10 +117,10 @@ if (grandTotal < 0) {
 					<input type="hidden" name="grandTotal"
 						value="<%=grandTotal%>">
 
-					<!-- ================= DELIVERY ADDRESS HEADER ================= -->
+					<!-- ================= ADDRESS CHOICE HEADER ================= -->
 					<div class="checkout-subtitle">
 						<h3>Where should we deliver?</h3>
-						<p>Choose your location and verify it on the map.</p>
+						<p>Use live GPS, enter manually, or choose a saved address.</p>
 					</div>
 
 					<!-- ================= ADDRESS ACTION BUTTONS ================= -->
@@ -130,15 +130,15 @@ if (grandTotal < 0) {
 							📍 Use Current Location
 						</button>
 
-						<button type="button" class="location-btn secondary-btn" onclick="clearLocation()">
+						<button type="button" class="location-btn secondary-btn" onclick="showManualAddress()">
 							✏️ Enter Manually
 						</button>
 
 					</div>
 
-					<!-- ================= ADDRESS TEXTAREA ================= -->
-					<!-- This is submitted to backend. It can be hidden later if you want. -->
-					<textarea id="deliveryAddress" name="deliveryAddress" required><%=user != null && user.getAddress() != null ? user.getAddress() : ""%></textarea>
+					<!-- ================= HIDDEN ADDRESS FIELD ================= -->
+					<!-- This value is submitted to backend as deliveryAddress -->
+					<textarea id="deliveryAddress" name="deliveryAddress" required hidden><%=user != null && user.getAddress() != null ? user.getAddress() : ""%></textarea>
 
 					<!-- ================= SELECTED ADDRESS CARD ================= -->
 					<div id="selectedAddressCard" class="selected-address-card">
@@ -147,15 +147,36 @@ if (grandTotal < 0) {
 
 						<div class="selected-content">
 							<span>Delivering To</span>
-							<h3>Current Location</h3>
-							<p id="selectedAddressText">Select current location to detect your address.</p>
-							<small>🟢 GPS Verified</small>
+							<h3 id="selectedAddressTitle">Current Location</h3>
+							<p id="selectedAddressText">Select current location or choose a saved address.</p>
+							<small id="selectedAddressBadge">🟢 GPS Verified</small>
+
+							<div class="save-address-actions">
+								<button type="button" onclick="saveCurrentAddressAs('Home')">Save as Home</button>
+								<button type="button" onclick="saveCurrentAddressAs('Office')">Save as Office</button>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- ================= MANUAL ADDRESS SECTION ================= -->
+					<div id="manualAddressSection" class="manual-address-section" style="display:none;">
+
+						<label>Complete Delivery Address</label>
+
+						<textarea id="manualAddressInput"
+							placeholder="House No., Building, Street, Area, Landmark..."></textarea>
+
+						<div class="manual-actions">
+							<button type="button" onclick="confirmManualAddress()" class="manual-save-btn">
+								✅ Use This Address
+							</button>
 						</div>
 
 					</div>
 
 					<!-- ================= MAP SECTION ================= -->
-					<div class="map-section">
+					<div id="mapSection" class="map-section" style="display:none;">
 
 						<div class="map-title">
 							<h3>Map Preview</h3>
@@ -179,18 +200,19 @@ if (grandTotal < 0) {
 
 						<div class="saved-grid">
 
-							<div class="saved-card"
-								onclick="selectSavedAddress('Home', 'BTM Layout, Bengaluru, Karnataka 560076')">
+							<!-- These cards are updated from localStorage using checkout.js -->
+							<div id="homeAddressCard" class="saved-card empty-saved-card"
+								onclick="handleSavedAddressClick('Home')">
 								<div>🏠</div>
 								<strong>Home</strong>
-								<p>BTM Layout</p>
+								<p id="homeAddressText">Not saved yet</p>
 							</div>
 
-							<div class="saved-card"
-								onclick="selectSavedAddress('Office', 'Electronic City, Bengaluru, Karnataka 560100')">
+							<div id="officeAddressCard" class="saved-card empty-saved-card"
+								onclick="handleSavedAddressClick('Office')">
 								<div>🏢</div>
 								<strong>Office</strong>
-								<p>Electronic City</p>
+								<p id="officeAddressText">Not saved yet</p>
 							</div>
 
 							<div class="saved-card" onclick="useCurrentLocation()">
