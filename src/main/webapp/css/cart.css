@@ -702,3 +702,14 @@ body {
 	font-size: 13px;
 	font-weight: 900;
 }
+
+.free-text {
+	color: #7bc67b;
+	font-weight: 900;
+	margin-left: 8px;
+}
+
+.bill-row del {
+	color: #999;
+	font-size: 15px;
+}
