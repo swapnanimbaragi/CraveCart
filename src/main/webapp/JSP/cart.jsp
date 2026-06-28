@@ -150,34 +150,40 @@ deliveryFee = cart.getDeliveryFee();
 platformFee = cart.getPlatformFee();
 gstAmount = cart.getGstAmount();
 
+discountAmount = 0;
+couponMessage = "";
+
 if (couponCode != null && !couponCode.equals("")) {
 
 	if (couponCode.equals("SAVE50")) {
+
 		if (itemsTotal >= 299) {
 			discountAmount = 50;
-			couponMessage = "SAVE50 applied successfully!";
+			couponMessage = "SAVE50 applied! ₹50 discount added.";
 		} else {
-			couponMessage = "SAVE50 valid only above ₹299";
+			couponMessage = "SAVE50 valid only on orders above ₹299.";
 		}
-	} 
-	else if (couponCode.equals("SAVE10")) {
+
+	} else if (couponCode.equals("SAVE10")) {
+
 		if (itemsTotal >= 199) {
 			discountAmount = itemsTotal * 0.10;
-			couponMessage = "SAVE10 applied successfully!";
+			couponMessage = "SAVE10 applied! 10% discount added.";
 		} else {
-			couponMessage = "SAVE10 valid only above ₹199";
+			couponMessage = "SAVE10 valid only on orders above ₹199.";
 		}
-	} 
-	else if (couponCode.equals("FREESHIP")) {
+
+	} else if (couponCode.equals("FREESHIP")) {
+
 		if (itemsTotal >= 149) {
 			discountAmount = deliveryFee;
-			couponMessage = "FREESHIP applied successfully!";
+			couponMessage = "FREESHIP applied! Delivery fee removed.";
 		} else {
-			couponMessage = "FREESHIP valid only above ₹149";
+			couponMessage = "FREESHIP valid only on orders above ₹149.";
 		}
-	} 
-	else {
-		couponMessage = "Invalid coupon code";
+
+	} else {
+		couponMessage = "Invalid coupon code.";
 	}
 }
 
