@@ -135,7 +135,6 @@ for (CartItem item : cartItems) {
 					</div>
 
 					<a class="remove-btn"
-						onclick="return confirm('Are you sure you want to remove this item from cart?')"
 						href="<%=request.getContextPath()%>/cart?action=remove&cartItemId=<%=item.getCartItemId()%><%=couponCode != null ? "&couponCode=" + couponCode : ""%>">
 						🗑 Remove
 					</a>
@@ -213,6 +212,36 @@ if (grandTotal < 0) {
 					value="<%=couponCode != null ? couponCode : ""%>">
 				<button type="submit">Apply</button>
 			</form>
+			
+			<div class="offers-box">
+
+				<h3>🎁 Available Offers</h3>
+			
+				<a class="offer-card" href="<%=request.getContextPath()%>/cart?couponCode=SAVE50">
+					<div>
+						<strong>SAVE50</strong>
+						<p>Get ₹50 OFF on orders above ₹299</p>
+					</div>
+					<span>Apply</span>
+				</a>
+			
+				<a class="offer-card" href="<%=request.getContextPath()%>/cart?couponCode=SAVE10">
+					<div>
+						<strong>SAVE10</strong>
+						<p>Get 10% OFF on orders above ₹199</p>
+					</div>
+					<span>Apply</span>
+				</a>
+			
+				<a class="offer-card" href="<%=request.getContextPath()%>/cart?couponCode=FREESHIP">
+					<div>
+						<strong>FREESHIP</strong>
+						<p>Free delivery on orders above ₹149</p>
+					</div>
+					<span>Apply</span>
+				</a>
+			
+			</div>
 
 			<%
 			if (couponCode != null && !couponCode.equals("")) {
