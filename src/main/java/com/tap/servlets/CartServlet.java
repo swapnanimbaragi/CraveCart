@@ -111,7 +111,15 @@ public class CartServlet extends HttpServlet {
 		if (action != null && cartItemIdParam != null) {
 
 			int cartItemId = Integer.parseInt(cartItemIdParam);
+			
+			if ("remove".equals(action)) {
 
+			    cartItemDAO.deleteCartItem(cartItemId);
+
+			    resp.sendRedirect(req.getContextPath() + "/cart");
+			    return;
+			}
+			
 			CartItem cartItem = cartItemDAO.getCartItem(cartItemId);
 
 			if (cartItem != null) {

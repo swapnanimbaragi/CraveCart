@@ -55,13 +55,24 @@ if (couponCode != null) {
 }
 %>
 
-	<div class="cart-title">
-		<div class="cart-icon">🛒</div>
-		<div>
-			<h1>My <span>Cart</span></h1>
-			<p>Review your food items before checkout</p>
+	<!-- ================= CART HEADER ================= -->
+
+		<div class="cart-header">
+		
+			<div class="cart-badge">
+				🛒 MY CART
+			</div>
+		
+			<h1>
+				Packed with <span>Cravings.</span>
+			</h1>
+		
+			<p>
+				Your handpicked flavors are waiting. Confirm your order and
+				we'll take care of the rest.
+			</p>
+		
 		</div>
-	</div>
 
 <%
 if (cartItems != null && !cartItems.isEmpty() && cart != null) {
@@ -124,6 +135,7 @@ for (CartItem item : cartItems) {
 					</div>
 
 					<a class="remove-btn"
+						onclick="return confirm('Are you sure you want to remove this item from cart?')"
 						href="<%=request.getContextPath()%>/cart?action=remove&cartItemId=<%=item.getCartItemId()%><%=couponCode != null ? "&couponCode=" + couponCode : ""%>">
 						🗑 Remove
 					</a>

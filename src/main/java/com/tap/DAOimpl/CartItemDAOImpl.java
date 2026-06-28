@@ -114,9 +114,10 @@ public class CartItemDAOImpl implements CartItemDAO {
 			pstmt.setInt(1, cartItemId);
 
 			int i = pstmt.executeUpdate();
-			System.out.println(i);
 
-		} catch (SQLException e) {
+			System.out.println(i);
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

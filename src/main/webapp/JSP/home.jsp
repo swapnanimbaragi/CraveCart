@@ -25,6 +25,7 @@
         <a href="#categories">Categories</a>
         <a href="#">My Orders</a>
         <a href="#">Contact</a>
+        <a href="#cart">Cart</a>
     </nav>
 
     <a href="${pageContext.request.contextPath}/logout" class="logout-btn">Logout</a>
