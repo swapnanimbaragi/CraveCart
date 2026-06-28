@@ -15,212 +15,259 @@
 <meta charset="UTF-8">
 <title>My Cart | CraveCart</title>
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/common.css">
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/cart.css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
 </head>
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
-
 <header class="navbar">
-
 	<div class="logo">CraveCart</div>
-
 	<nav>
 		<a href="${pageContext.request.contextPath}/home">Home</a>
 		<a href="${pageContext.request.contextPath}/home#restaurants">Restaurants</a>
-		<a href="${pageContext.request.contextPath}/cart">Cart</a>
+		<a href="${pageContext.request.contextPath}/home#categories">Categories</a>
+		<a href="${pageContext.request.contextPath}/orders">My Orders</a>
+		<a href="${pageContext.request.contextPath}/contact">Contact</a>
 	</nav>
-
 </header>
-
-<!-- ================= CART ================= -->
 
 <section class="cart-page">
 
-	<h1 class="cart-title">🛒 My Cart</h1>
+<%
+Cart cart = (Cart) request.getAttribute("cart");
+List<CartItem> cartItems = (List<CartItem>) request.getAttribute("cartItems");
 
-	<%
-	Cart cart = (Cart) request.getAttribute("cart");
-	List<CartItem> cartItems = (List<CartItem>) request.getAttribute("cartItems");
+MenuDAOImpl menuDAO = new MenuDAOImpl();
+RestaurantDAOImpl restaurantDAO = new RestaurantDAOImpl();
 
-	MenuDAOImpl menuDAO = new MenuDAOImpl();
-	RestaurantDAOImpl restaurantDAO = new RestaurantDAOImpl();
+double itemsTotal = 0;
+double deliveryFee = 0;
+double platformFee = 0;
+double gstAmount = 0;
+double discountAmount = 0;
 
-	double itemsTotal = 0;
+String couponCode = request.getParameter("couponCode");
+String couponMessage = "";
 
-	if (cartItems != null && !cartItems.isEmpty()) {
-	%>
+if (couponCode != null) {
+	couponCode = couponCode.trim().toUpperCase();
+}
+%>
+
+	<div class="cart-title">
+		<div class="cart-icon">🛒</div>
+		<div>
+			<h1>My <span>Cart</span></h1>
+			<p>Review your food items before checkout</p>
+		</div>
+	</div>
+
+<%
+if (cartItems != null && !cartItems.isEmpty() && cart != null) {
+%>
 
 	<div class="cart-layout">
 
-		<!-- LEFT -->
+		<div class="cart-left">
 
-		<div>
+<%
+for (CartItem item : cartItems) {
 
-			<%
-			for (CartItem item : cartItems) {
+	Menu menu = menuDAO.getMenu(item.getMenuId());
+	if (menu == null) {
+		continue;
+	}
 
-				Menu menu = menuDAO.getMenu(item.getMenuId());
+	Restaurant restaurant = restaurantDAO.getRestaurant(menu.getRestaurantId());
 
-				Restaurant restaurant = restaurantDAO.getRestaurant(menu.getRestaurantId());
+	double subtotal = menu.getPrice() * item.getQuantity();
+	itemsTotal += subtotal;
+%>
 
-				double subtotal = menu.getPrice() * item.getQuantity();
+			<div class="cart-card">
 
-				itemsTotal += subtotal;
-			%>
+				<div class="food-img">
+					<img src="${pageContext.request.contextPath}/images/<%=menu.getImageUrl()%>"
+						alt="<%=menu.getItemName()%>">
+				</div>
 
-			<div class="cart-item">
+				<div class="food-details">
+					<h2><%=menu.getItemName()%></h2>
+					<p class="restaurant">🏪 <%=restaurant != null ? restaurant.getRestaurantName() : "Restaurant"%></p>
 
-				<img
-					src="${pageContext.request.contextPath}/images/<%=menu.getImageUrl()%>">
-
-				<div class="item-info">
-
-					<h3><%=menu.getItemName()%></h3>
-
-					<p class="restaurant-name">
-						<%=restaurant.getRestaurantName()%>
-					</p>
-
-					<p>⭐ <%=menu.getRating()%></p>
-
-					<div class="price">
-						₹<%=menu.getPrice()%>
+					<div class="meta">
+						<span>⭐ <%=menu.getRating()%></span>
+						<span class="fresh">Fresh</span>
 					</div>
 
-					<div class="qty-row">
+					<h3>₹<%=menu.getPrice()%></h3>
+				</div>
 
-						<div class="qty-box">
+				<div class="cart-actions">
 
-							<a href="<%=request.getContextPath()%>/cart?action=decrease&cartItemId=<%=item.getCartItemId()%>" class="qty-btn">-</a>
+					<div class="qty-box">
+						<a href="<%=request.getContextPath()%>/cart?action=decrease&cartItemId=<%=item.getCartItemId()%><%=couponCode != null ? "&couponCode=" + couponCode : ""%>">-</a>
+						<span><%=item.getQuantity()%></span>
+						<a href="<%=request.getContextPath()%>/cart?action=increase&cartItemId=<%=item.getCartItemId()%><%=couponCode != null ? "&couponCode=" + couponCode : ""%>">+</a>
+					</div>
 
-							<span class="quantity"><%=item.getQuantity()%></span>
-							
-							<a href="<%=request.getContextPath()%>/cart?action=increase&cartItemId=<%=item.getCartItemId()%>" class="qty-btn">+</a>
-
-						</div>
-
+					<div class="subtotal">
+						<small>Subtotal</small>
 						<strong>₹<%=subtotal%></strong>
-
-						<a href="#" class="remove-btn">
-							🗑 Remove
-						</a>
-
 					</div>
+
+					<a class="remove-btn"
+						href="<%=request.getContextPath()%>/cart?action=remove&cartItemId=<%=item.getCartItemId()%><%=couponCode != null ? "&couponCode=" + couponCode : ""%>">
+						🗑 Remove
+					</a>
 
 				</div>
 
 			</div>
 
+<%
+}
+
+deliveryFee = cart.getDeliveryFee();
+platformFee = cart.getPlatformFee();
+gstAmount = cart.getGstAmount();
+
+if (couponCode != null && !couponCode.equals("")) {
+
+	if (couponCode.equals("SAVE50")) {
+		if (itemsTotal >= 299) {
+			discountAmount = 50;
+			couponMessage = "SAVE50 applied successfully!";
+		} else {
+			couponMessage = "SAVE50 valid only above ₹299";
+		}
+	} 
+	else if (couponCode.equals("SAVE10")) {
+		if (itemsTotal >= 199) {
+			discountAmount = itemsTotal * 0.10;
+			couponMessage = "SAVE10 applied successfully!";
+		} else {
+			couponMessage = "SAVE10 valid only above ₹199";
+		}
+	} 
+	else if (couponCode.equals("FREESHIP")) {
+		if (itemsTotal >= 149) {
+			discountAmount = deliveryFee;
+			couponMessage = "FREESHIP applied successfully!";
+		} else {
+			couponMessage = "FREESHIP valid only above ₹149";
+		}
+	} 
+	else {
+		couponMessage = "Invalid coupon code";
+	}
+}
+
+double grandTotal = itemsTotal + deliveryFee + platformFee + gstAmount - discountAmount;
+if (grandTotal < 0) {
+	grandTotal = 0;
+}
+%>
+
+			<div class="trust-strip">
+				<div>🛡️ <span>Safe Payments</span></div>
+				<div>📦 <span>Hygienic Packaging</span></div>
+				<div>🛵 <span>On-time Delivery</span></div>
+				<div>🏅 <span>Best Quality</span></div>
+			</div>
+
+		</div>
+
+		<div class="bill-box">
+
+			<div class="bill-heading">
+				<div class="bill-icon">🧾</div>
+				<div>
+					<h2>Bill Details</h2>
+					<div class="green-line"></div>
+				</div>
+			</div>
+
+			<form action="<%=request.getContextPath()%>/cart" method="get" class="coupon-box">
+				<input type="text" name="couponCode" placeholder="Enter coupon code"
+					value="<%=couponCode != null ? couponCode : ""%>">
+				<button type="submit">Apply</button>
+			</form>
+
+			<%
+			if (couponCode != null && !couponCode.equals("")) {
+			%>
+				<a href="<%=request.getContextPath()%>/cart" class="remove-coupon">Remove Coupon</a>
 			<%
 			}
 			%>
 
-		</div>
-
-		<!-- RIGHT -->
-
-		<div class="bill-box">
-
-			<h2>Bill Details</h2>
+			<%
+			if (!couponMessage.equals("")) {
+			%>
+				<p class="coupon-msg"><%=couponMessage%></p>
+			<%
+			}
+			%>
 
 			<div class="bill-row">
-
 				<span>Items Total</span>
-
-				<span>₹<%=itemsTotal%></span>
-
+				<strong>₹<%=itemsTotal%></strong>
 			</div>
 
 			<div class="bill-row">
-
 				<span>Delivery Fee</span>
-
-				<span>₹<%=cart.getDeliveryFee()%></span>
-
+				<strong>₹<%=deliveryFee%></strong>
 			</div>
 
 			<div class="bill-row">
-
 				<span>Platform Fee</span>
-
-				<span>₹<%=cart.getPlatformFee()%></span>
-
+				<strong>₹<%=platformFee%></strong>
 			</div>
 
 			<div class="bill-row">
-
 				<span>GST</span>
-
-				<span>₹<%=cart.getGstAmount()%></span>
-
+				<strong>₹<%=gstAmount%></strong>
 			</div>
 
-			<div class="bill-row">
-
+			<div class="bill-row discount-row">
 				<span>Discount</span>
-
-				<span>- ₹<%=cart.getDiscountAmount()%></span>
-
+				<strong>- ₹<%=discountAmount%></strong>
 			</div>
 
-			<div class="bill-row total">
-
+			<div class="grand-total">
 				<span>Grand Total</span>
-
-				<span>
-
-					₹<%=itemsTotal
-		+ cart.getDeliveryFee()
-		+ cart.getPlatformFee()
-		+ cart.getGstAmount()
-		- cart.getDiscountAmount()%>
-
-				</span>
-
+				<strong>₹<%=grandTotal%></strong>
 			</div>
 
-			<button class="checkout-btn">
+			<a class="checkout-btn"
+				href="<%=request.getContextPath()%>/checkout?couponCode=<%=couponCode != null ? couponCode : ""%>&discountAmount=<%=discountAmount%>">
+				<span>Proceed To Checkout</span>
+				<b>→</b>
+			</a>
 
-				Proceed To Checkout →
-
-			</button>
+			<p class="coin-text">🪙 You will earn <b>146 CraveCoins</b> on this order</p>
 
 		</div>
 
 	</div>
 
-	<%
-	} else {
-	%>
+<%
+} else {
+%>
 
 	<div class="empty-cart">
-
 		<h2>Your Cart is Empty</h2>
-
-		<br>
-
-		<a href="${pageContext.request.contextPath}/home">
-
-			← Continue Shopping
-
-		</a>
-
+		<p>Looks like you haven't added anything yet.</p>
+		<a href="${pageContext.request.contextPath}/home">← Continue Shopping</a>
 	</div>
 
-	<%
-	}
-	%>
+<%
+}
+%>
 
 </section>
-
-<script src="${pageContext.request.contextPath}/js/cart.js"></script>
 
 </body>
 </html>
