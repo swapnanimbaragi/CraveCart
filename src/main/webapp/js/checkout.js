@@ -30,7 +30,13 @@ function useCurrentLocation() {
 			const lat = position.coords.latitude;
 			const lon = position.coords.longitude;
 
-			map.setView([lat, lon], 16);
+			setTimeout(function () {
+				map.invalidateSize();
+				map.setView([lat, lon], 17, {
+					animate: true,
+					duration: 1
+				});
+			}, 300);
 
 			if (marker) {
 				map.removeLayer(marker);
