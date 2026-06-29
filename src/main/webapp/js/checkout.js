@@ -69,7 +69,9 @@ function useCurrentLocation() {
 
 			currentLat = position.coords.latitude;
 			currentLon = position.coords.longitude;
-
+			
+			setDeliveryCoordinates(currentLat, currentLon);
+			
 			if (marker) {
 				map.removeLayer(marker);
 			}
@@ -266,7 +268,7 @@ function selectSavedAddress(type, address) {
 	const manualAddressSection = document.getElementById("manualAddressSection");
 
 	addressBox.value = address;
-
+	setDeliveryCoordinates(lat, lon);
 	updateSelectedAddress(type, address);
 
 	if (selectedCard) {
@@ -603,4 +605,12 @@ function calculateETA(customerLat, customerLon) {
 
 	document.getElementById("etaCard").style.display = "flex";
 }
+function setDeliveryCoordinates(lat, lon) {
+	const latBox = document.getElementById("deliveryLatitude");
+	const lonBox = document.getElementById("deliveryLongitude");
 
+	if (latBox && lonBox) {
+		latBox.value = lat;
+		lonBox.value = lon;
+	}
+}

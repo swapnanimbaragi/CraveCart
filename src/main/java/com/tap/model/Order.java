@@ -16,6 +16,8 @@ public class Order {
 	private double discountAmount;
 	private double deliveryFee;
 	private int estimatedDeliveryTime;
+	private double deliveryLatitude;
+	private double deliveryLongitude;
 	private Timestamp orderDate;
 	private Timestamp updatedAt;
 
@@ -25,6 +27,7 @@ public class Order {
 	public Order(int orderId, int userId, int restaurantId, double totalAmount, String paymentMode,
 			String orderStatus, String deliveryAddress, String specialInstructions, String couponCode,
 			double discountAmount, double deliveryFee, int estimatedDeliveryTime,
+			double deliveryLatitude, double deliveryLongitude,
 			Timestamp orderDate, Timestamp updatedAt) {
 
 		this.orderId = orderId;
@@ -39,6 +42,8 @@ public class Order {
 		this.discountAmount = discountAmount;
 		this.deliveryFee = deliveryFee;
 		this.estimatedDeliveryTime = estimatedDeliveryTime;
+		this.deliveryLatitude = deliveryLatitude;
+		this.deliveryLongitude = deliveryLongitude;
 		this.orderDate = orderDate;
 		this.updatedAt = updatedAt;
 	}
@@ -96,6 +101,12 @@ public class Order {
 	public int getEstimatedDeliveryTime() { return estimatedDeliveryTime; }
 	public void setEstimatedDeliveryTime(int estimatedDeliveryTime) { this.estimatedDeliveryTime = estimatedDeliveryTime; }
 
+	public double getDeliveryLatitude() { return deliveryLatitude; }
+	public void setDeliveryLatitude(double deliveryLatitude) { this.deliveryLatitude = deliveryLatitude; }
+
+	public double getDeliveryLongitude() { return deliveryLongitude; }
+	public void setDeliveryLongitude(double deliveryLongitude) { this.deliveryLongitude = deliveryLongitude; }
+
 	public Timestamp getOrderDate() { return orderDate; }
 	public void setOrderDate(Timestamp orderDate) { this.orderDate = orderDate; }
 
@@ -109,7 +120,10 @@ public class Order {
 				+ ", orderStatus=" + orderStatus + ", deliveryAddress=" + deliveryAddress
 				+ ", specialInstructions=" + specialInstructions + ", couponCode=" + couponCode
 				+ ", discountAmount=" + discountAmount + ", deliveryFee=" + deliveryFee
-				+ ", estimatedDeliveryTime=" + estimatedDeliveryTime + ", orderDate=" + orderDate
+				+ ", estimatedDeliveryTime=" + estimatedDeliveryTime
+				+ ", deliveryLatitude=" + deliveryLatitude
+				+ ", deliveryLongitude=" + deliveryLongitude
+				+ ", orderDate=" + orderDate
 				+ ", updatedAt=" + updatedAt + "]";
 	}
 }

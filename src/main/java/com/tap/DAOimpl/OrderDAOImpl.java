@@ -14,13 +14,20 @@ import com.tap.utility.DBConnection;
 public class OrderDAOImpl implements OrderDAO {
 
 	private static final String ADD_ORDER =
-			"INSERT INTO ordertable (userId, restaurantId, totalAmount, paymentMode, orderStatus, deliveryAddress, specialInstructions, couponCode, discountAmount, deliveryFee, estimatedDeliveryTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			"INSERT INTO ordertable "
+			+ "(userId, restaurantId, totalAmount, paymentMode, orderStatus, deliveryAddress, "
+			+ "specialInstructions, couponCode, discountAmount, deliveryFee, estimatedDeliveryTime, "
+			+ "deliveryLatitude, deliveryLongitude) "
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	private static final String GET_ORDER =
 			"SELECT * FROM ordertable WHERE orderId = ?";
 
 	private static final String UPDATE_ORDER =
-			"UPDATE ordertable SET userId = ?, restaurantId = ?, totalAmount = ?, paymentMode = ?, orderStatus = ?, deliveryAddress = ?, specialInstructions = ?, couponCode = ?, discountAmount = ?, deliveryFee = ?, estimatedDeliveryTime = ? WHERE orderId = ?";
+			"UPDATE ordertable SET userId = ?, restaurantId = ?, totalAmount = ?, paymentMode = ?, "
+			+ "orderStatus = ?, deliveryAddress = ?, specialInstructions = ?, couponCode = ?, "
+			+ "discountAmount = ?, deliveryFee = ?, estimatedDeliveryTime = ?, "
+			+ "deliveryLatitude = ?, deliveryLongitude = ? WHERE orderId = ?";
 
 	private static final String DELETE_ORDER =
 			"DELETE FROM ordertable WHERE orderId = ?";
@@ -50,6 +57,8 @@ public class OrderDAOImpl implements OrderDAO {
 			pstmt.setDouble(9, order.getDiscountAmount());
 			pstmt.setDouble(10, order.getDeliveryFee());
 			pstmt.setInt(11, order.getEstimatedDeliveryTime());
+			pstmt.setDouble(12, order.getDeliveryLatitude());
+			pstmt.setDouble(13, order.getDeliveryLongitude());
 
 			int i = pstmt.executeUpdate();
 			System.out.println(i);
@@ -81,6 +90,8 @@ public class OrderDAOImpl implements OrderDAO {
 			pstmt.setDouble(9, order.getDiscountAmount());
 			pstmt.setDouble(10, order.getDeliveryFee());
 			pstmt.setInt(11, order.getEstimatedDeliveryTime());
+			pstmt.setDouble(12, order.getDeliveryLatitude());
+			pstmt.setDouble(13, order.getDeliveryLongitude());
 
 			pstmt.executeUpdate();
 
@@ -96,8 +107,7 @@ public class OrderDAOImpl implements OrderDAO {
 
 		return generatedOrderId;
 	}
-	
-	
+
 	@Override
 	public Order getOrder(int orderId) {
 
@@ -140,7 +150,9 @@ public class OrderDAOImpl implements OrderDAO {
 			pstmt.setDouble(9, order.getDiscountAmount());
 			pstmt.setDouble(10, order.getDeliveryFee());
 			pstmt.setInt(11, order.getEstimatedDeliveryTime());
-			pstmt.setInt(12, order.getOrderId());
+			pstmt.setDouble(12, order.getDeliveryLatitude());
+			pstmt.setDouble(13, order.getDeliveryLongitude());
+			pstmt.setInt(14, order.getOrderId());
 
 			int i = pstmt.executeUpdate();
 			System.out.println(i);
@@ -226,6 +238,8 @@ public class OrderDAOImpl implements OrderDAO {
 				res.getDouble("discountAmount"),
 				res.getDouble("deliveryFee"),
 				res.getInt("estimatedDeliveryTime"),
+				res.getDouble("deliveryLatitude"),
+				res.getDouble("deliveryLongitude"),
 				res.getTimestamp("orderDate"),
 				res.getTimestamp("updatedAt")
 		);

@@ -66,6 +66,20 @@ public class PlaceOrderServlet extends HttpServlet {
 		double discountAmount = Double.parseDouble(req.getParameter("discountAmount"));
 		double grandTotal = Double.parseDouble(req.getParameter("grandTotal"));
 
+		double deliveryLatitude = 0;
+		double deliveryLongitude = 0;
+
+		String latParam = req.getParameter("deliveryLatitude");
+		String lonParam = req.getParameter("deliveryLongitude");
+
+		if (latParam != null && !latParam.equals("")) {
+			deliveryLatitude = Double.parseDouble(latParam);
+		}
+
+		if (lonParam != null && !lonParam.equals("")) {
+			deliveryLongitude = Double.parseDouble(lonParam);
+		}
+
 		Menu firstMenu = menuDAO.getMenu(cartItems.get(0).getMenuId());
 		int restaurantId = firstMenu.getRestaurantId();
 
@@ -82,6 +96,9 @@ public class PlaceOrderServlet extends HttpServlet {
 				cart.getDeliveryFee(),
 				30
 		);
+
+		order.setDeliveryLatitude(deliveryLatitude);
+		order.setDeliveryLongitude(deliveryLongitude);
 
 		int orderId = orderDAO.addOrderAndReturnId(order);
 

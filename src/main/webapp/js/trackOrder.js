@@ -18,10 +18,11 @@ const restaurantIcon = L.icon({
 	popupAnchor: [0, -38]
 });
 
-const bikeIcon = L.icon({
-    iconUrl: "images/delivery-bike1.png",
-    iconSize: [55, 55],
-    iconAnchor: [27, 27]
+const bikeIcon = L.divIcon({
+	className: "bike-moving-icon",
+	html: "<img id='deliveryBikeImg' src='" + contextPath + "/images/delivery-bike.png'>",
+	iconSize: [60, 60],
+	iconAnchor: [30, 30]
 });
 
 const homeIcon = L.icon({
