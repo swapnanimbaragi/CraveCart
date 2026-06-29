@@ -18,11 +18,10 @@ const restaurantIcon = L.icon({
 	popupAnchor: [0, -38]
 });
 
-const bikeIcon = L.divIcon({
-	className: "bike-marker",
-	html: "🛵",
-	iconSize: [45, 45],
-	iconAnchor: [22, 22]
+const bikeIcon = L.icon({
+    iconUrl: "images/delivery-bike1.png",
+    iconSize: [55, 55],
+    iconAnchor: [27, 27]
 });
 
 const homeIcon = L.icon({
@@ -179,7 +178,8 @@ function startLiveTracking() {
 				(customerPoint[1] - restaurantPoint[1]) * bikeProgress;
 
 			partnerMarker.setLatLng([lat, lon]);
-
+			rotateBike(lat, lon);
+			
 			if (progress < 65) {
 				partnerMarker.bindPopup("🛵 Picked up from restaurant");
 			} else if (progress < 100) {
@@ -325,3 +325,34 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 }
 
 window.onload = initTrackingMap;
+
+
+function rotateBike(lat, lon) {
+
+	const bikeImg = document.getElementById("bikeImg");
+
+	if (!bikeImg) {
+		return;
+	}
+
+	const angle = getBearing(lat, lon, customerPoint[0], customerPoint[1]);
+
+	bikeImg.style.transform = "rotate(" + angle + "deg)";
+}
+
+function getBearing(lat1, lon1, lat2, lon2) {
+
+	const y = Math.sin((lon2 - lon1) * Math.PI / 180) *
+		Math.cos(lat2 * Math.PI / 180);
+
+	const x =
+		Math.cos(lat1 * Math.PI / 180) *
+		Math.sin(lat2 * Math.PI / 180) -
+		Math.sin(lat1 * Math.PI / 180) *
+		Math.cos(lat2 * Math.PI / 180) *
+		Math.cos((lon2 - lon1) * Math.PI / 180);
+
+	let bearing = Math.atan2(y, x) * 180 / Math.PI;
+
+	return (bearing + 360) % 360;
+}

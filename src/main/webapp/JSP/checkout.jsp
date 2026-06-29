@@ -119,6 +119,10 @@ if (grandTotal < 0) {
 					<input type="hidden" name="grandTotal"
 						value="<%=grandTotal%>">
 
+					<input type="hidden" id="deliveryLatitude" name="deliveryLatitude">
+					
+					<input type="hidden" id="deliveryLongitude" name="deliveryLongitude">
+
 					<!-- ================= ADDRESS CHOICE HEADER ================= -->
 					<div class="checkout-subtitle">
 						<h3>Where should we deliver?</h3>
@@ -146,7 +150,7 @@ if (grandTotal < 0) {
 						<div id="searchResults" class="search-results"></div>
 					</div>
 					
-					<div id="searchResults" class="search-results"></div>
+					
 
 					<!-- ================= HIDDEN ADDRESS FIELD ================= -->
 					<!-- This value is submitted to backend as deliveryAddress -->

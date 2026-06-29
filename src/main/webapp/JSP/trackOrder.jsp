@@ -177,8 +177,10 @@ String restaurantName = restaurant != null ? restaurant.getRestaurantName() : "R
 <script>
 const restaurantLat = <%=restaurantLat%>;
 const restaurantLon = <%=restaurantLon%>;
-const restaurantName = "<%=restaurantName%>";
+const restaurantName = "<%=restaurantName.replace("\"", "\\\"")%>";
 const customerAddress = "<%=deliveryAddress%>";
+
+console.log("Tracking address:", customerAddress);
 </script>
 
 <script src="${pageContext.request.contextPath}/js/trackOrder.js"></script>
