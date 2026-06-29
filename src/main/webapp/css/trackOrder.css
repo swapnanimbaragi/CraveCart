@@ -263,3 +263,9 @@
 		grid-template-columns: 1fr;
 	}
 }
+
+.bike-marker {
+	font-size: 34px;
+	text-align: center;
+	line-height: 45px;
+}
