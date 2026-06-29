@@ -59,6 +59,45 @@ public class OrderDAOImpl implements OrderDAO {
 		}
 	}
 
+	public int addOrderAndReturnId(Order order) {
+
+		Connection connection = DBConnection.getConnection();
+		int generatedOrderId = 0;
+
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(
+					ADD_ORDER,
+					PreparedStatement.RETURN_GENERATED_KEYS
+			);
+
+			pstmt.setInt(1, order.getUserId());
+			pstmt.setInt(2, order.getRestaurantId());
+			pstmt.setDouble(3, order.getTotalAmount());
+			pstmt.setString(4, order.getPaymentMode());
+			pstmt.setString(5, order.getOrderStatus());
+			pstmt.setString(6, order.getDeliveryAddress());
+			pstmt.setString(7, order.getSpecialInstructions());
+			pstmt.setString(8, order.getCouponCode());
+			pstmt.setDouble(9, order.getDiscountAmount());
+			pstmt.setDouble(10, order.getDeliveryFee());
+			pstmt.setInt(11, order.getEstimatedDeliveryTime());
+
+			pstmt.executeUpdate();
+
+			ResultSet keys = pstmt.getGeneratedKeys();
+
+			if (keys.next()) {
+				generatedOrderId = keys.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return generatedOrderId;
+	}
+	
+	
 	@Override
 	public Order getOrder(int orderId) {
 
