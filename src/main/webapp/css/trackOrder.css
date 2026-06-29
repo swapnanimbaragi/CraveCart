@@ -1,0 +1,265 @@
+.tracking-page {
+	min-height: 100vh;
+	background: #f8fcf5;
+	padding: 35px 7%;
+	display: grid;
+	grid-template-columns: 1.1fr 1fr;
+	gap: 28px;
+}
+
+.tracking-left,
+.tracking-right {
+	background: white;
+	border-radius: 26px;
+	padding: 28px;
+	border: 1px solid #e4efe1;
+	box-shadow: 0 18px 45px rgba(123, 198, 123, 0.14);
+}
+
+.top-summary {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 18px;
+	margin-bottom: 30px;
+}
+
+.top-summary div {
+	background: #f8fcf5;
+	border-radius: 18px;
+	padding: 20px;
+	text-align: center;
+}
+
+.top-summary span {
+	color: #667085;
+	font-size: 14px;
+}
+
+.top-summary strong {
+	display: block;
+	font-size: 25px;
+	margin-top: 8px;
+	color: #111827;
+}
+
+.top-summary small {
+	display: block;
+	color: #2fa84f;
+	font-weight: 800;
+	margin-top: 6px;
+}
+
+.timeline {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+}
+
+.track-step {
+	display: grid;
+	grid-template-columns: 68px 1fr 95px;
+	gap: 18px;
+	align-items: center;
+	padding: 20px;
+	border-radius: 22px;
+	background: #f7f7f7;
+	opacity: 0.45;
+	transition: 0.4s;
+}
+
+.track-step.active {
+	background: #ecfaec;
+	opacity: 1;
+	border-left: 6px solid #4caf50;
+}
+
+.track-step.current {
+	box-shadow: 0 14px 35px rgba(76, 175, 80, 0.18);
+}
+
+.circle {
+	width: 58px;
+	height: 58px;
+	border-radius: 50%;
+	background: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 26px;
+	box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+.track-step h3 {
+	margin: 0;
+	color: #1e2432;
+}
+
+.track-step p {
+	margin: 5px 0 0;
+	color: #667085;
+}
+
+.status-badge {
+	padding: 8px 12px;
+	border-radius: 12px;
+	background: #e5e7eb;
+	color: #6b7280;
+	font-size: 13px;
+	text-align: center;
+	font-weight: 800;
+}
+
+.track-step.active .status-badge {
+	background: #dff4df;
+	color: #2fa84f;
+}
+
+.track-step.current .status-badge {
+	background: #fff3cd;
+	color: #c77c00;
+}
+
+.reach-box {
+	margin-top: 26px;
+	background: #f1faed;
+	border-radius: 20px;
+	padding: 20px;
+	color: #2f7d32;
+	font-weight: 800;
+}
+
+.reach-box p {
+	margin: 6px 0 0;
+	color: #667085;
+	font-weight: 600;
+}
+
+.partner-card {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+	margin-bottom: 22px;
+}
+
+.partner-avatar {
+	width: 82px;
+	height: 82px;
+	border-radius: 50%;
+	background: #eaf7e7;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 42px;
+}
+
+.partner-card h2 {
+	margin: 0;
+	color: #1e2432;
+}
+
+.partner-card h2 span {
+	font-size: 15px;
+	background: #dff4df;
+	color: #2fa84f;
+	padding: 6px 10px;
+	border-radius: 10px;
+}
+
+.partner-card p {
+	margin: 6px 0 0;
+	color: #667085;
+}
+
+.partner-meta {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 12px;
+	margin-bottom: 22px;
+}
+
+.partner-meta div {
+	background: #f8fcf5;
+	border-radius: 15px;
+	padding: 14px;
+	font-weight: 800;
+	color: #1e2432;
+	text-align: center;
+}
+
+.live-map-card {
+	border-radius: 24px;
+	border: 1px solid #dcefd8;
+	overflow: hidden;
+	background: white;
+}
+
+.map-head {
+	padding: 18px 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.map-head h3 {
+	margin: 0;
+	color: #1e2432;
+}
+
+.map-head p {
+	margin: 4px 0 0;
+	color: #667085;
+}
+
+.map-head span {
+	background: #ecfaec;
+	color: #2fa84f;
+	border: 1px solid #a7e0a7;
+	padding: 9px 14px;
+	border-radius: 12px;
+	font-weight: 900;
+}
+
+#trackMap {
+	height: 380px;
+	width: 100%;
+}
+
+.live-info {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 14px;
+	margin-top: 18px;
+}
+
+.live-info div {
+	background: #f8fcf5;
+	border-radius: 18px;
+	padding: 18px;
+	text-align: center;
+	border: 1px solid #e4efe1;
+}
+
+.live-info span {
+	color: #667085;
+	font-size: 14px;
+}
+
+.live-info strong {
+	display: block;
+	margin-top: 8px;
+	color: #2fa84f;
+	font-size: 18px;
+}
+
+@media(max-width: 1000px) {
+	.tracking-page {
+		grid-template-columns: 1fr;
+	}
+
+	.top-summary,
+	.partner-meta,
+	.live-info {
+		grid-template-columns: 1fr;
+	}
+}
