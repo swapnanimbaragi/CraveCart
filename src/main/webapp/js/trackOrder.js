@@ -19,11 +19,12 @@ const restaurantIcon = L.icon({
 });
 
 const bikeIcon = L.divIcon({
-    className: "",
-    html: "<i id='deliveryBike' class='fa-solid fa-motorcycle'></i>",
-    iconSize: [40,40],
-    iconAnchor: [20,20]
+	className: "bike-icon",
+	html: "<div id='deliveryBike'>➤</div>",
+	iconSize: [42, 42],
+	iconAnchor: [21, 21]
 });
+
 const homeIcon = L.icon({
 	iconUrl: "https://cdn-icons-png.flaticon.com/512/25/25694.png",
 	iconSize: [38, 38],
