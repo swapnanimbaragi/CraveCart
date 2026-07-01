@@ -328,31 +328,28 @@ function loadSavedAddresses() {
 
 function handleSavedAddressClick(type) {
 
+	alert(type + " clicked");
+
 	const address = localStorage.getItem("cravecart_" + type);
 
-	if (!address) {
+	if (address == null || address.trim() === "") {
 		alert(type + " address not saved yet.");
 		return;
 	}
 
 	document.getElementById("deliveryAddress").value = address;
 
-	updateSelectedAddress(type, address);
+	document.getElementById("selectedAddressTitle").innerText = type;
+	document.getElementById("selectedAddressText").innerText = address;
+	document.getElementById("selectedAddressBadge").innerText = "🟢 Saved Address";
 
 	document.getElementById("selectedAddressCard").style.display = "flex";
 
-	const mapSection = document.getElementById("mapSection");
-	const manualSection = document.getElementById("manualAddressSection");
+	document.getElementById("mapSection").style.display = "none";
+	document.getElementById("manualAddressSection").style.display = "none";
 
-	if (mapSection) {
-		mapSection.style.display = "none";
-	}
-
-	if (manualSection) {
-		manualSection.style.display = "none";
-	}
-
-	alert(type + " address selected.");
+	document.getElementById("locationStatus").innerText =
+		"✅ " + type + " address selected.";
 }
 
 
@@ -636,4 +633,12 @@ function setDeliveryCoordinates(lat, lon) {
 window.onload = function () {
 	initMap();
 	loadSavedAddresses();
+
+	document.getElementById("homeAddressCard").addEventListener("click", function () {
+		handleSavedAddressClick("Home");
+	});
+
+	document.getElementById("officeAddressCard").addEventListener("click", function () {
+		handleSavedAddressClick("Office");
+	});
 };
