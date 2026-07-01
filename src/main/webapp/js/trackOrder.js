@@ -9,7 +9,7 @@ let customerPoint;
 
 let totalDistance = 0;
 
-/* ================= CUSTOM ICONS ================= */
+/* ================= ICONS ================= */
 
 const restaurantIcon = L.icon({
 	iconUrl: "https://cdn-icons-png.flaticon.com/512/1046/1046784.png",
@@ -32,7 +32,7 @@ const homeIcon = L.icon({
 	popupAnchor: [0, -34]
 });
 
-/* ================= INIT MAP ================= */
+/* ================= MAP INIT ================= */
 
 function initTrackingMap() {
 
@@ -61,10 +61,10 @@ function initTrackingMap() {
 
 function findCustomerLocation() {
 
-	if (typeof customerLat !== "undefined" &&
-		typeof customerLon !== "undefined" &&
-		customerLat !== 0 &&
-		customerLon !== 0) {
+	if (typeof customerLat !== "undefined"
+		&& typeof customerLon !== "undefined"
+		&& customerLat !== 0
+		&& customerLon !== 0) {
 
 		customerPoint = [customerLat, customerLon];
 
@@ -78,44 +78,15 @@ function findCustomerLocation() {
 		return;
 	}
 
-	const url =
-		"https://nominatim.openstreetmap.org/search?format=json&q=" +
-		encodeURIComponent(customerAddress) +
-		"&limit=1";
+	customerPoint = [restaurantLat + 0.02, restaurantLon + 0.02];
 
-	fetch(url)
-		.then(response => response.json())
-		.then(data => {
+	customerMarker = L.marker(customerPoint, {
+		icon: homeIcon
+	}).addTo(trackMap)
+		.bindPopup("🏠 Your Location");
 
-			if (!data || data.length === 0) {
-				customerPoint = [restaurantLat + 0.02, restaurantLon + 0.02];
-			} else {
-				customerPoint = [
-					parseFloat(data[0].lat),
-					parseFloat(data[0].lon)
-				];
-			}
-
-			customerMarker = L.marker(customerPoint, {
-				icon: homeIcon
-			}).addTo(trackMap)
-				.bindPopup("🏠 Your Location");
-
-			drawRoute();
-			startLiveTracking();
-		})
-		.catch(() => {
-
-			customerPoint = [restaurantLat + 0.02, restaurantLon + 0.02];
-
-			customerMarker = L.marker(customerPoint, {
-				icon: homeIcon
-			}).addTo(trackMap)
-				.bindPopup("🏠 Your Location");
-
-			drawRoute();
-			startLiveTracking();
-		});
+	drawRoute();
+	startLiveTracking();
 }
 
 /* ================= DRAW ROUTE ================= */
@@ -125,7 +96,7 @@ function drawRoute() {
 	routeLine = L.polyline([restaurantPoint, customerPoint], {
 		color: "#2fa84f",
 		weight: 6,
-		opacity: 0.85,
+		opacity: 0.9,
 		dashArray: "12, 10"
 	}).addTo(trackMap);
 
@@ -154,7 +125,7 @@ function startLiveTracking() {
 	partnerMarker = L.marker(restaurantPoint, {
 		icon: bikeIcon
 	}).addTo(trackMap)
-		.bindPopup("🛵 Waiting at restaurant");
+		.bindPopup("Waiting at restaurant");
 
 	const steps = [
 		"stepPlaced",
@@ -194,20 +165,7 @@ function startLiveTracking() {
 
 			partnerMarker.setLatLng([lat, lon]);
 
-			rotateBike(
-				oldLatLng.lat,
-				oldLatLng.lng,
-				lat,
-				lon
-			);
-
-			if (progress < 65) {
-				partnerMarker.bindPopup("🛵 Picked up from restaurant");
-			} else if (progress < 100) {
-				partnerMarker.bindPopup("🛵 On the way");
-			} else {
-				partnerMarker.bindPopup("✅ Delivered");
-			}
+			rotateBike(oldLatLng.lat, oldLatLng.lng, lat, lon);
 		}
 
 		const remainingDistance = calculateRemainingDistance(progress);
@@ -246,27 +204,21 @@ function updateTimeline(progress, steps) {
 
 		if (progress >= 100) {
 			step.classList.add("active");
-			if (badge) {
-				badge.innerText = "Completed";
-			}
+			if (badge) badge.innerText = "Completed";
 			continue;
 		}
 
 		if (i < activeIndex) {
 			step.classList.add("active");
-			if (badge) {
-				badge.innerText = "Completed";
-			}
-		} else if (i === activeIndex) {
+			if (badge) badge.innerText = "Completed";
+		}
+		else if (i === activeIndex) {
 			step.classList.add("active");
 			step.classList.add("current");
-			if (badge) {
-				badge.innerText = "In Progress";
-			}
-		} else {
-			if (badge) {
-				badge.innerText = "Pending";
-			}
+			if (badge) badge.innerText = "In Progress";
+		}
+		else {
+			if (badge) badge.innerText = "Pending";
 		}
 	}
 }
@@ -297,7 +249,7 @@ function updateLiveInfo(distanceLeft, eta) {
 	}
 }
 
-/* ================= CALCULATIONS ================= */
+/* ================= DISTANCE AND ETA ================= */
 
 function calculateRemainingDistance(progress) {
 
@@ -305,7 +257,11 @@ function calculateRemainingDistance(progress) {
 		return totalDistance;
 	}
 
-	const bikeProgress = (progress - 45) / 55;
+	let bikeProgress = (progress - 45) / 55;
+
+	if (bikeProgress > 1) {
+		bikeProgress = 1;
+	}
 
 	let remaining = totalDistance * (1 - bikeProgress);
 
