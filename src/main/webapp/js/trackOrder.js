@@ -19,12 +19,11 @@ const restaurantIcon = L.icon({
 });
 
 const bikeIcon = L.divIcon({
-	className: "bike-moving-icon",
-	html: "<img id='deliveryBikeImg' src='" + contextPath + "/images/delivery-bike.png'>",
-	iconSize: [60, 60],
-	iconAnchor: [30, 30]
+    className: "",
+    html: "<i id='deliveryBike' class='fa-solid fa-motorcycle'></i>",
+    iconSize: [40,40],
+    iconAnchor: [20,20]
 });
-
 const homeIcon = L.icon({
 	iconUrl: "https://cdn-icons-png.flaticon.com/512/25/25694.png",
 	iconSize: [38, 38],
@@ -57,9 +56,26 @@ function initTrackingMap() {
 	findCustomerLocation();
 }
 
-/* ================= FIND CUSTOMER LOCATION FROM ADDRESS ================= */
+/* ================= CUSTOMER LOCATION ================= */
 
 function findCustomerLocation() {
+
+	if (typeof customerLat !== "undefined" &&
+		typeof customerLon !== "undefined" &&
+		customerLat !== 0 &&
+		customerLon !== 0) {
+
+		customerPoint = [customerLat, customerLon];
+
+		customerMarker = L.marker(customerPoint, {
+			icon: homeIcon
+		}).addTo(trackMap)
+			.bindPopup("🏠 Your Location");
+
+		drawRoute();
+		startLiveTracking();
+		return;
+	}
 
 	const url =
 		"https://nominatim.openstreetmap.org/search?format=json&q=" +
@@ -157,11 +173,6 @@ function startLiveTracking() {
 			clearInterval(interval);
 		}
 
-		/*
-			Bike should move only after Picked Up.
-			0 - 44  : restaurant/preparing/packing
-			45 - 100: bike moves towards customer
-		*/
 		if (progress >= 45) {
 
 			let bikeProgress = (progress - 45) / 55;
@@ -169,6 +180,8 @@ function startLiveTracking() {
 			if (bikeProgress > 1) {
 				bikeProgress = 1;
 			}
+
+			const oldLatLng = partnerMarker.getLatLng();
 
 			const lat =
 				restaurantPoint[0] +
@@ -179,8 +192,14 @@ function startLiveTracking() {
 				(customerPoint[1] - restaurantPoint[1]) * bikeProgress;
 
 			partnerMarker.setLatLng([lat, lon]);
-			rotateBike(lat, lon);
-			
+
+			rotateBike(
+				oldLatLng.lat,
+				oldLatLng.lng,
+				lat,
+				lon
+			);
+
 			if (progress < 65) {
 				partnerMarker.bindPopup("🛵 Picked up from restaurant");
 			} else if (progress < 100) {
@@ -214,7 +233,10 @@ function updateTimeline(progress, steps) {
 	for (let i = 0; i < steps.length; i++) {
 
 		const step = document.getElementById(steps[i]);
-		if (!step) continue;
+
+		if (!step) {
+			continue;
+		}
 
 		const badge = step.querySelector(".status-badge");
 
@@ -223,24 +245,31 @@ function updateTimeline(progress, steps) {
 
 		if (progress >= 100) {
 			step.classList.add("active");
-			if (badge) badge.innerText = "Completed";
+			if (badge) {
+				badge.innerText = "Completed";
+			}
 			continue;
 		}
 
 		if (i < activeIndex) {
 			step.classList.add("active");
-			if (badge) badge.innerText = "Completed";
-		} 
-		else if (i === activeIndex) {
+			if (badge) {
+				badge.innerText = "Completed";
+			}
+		} else if (i === activeIndex) {
 			step.classList.add("active");
 			step.classList.add("current");
-			if (badge) badge.innerText = "In Progress";
-		} 
-		else {
-			if (badge) badge.innerText = "Pending";
+			if (badge) {
+				badge.innerText = "In Progress";
+			}
+		} else {
+			if (badge) {
+				badge.innerText = "Pending";
+			}
 		}
 	}
 }
+
 /* ================= LIVE INFO ================= */
 
 function updateLiveInfo(distanceLeft, eta) {
@@ -325,35 +354,38 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 	return R * c;
 }
 
-window.onload = initTrackingMap;
+/* ================= BIKE ROTATION ================= */
 
+function rotateBike(fromLat, fromLon, toLat, toLon) {
 
-function rotateBike(lat, lon) {
+	const bike = document.getElementById("deliveryBike");
 
-	const bikeImg = document.getElementById("bikeImg");
-
-	if (!bikeImg) {
+	if (!bike) {
 		return;
 	}
 
-	const angle = getBearing(lat, lon, customerPoint[0], customerPoint[1]);
+	const angle = getBearing(fromLat, fromLon, toLat, toLon);
 
-	bikeImg.style.transform = "rotate(" + angle + "deg)";
+	bike.style.transform = "rotate(" + angle + "deg)";
 }
 
 function getBearing(lat1, lon1, lat2, lon2) {
 
-	const y = Math.sin((lon2 - lon1) * Math.PI / 180) *
-		Math.cos(lat2 * Math.PI / 180);
+	const dLon = (lon2 - lon1) * Math.PI / 180;
+
+	lat1 = lat1 * Math.PI / 180;
+	lat2 = lat2 * Math.PI / 180;
+
+	const y = Math.sin(dLon) * Math.cos(lat2);
 
 	const x =
-		Math.cos(lat1 * Math.PI / 180) *
-		Math.sin(lat2 * Math.PI / 180) -
-		Math.sin(lat1 * Math.PI / 180) *
-		Math.cos(lat2 * Math.PI / 180) *
-		Math.cos((lon2 - lon1) * Math.PI / 180);
+		Math.cos(lat1) * Math.sin(lat2) -
+		Math.sin(lat1) * Math.cos(lat2) *
+		Math.cos(dLon);
 
 	let bearing = Math.atan2(y, x) * 180 / Math.PI;
 
 	return (bearing + 360) % 360;
 }
+
+window.onload = initTrackingMap;

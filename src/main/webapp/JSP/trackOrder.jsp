@@ -13,6 +13,9 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -175,15 +178,31 @@ String restaurantName = restaurant != null ? restaurant.getRestaurantName() : "R
 </section>
 
 <script>
+
+const contextPath = "${pageContext.request.contextPath}";
+
 const restaurantLat = <%=restaurantLat%>;
 const restaurantLon = <%=restaurantLon%>;
+
 const restaurantName = "<%=restaurantName.replace("\"", "\\\"")%>";
+
 const customerAddress = "<%=deliveryAddress%>";
 
-console.log("Tracking address:", customerAddress);
+const customerLat =
+<%= order != null ? order.getDeliveryLatitude() : 0 %>;
+
+const customerLon =
+<%= order != null ? order.getDeliveryLongitude() : 0 %>;
+
+console.log("Restaurant :", restaurantLat, restaurantLon);
+console.log("Customer Address :", customerAddress);
+console.log("Customer Lat :", customerLat);
+console.log("Customer Lon :", customerLon);
+
 </script>
 
 <script src="${pageContext.request.contextPath}/js/trackOrder.js"></script>
+
 
 </body>
 </html>
