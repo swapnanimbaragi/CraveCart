@@ -295,37 +295,39 @@ window.onload = function() {
 
 
 function saveCurrentAddressAs(type) {
+
 	const addressBox = document.getElementById("deliveryAddress");
 
-	if (!addressBox || addressBox.value.trim() === "") {
+	if (!addressBox.value.trim()) {
 		alert("Please select or enter address first.");
 		return;
 	}
 
-	localStorage.setItem("cravecart_" + type, addressBox.value);
+	localStorage.setItem("cravecart_" + type, addressBox.value.trim());
 
-	alert(type + " address saved successfully!");
+	alert(type + " address saved successfully.");
 
 	loadSavedAddresses();
 }
 
 function loadSavedAddresses() {
-	const home = localStorage.getItem("cravecart_Home");
-	const office = localStorage.getItem("cravecart_Office");
 
-	const homeText = document.getElementById("homeAddressText");
-	const officeText = document.getElementById("officeAddressText");
+	const homeAddress = localStorage.getItem("cravecart_Home");
+	const officeAddress = localStorage.getItem("cravecart_Office");
 
-	if (home && homeText) {
-		homeText.innerText = home.substring(0, 35) + "...";
+	if (homeAddress) {
+		document.getElementById("homeAddressText").innerText =
+			homeAddress.substring(0, 35) + "...";
 	}
 
-	if (office && officeText) {
-		officeText.innerText = office.substring(0, 35) + "...";
+	if (officeAddress) {
+		document.getElementById("officeAddressText").innerText =
+			officeAddress.substring(0, 35) + "...";
 	}
 }
 
 function handleSavedAddressClick(type) {
+
 	const address = localStorage.getItem("cravecart_" + type);
 
 	if (!address) {
@@ -333,7 +335,24 @@ function handleSavedAddressClick(type) {
 		return;
 	}
 
-	selectSavedAddress(type, address);
+	document.getElementById("deliveryAddress").value = address;
+
+	updateSelectedAddress(type, address);
+
+	document.getElementById("selectedAddressCard").style.display = "flex";
+
+	const mapSection = document.getElementById("mapSection");
+	const manualSection = document.getElementById("manualAddressSection");
+
+	if (mapSection) {
+		mapSection.style.display = "none";
+	}
+
+	if (manualSection) {
+		manualSection.style.display = "none";
+	}
+
+	alert(type + " address selected.");
 }
 
 
@@ -614,3 +633,7 @@ function setDeliveryCoordinates(lat, lon) {
 		lonBox.value = lon;
 	}
 }
+window.onload = function () {
+	initMap();
+	loadSavedAddresses();
+};

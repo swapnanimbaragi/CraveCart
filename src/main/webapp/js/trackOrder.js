@@ -323,7 +323,7 @@ function rotateBike(fromLat, fromLon, toLat, toLon) {
 
 	const angle = getBearing(fromLat, fromLon, toLat, toLon);
 
-	bike.style.transform = "rotate(" + angle + "deg)";
+	bike.style.transform = "rotate(" + (angle - 90) + "deg)";
 }
 
 function getBearing(lat1, lon1, lat2, lon2) {

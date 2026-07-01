@@ -978,3 +978,12 @@ height:220px;
 	font-size: 23px;
 	font-weight: 900;
 }
+
+.saved-card {
+	cursor: pointer;
+}
+
+.saved-card:hover {
+	border-color: #22c55e;
+	transform: translateY(-3px);
+}

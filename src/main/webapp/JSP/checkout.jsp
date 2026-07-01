@@ -238,15 +238,13 @@ if (grandTotal < 0) {
 						<div class="saved-grid">
 
 							<!-- These cards are updated from localStorage using checkout.js -->
-							<div id="homeAddressCard" class="saved-card empty-saved-card"
-								onclick="handleSavedAddressClick('Home')">
+							<div id="homeAddressCard" class="saved-card" onclick="handleSavedAddressClick('Home')">
 								<div>🏠</div>
 								<strong>Home</strong>
 								<p id="homeAddressText">Not saved yet</p>
 							</div>
-
-							<div id="officeAddressCard" class="saved-card empty-saved-card"
-								onclick="handleSavedAddressClick('Office')">
+							
+							<div id="officeAddressCard" class="saved-card" onclick="handleSavedAddressClick('Office')">
 								<div>🏢</div>
 								<strong>Office</strong>
 								<p id="officeAddressText">Not saved yet</p>
