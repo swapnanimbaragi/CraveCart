@@ -6,60 +6,98 @@
 <%@ page import="com.tap.model.User"%>
 
 <%
-User admin = (User) session.getAttribute("admin");
+	User admin = (User) session.getAttribute("admin");
 
-if (admin == null) {
-	response.sendRedirect(request.getContextPath() + "/JSP/adminLogin.jsp");
-	return;
-}
+	if (admin == null) {
+		response.sendRedirect(request.getContextPath() + "/JSP/adminLogin.jsp");
+		return;
+	}
 
-List<Restaurant> restaurants = (List<Restaurant>) request.getAttribute("restaurants");
+	List<Restaurant> restaurants =
+	(List<Restaurant>) request.getAttribute("restaurants");
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
+
 <title>Restaurant Management | CraveCart</title>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/admin.css">
+
 </head>
 
 <body>
 
 <div class="admin-layout">
 
-	<!-- Sidebar -->
+	<!-- ================= Sidebar ================= -->
+
 	<aside class="sidebar">
+
 		<h2>CraveCart</h2>
 
-		<a href="${pageContext.request.contextPath}/adminDashboard">Dashboard</a>
-		<a href="${pageContext.request.contextPath}/adminRestaurants">Restaurants</a>
-		<a href="#">Orders</a>
-		<a href="#">Users</a>
-		<a href="#">Delivery Partners</a>
-		<a href="${pageContext.request.contextPath}/JSP/adminLogin.jsp">Logout</a>
+		<a href="<%=request.getContextPath()%>/adminDashboard">
+			Dashboard
+		</a>
+
+		<a href="<%=request.getContextPath()%>/adminRestaurants">
+			Restaurants
+		</a>
+
+		<a href="#">
+			Orders
+		</a>
+
+		<a href="#">
+			Users
+		</a>
+
+		<a href="#">
+			Delivery Partners
+		</a>
+
+		<a href="<%=request.getContextPath()%>/adminLogout">
+		    Logout
+		</a>
 	</aside>
 
-	<!-- Main Content -->
+	<!-- ================= Main Content ================= -->
+
 	<main class="main-content">
 
 		<div class="page-header">
+
 			<div>
+
 				<h1>Restaurant <span>Management</span></h1>
-				<p>View all restaurants and manage them.</p>
+
+				<p>
+					View all restaurants and manage them.
+				</p>
+
 			</div>
 
-			<a class="add-btn" href="${pageContext.request.contextPath}/JSP/addRestaurant.jsp">
+			<a class="add-btn"
+				href="<%=request.getContextPath()%>/JSP/addRestaurant.jsp">
+
 				+ Add Restaurant
+
 			</a>
+
 		</div>
 
 		<div class="table-container">
 
 			<table>
+
 				<thead>
+
 					<tr>
+
 						<th>ID</th>
 						<th>Image</th>
 						<th>Restaurant Name</th>
@@ -68,66 +106,118 @@ List<Restaurant> restaurants = (List<Restaurant>) request.getAttribute("restaura
 						<th>Delivery Time</th>
 						<th>Status</th>
 						<th>Actions</th>
+
 					</tr>
+
 				</thead>
 
 				<tbody>
 
 				<%
 				if (restaurants != null && !restaurants.isEmpty()) {
+
 					for (Restaurant restaurant : restaurants) {
 				%>
 
 					<tr>
-						<td><%=restaurant.getRestaurantId()%></td>
 
 						<td>
-							<img class="table-img"
-								src="<%=restaurant.getRestaurantImg()%>"
-								alt="Restaurant Image">
+							<%=restaurant.getRestaurantId()%>
 						</td>
 
-						<td><%=restaurant.getRestaurantName()%></td>
+						<td>
 
-						<td><%=restaurant.getCuisineType()%></td>
+							<img class="table-img"
+								src="<%=request.getContextPath() + "/images/" + restaurant.getRestaurantImg()%>"
+								alt="<%=restaurant.getRestaurantName()%>">
 
-						<td>⭐ <%=restaurant.getRating()%></td>
-
-						<td><%=restaurant.getDeliveryTime()%> mins</td>
+						</td>
 
 						<td>
+
+							<%=restaurant.getRestaurantName()%>
+
+						</td>
+
+						<td>
+
+							<%=restaurant.getCuisineType()%>
+
+						</td>
+
+						<td>
+
+							⭐ <%=restaurant.getRating()%>
+
+						</td>
+
+						<td>
+
+							<%=restaurant.getDeliveryTime()%> mins
+
+						</td>
+
+						<td>
+
 							<%
 							if (restaurant.isActive()) {
 							%>
-								<span class="status active">Active</span>
+
+								<span class="status active">
+
+									Active
+
+								</span>
+
 							<%
-							} else {
+							}
+							else {
 							%>
-								<span class="status inactive">Inactive</span>
+
+								<span class="status inactive">
+
+									Inactive
+
+								</span>
+
 							<%
 							}
 							%>
+
 						</td>
 
 						<td>
-							<a class="btn btn-green" href="#">
+
+							<a class="btn btn-green"
+								href="<%=request.getContextPath()%>/editRestaurant?restaurantId=<%=restaurant.getRestaurantId()%>">
 								Edit
 							</a>
 
-							<a class="btn btn-red" href="#"
+							<a class="btn btn-red"
+								href="<%=request.getContextPath()%>/deleteRestaurant?restaurantId=<%=restaurant.getRestaurantId()%>"
 								onclick="return confirm('Are you sure you want to delete this restaurant?')">
 								Delete
 							</a>
+
 						</td>
+
 					</tr>
 
 				<%
 					}
-				} else {
+
+				}
+				else {
 				%>
 
 					<tr>
-						<td colspan="8">No Restaurants Available</td>
+
+						<td colspan="8">
+
+							No Restaurants Available
+
+						</td>
+
 					</tr>
 
 				<%
@@ -135,6 +225,7 @@ List<Restaurant> restaurants = (List<Restaurant>) request.getAttribute("restaura
 				%>
 
 				</tbody>
+
 			</table>
 
 		</div>
@@ -143,6 +234,7 @@ List<Restaurant> restaurants = (List<Restaurant>) request.getAttribute("restaura
 
 </div>
 
-<script src="${pageContext.request.contextPath}/js/admin.js"></script>
+<script src="<%=request.getContextPath()%>/js/admin.js"></script>
+
 </body>
 </html>

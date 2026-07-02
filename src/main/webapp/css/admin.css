@@ -282,3 +282,54 @@ td:first-child {
 	background: #ffe3e3;
 	color: #d60000;
 }
+
+.form-container {
+	background: #ffffff;
+	padding: 30px;
+	border-radius: 26px;
+	box-shadow: 0 15px 30px rgba(76, 175, 80, 0.13);
+	max-width: 900px;
+}
+
+.form-container form {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 18px 25px;
+}
+
+.form-container label {
+	font-weight: 800;
+	color: #222;
+}
+
+.form-container input,
+.form-container select,
+.form-container textarea {
+	width: 100%;
+	padding: 13px;
+	border: 1px solid #d8ead0;
+	border-radius: 14px;
+	font-size: 15px;
+	outline: none;
+}
+
+.form-container textarea {
+	height: 90px;
+	resize: none;
+}
+
+.submit-btn {
+	grid-column: span 2;
+	padding: 15px;
+	background: #84c983;
+	color: white;
+	border: none;
+	border-radius: 18px;
+	font-size: 18px;
+	font-weight: 900;
+	cursor: pointer;
+}
+
+.submit-btn:hover {
+	background: #66bb6a;
+}
