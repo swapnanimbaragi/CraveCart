@@ -12,14 +12,14 @@ if (admin == null) {
 	return;
 }
 
-List<User> users = (List<User>) request.getAttribute("users");
+List<User> owners = (List<User>) request.getAttribute("owners");
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Customer Management | CraveCart</title>
+<title>Restaurant Owners | CraveCart</title>
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin.css">
 </head>
@@ -28,7 +28,6 @@ List<User> users = (List<User>) request.getAttribute("users");
 
 <div class="admin-layout">
 
-	<!-- Sidebar -->
 	<aside class="sidebar">
 		<h2>CraveCart</h2>
 
@@ -41,13 +40,12 @@ List<User> users = (List<User>) request.getAttribute("users");
 		<a href="<%=request.getContextPath()%>/adminLogout">Logout</a>
 	</aside>
 
-	<!-- Main Content -->
 	<main class="main-content">
 
 		<div class="page-header">
 			<div>
-				<h1>Customer <span>Management</span></h1>
-				<p>View all registered customers and users.</p>
+				<h1>Restaurant Owner <span>Management</span></h1>
+				<p>View all registered restaurant owners.</p>
 			</div>
 		</div>
 
@@ -56,7 +54,7 @@ List<User> users = (List<User>) request.getAttribute("users");
 			<table>
 				<thead>
 					<tr>
-						<th>User ID</th>
+						<th>Owner ID</th>
 						<th>Name</th>
 						<th>Email</th>
 						<th>Address</th>
@@ -69,24 +67,24 @@ List<User> users = (List<User>) request.getAttribute("users");
 				<tbody>
 
 				<%
-				if (users != null && !users.isEmpty()) {
-					for (User user : users) {
+				if (owners != null && !owners.isEmpty()) {
+					for (User owner : owners) {
 				%>
 
 					<tr>
-						<td><%=user.getUserId()%></td>
-						<td><%=user.getUserName()%></td>
-						<td><%=user.getEmail()%></td>
-						<td><%=user.getAddress()%></td>
+						<td><%=owner.getUserId()%></td>
+						<td><%=owner.getUserName()%></td>
+						<td><%=owner.getEmail()%></td>
+						<td><%=owner.getAddress()%></td>
 
 						<td>
 							<span class="status active">
-								<%=user.getRole()%>
+								<%=owner.getRole()%>
 							</span>
 						</td>
 
-						<td><%=user.getCreatedDate()%></td>
-						<td><%=user.getLastLoginDate()%></td>
+						<td><%=owner.getCreatedDate()%></td>
+						<td><%=owner.getLastLoginDate()%></td>
 					</tr>
 
 				<%
@@ -95,7 +93,7 @@ List<User> users = (List<User>) request.getAttribute("users");
 				%>
 
 					<tr>
-						<td colspan="7">No users available</td>
+						<td colspan="7">No restaurant owners available</td>
 					</tr>
 
 				<%

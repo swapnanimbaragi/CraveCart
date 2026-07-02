@@ -15,30 +15,53 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+	private static final long serialVersionUID = 1L;
 
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 
-        UserDAOimpl userDAO = new UserDAOimpl();
+		String email = req.getParameter("email");
+		String password = req.getParameter("password");
 
-        User user = userDAO.getUserByEmail(email);
+		UserDAOimpl userDAO = new UserDAOimpl();
+		User user = userDAO.getUserByEmail(email);
 
-        if (user != null && user.getPassword().equals(password)) {
+		if (user != null && user.getPassword().equals(password)) {
 
-            HttpSession session = req.getSession();
+			HttpSession session = req.getSession();
+			session.setAttribute("loggedInUser", user);
 
-            session.setAttribute("loggedInUser", user);
+			String role = user.getRole();
 
-            resp.sendRedirect("home");
+			if ("CUSTOMER".equals(role)) {
 
-        } else {
+				resp.sendRedirect(req.getContextPath() + "/home");
 
-            req.setAttribute("error", "Invalid Email or Password");
-            req.getRequestDispatcher("/JSP/login.jsp").forward(req, resp);
+			} else if ("RESTAURANT_OWNER".equals(role)) {
 
-        }
-    }
+				resp.sendRedirect(req.getContextPath() + "/ownerMenu");
+
+			} else if ("DELIVERY_PARTNER".equals(role)) {
+
+				resp.sendRedirect(req.getContextPath() + "/deliveryDashboard");
+
+			} else if ("ADMIN".equals(role)) {
+
+				session.setAttribute("admin", user);
+				resp.sendRedirect(req.getContextPath() + "/adminDashboard");
+
+			} else {
+
+				resp.sendRedirect(req.getContextPath() + "/JSP/login.jsp");
+
+			}
+
+		} else {
+
+			req.setAttribute("error", "Invalid Email or Password");
+			req.getRequestDispatcher("/JSP/login.jsp").forward(req, resp);
+
+		}
+	}
 }

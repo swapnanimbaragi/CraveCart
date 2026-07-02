@@ -34,6 +34,7 @@ List<Order> orders = (List<Order>) request.getAttribute("orders");
 
 		<a href="<%=request.getContextPath()%>/adminDashboard">Dashboard</a>
 		<a href="<%=request.getContextPath()%>/adminRestaurants">Restaurants</a>
+		<a href="<%=request.getContextPath()%>/adminRestaurantOwners">Restaurant Owners</a>
 		<a href="<%=request.getContextPath()%>/adminOrders">Orders</a>
 		<a href="<%=request.getContextPath()%>/adminUsers">Users</a>
 		<a href="<%=request.getContextPath()%>/adminDeliveryPartners">Delivery Partners</a>

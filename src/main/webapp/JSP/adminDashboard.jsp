@@ -42,6 +42,7 @@ if (stats == null) {
 
 		<a href="${pageContext.request.contextPath}/adminDashboard">Dashboard</a>
 		<a href="${pageContext.request.contextPath}/adminRestaurants">Restaurants</a>
+		<a href="${pageContext.request.contextPath}/adminRestaurantOwners">Restaurant Owners</a>
 		<a href="${pageContext.request.contextPath}/adminOrders">Orders</a>
 		<a href="${pageContext.request.contextPath}/adminUsers">Users</a>
 		<a href="${pageContext.request.contextPath}/adminDeliveryPartners">Delivery Partners</a>

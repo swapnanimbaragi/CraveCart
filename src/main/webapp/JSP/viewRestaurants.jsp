@@ -47,6 +47,7 @@
 		<a href="<%=request.getContextPath()%>/adminRestaurants">
 			Restaurants
 		</a>
+		<a href="<%=request.getContextPath()%>/adminRestaurantOwners">Restaurant Owners</a>
 
 		<a href="<%=request.getContextPath()%>/adminOrders">Orders</a>
 

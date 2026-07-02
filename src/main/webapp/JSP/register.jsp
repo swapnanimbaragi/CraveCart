@@ -33,11 +33,11 @@
 		<input type="text" name="address">
 		<br><br>
 
-		Role:
-		<select name="role">
-			<option value="Customer">Customer</option>
-			<option value="Admin">Admin</option>
-			<option value="Delivery Partner">Delivery Partner</option>
+		<label>Role:</label>
+		<select name="role" required>
+			<option value="CUSTOMER">Customer</option>
+			<option value="RESTAURANT_OWNER">Restaurant Owner</option>
+			<option value="DELIVERY_PARTNER">Delivery Partner</option>
 		</select>
 		<br><br>
 
