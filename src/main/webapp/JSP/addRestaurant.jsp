@@ -30,8 +30,8 @@ if (admin == null) {
 
 		<a href="<%=request.getContextPath()%>/adminDashboard">Dashboard</a>
 		<a href="<%=request.getContextPath()%>/adminRestaurants">Restaurants</a>
-		<a href="#">Orders</a>
-		<a href="#">Users</a>
+		<a href="<%=request.getContextPath()%>/adminOrders">Orders</a>
+		<a href="<%=request.getContextPath()%>/adminUsers">Users</a>
 		<a href="#">Delivery Partners</a>
 		<a href="<%=request.getContextPath()%>/adminLogout">
 		    Logout

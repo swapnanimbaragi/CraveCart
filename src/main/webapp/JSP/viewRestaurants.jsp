@@ -48,13 +48,9 @@
 			Restaurants
 		</a>
 
-		<a href="#">
-			Orders
-		</a>
+		<a href="<%=request.getContextPath()%>/adminOrders">Orders</a>
 
-		<a href="#">
-			Users
-		</a>
+		<a href="<%=request.getContextPath()%>/adminUsers">Users</a>
 
 		<a href="#">
 			Delivery Partners
