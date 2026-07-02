@@ -44,7 +44,7 @@ if (stats == null) {
 		<a href="${pageContext.request.contextPath}/adminRestaurants">Restaurants</a>
 		<a href="${pageContext.request.contextPath}/adminOrders">Orders</a>
 		<a href="${pageContext.request.contextPath}/adminUsers">Users</a>
-		<a href="#">Delivery Partners</a>
+		<a href="${pageContext.request.contextPath}/adminDeliveryPartners">Delivery Partners</a>
 		<a href="${pageContext.request.contextPath}/adminLogout">Logout</a>
 	</aside>
 

@@ -3,6 +3,7 @@
 
 <%@ page import="java.util.List"%>
 <%@ page import="com.tap.model.User"%>
+<%@ page import="com.tap.model.DeliveryPartner"%>
 
 <%
 User admin = (User) session.getAttribute("admin");
@@ -12,14 +13,14 @@ if (admin == null) {
 	return;
 }
 
-List<User> users = (List<User>) request.getAttribute("users");
+List<DeliveryPartner> partners = (List<DeliveryPartner>) request.getAttribute("partners");
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Customer Management | CraveCart</title>
+<title>Delivery Partners | CraveCart</title>
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin.css">
 </head>
@@ -28,7 +29,6 @@ List<User> users = (List<User>) request.getAttribute("users");
 
 <div class="admin-layout">
 
-	<!-- Sidebar -->
 	<aside class="sidebar">
 		<h2>CraveCart</h2>
 
@@ -40,13 +40,12 @@ List<User> users = (List<User>) request.getAttribute("users");
 		<a href="<%=request.getContextPath()%>/adminLogout">Logout</a>
 	</aside>
 
-	<!-- Main Content -->
 	<main class="main-content">
 
 		<div class="page-header">
 			<div>
-				<h1>Customer <span>Management</span></h1>
-				<p>View all registered customers and users.</p>
+				<h1>Delivery Partner <span>Management</span></h1>
+				<p>View delivery partners and their current status.</p>
 			</div>
 		</div>
 
@@ -55,37 +54,39 @@ List<User> users = (List<User>) request.getAttribute("users");
 			<table>
 				<thead>
 					<tr>
-						<th>User ID</th>
-						<th>Name</th>
+						<th>ID</th>
+						<th>Partner Name</th>
 						<th>Email</th>
-						<th>Address</th>
-						<th>Role</th>
-						<th>Created Date</th>
-						<th>Last Login</th>
+						<th>Phone</th>
+						<th>Vehicle</th>
+						<th>Status</th>
+						<th>Total Deliveries</th>
+						<th>Rating</th>
 					</tr>
 				</thead>
 
 				<tbody>
 
 				<%
-				if (users != null && !users.isEmpty()) {
-					for (User user : users) {
+				if (partners != null && !partners.isEmpty()) {
+					for (DeliveryPartner partner : partners) {
 				%>
 
 					<tr>
-						<td><%=user.getUserId()%></td>
-						<td><%=user.getUserName()%></td>
-						<td><%=user.getEmail()%></td>
-						<td><%=user.getAddress()%></td>
+						<td><%=partner.getDeliveryPartnerId()%></td>
+						<td><%=partner.getPartnerName()%></td>
+						<td><%=partner.getEmail()%></td>
+						<td><%=partner.getPhoneNumber()%></td>
+						<td><%=partner.getVehicleNumber()%></td>
 
 						<td>
 							<span class="status active">
-								<%=user.getRole()%>
+								<%=partner.getStatus()%>
 							</span>
 						</td>
 
-						<td><%=user.getCreatedDate()%></td>
-						<td><%=user.getLastLoginDate()%></td>
+						<td><%=partner.getTotalDeliveries()%></td>
+						<td>⭐ <%=partner.getRating()%></td>
 					</tr>
 
 				<%
@@ -94,7 +95,7 @@ List<User> users = (List<User>) request.getAttribute("users");
 				%>
 
 					<tr>
-						<td colspan="7">No users available</td>
+						<td colspan="8">No delivery partners available</td>
 					</tr>
 
 				<%
