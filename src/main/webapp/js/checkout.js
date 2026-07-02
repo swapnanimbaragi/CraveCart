@@ -1,13 +1,12 @@
 let map;
 let marker;
-
 let currentLat = 12.9716;
 let currentLon = 77.5946;
+let searchTimer;
 
 /* ================= INITIAL MAP ================= */
 
 function initMap() {
-
 	map = L.map("checkoutMap", {
 		center: [currentLat, currentLon],
 		zoom: 13,
@@ -32,418 +31,112 @@ function initMap() {
 
 	setTimeout(function () {
 		map.invalidateSize();
-		map.setView([currentLat, currentLon], 13);
 	}, 500);
 }
 
-/* ================= USE CURRENT LOCATION ================= */
+/* ================= COMMON HELPERS ================= */
+
+function setDeliveryCoordinates(lat, lon) {
+	document.getElementById("deliveryLatitude").value = lat;
+	document.getElementById("deliveryLongitude").value = lon;
+}
+
+function updateSelectedAddress(type, address) {
+	document.getElementById("selectedAddressCard").style.display = "flex";
+	document.getElementById("selectedAddressTitle").innerText = type;
+	document.getElementById("selectedAddressText").innerText = address;
+}
+
+function hideManualAndMap() {
+	document.getElementById("manualAddressSection").style.display = "none";
+	document.getElementById("mapSection").style.display = "none";
+}
+
+/* ================= CURRENT LOCATION ================= */
 
 function useCurrentLocation() {
-
 	const status = document.getElementById("locationStatus");
-	const mapSection = document.getElementById("mapSection");
-	const manualAddressSection = document.getElementById("manualAddressSection");
-	const selectedCard = document.getElementById("selectedAddressCard");
 
-	if (mapSection) {
-		mapSection.style.display = "block";
-	}
-
-	if (manualAddressSection) {
-		manualAddressSection.style.display = "none";
-	}
-
-	if (selectedCard) {
-		selectedCard.style.display = "none";
-	}
+	document.getElementById("mapSection").style.display = "block";
+	document.getElementById("manualAddressSection").style.display = "none";
+	document.getElementById("selectedAddressCard").style.display = "none";
 
 	status.innerText = "📍 Detecting your current location...";
 
 	if (!navigator.geolocation) {
-		status.innerText = "❌ Geolocation is not supported by this browser.";
+		status.innerText = "❌ Geolocation is not supported.";
 		return;
 	}
 
-	navigator.geolocation.getCurrentPosition(
-		function(position) {
+	navigator.geolocation.getCurrentPosition(function (position) {
+		currentLat = position.coords.latitude;
+		currentLon = position.coords.longitude;
 
-			currentLat = position.coords.latitude;
-			currentLon = position.coords.longitude;
-			
-			setDeliveryCoordinates(currentLat, currentLon);
-			
-			if (marker) {
-				map.removeLayer(marker);
-			}
+		setDeliveryCoordinates(currentLat, currentLon);
 
-			marker = L.marker([currentLat, currentLon]).addTo(map)
-				.bindPopup("📍 Deliver Here");
-
-			map.invalidateSize();
-
-			map.flyTo([currentLat, currentLon], 16, {
-				animate: true,
-				duration: 1.2
-			});
-
-			setTimeout(function () {
-				marker.openPopup();
-			}, 1300);
-
-			status.innerText = "🔎 Finding your address...";
-
-			fetchAddress(currentLat, currentLon, "Current Location");
-			
-			calculateETA(currentLat, currentLon);
-		},
-		function() {
-			status.innerText = "❌ Unable to fetch location. Please allow location permission.";
-		},
-		{
-			enableHighAccuracy: true,
-			timeout: 15000,
-			maximumAge: 0
+		if (marker) {
+			map.removeLayer(marker);
 		}
-	);
-}
 
-/* ================= FETCH REAL ADDRESS ================= */
+		marker = L.marker([currentLat, currentLon]).addTo(map)
+			.bindPopup("📍 Deliver Here")
+			.openPopup();
+
+		map.invalidateSize();
+		map.flyTo([currentLat, currentLon], 16);
+
+		fetchAddress(currentLat, currentLon, "Current Location");
+		calculateETA(currentLat, currentLon);
+
+	}, function () {
+		status.innerText = "❌ Please allow location permission.";
+	});
+}
 
 function fetchAddress(lat, lon, type) {
-
-	const addressBox = document.getElementById("deliveryAddress");
-	const status = document.getElementById("locationStatus");
-
 	const url =
 		"https://nominatim.openstreetmap.org/reverse?format=json&lat=" +
-		lat +
-		"&lon=" +
-		lon +
-		"&zoom=18&addressdetails=1";
+		lat + "&lon=" + lon + "&zoom=18&addressdetails=1";
 
 	fetch(url)
-		.then(function(response) {
-			return response.json();
-		})
-		.then(function(data) {
+		.then(response => response.json())
+		.then(data => {
+			const address = data.display_name ||
+				"Latitude: " + lat + ", Longitude: " + lon;
 
-			if (data && data.display_name) {
-
-				addressBox.value = data.display_name;
-
-				updateSelectedAddress(type, data.display_name);
-
-				status.innerText = "✅ Address detected successfully.";
-
-				if (marker) {
-					marker.bindPopup("📍 Deliver Here").openPopup();
-				}
-
-			} else {
-
-				const coordinates =
-					"Latitude: " + lat.toFixed(6) + ", Longitude: " + lon.toFixed(6);
-
-				addressBox.value = coordinates;
-
-				updateSelectedAddress(type, coordinates);
-
-				status.innerText = "⚠️ Address not found. Coordinates added.";
-			}
-		})
-		.catch(function() {
-
-			const coordinates =
-				"Latitude: " + lat.toFixed(6) + ", Longitude: " + lon.toFixed(6);
-
-			addressBox.value = coordinates;
-
-			updateSelectedAddress(type, coordinates);
-
-			status.innerText = "⚠️ Address lookup failed. Coordinates added.";
+			document.getElementById("deliveryAddress").value = address;
+			updateSelectedAddress(type, address);
+			document.getElementById("locationStatus").innerText =
+				"✅ Address detected successfully.";
 		});
-}
-
-/* ================= UPDATE SELECTED ADDRESS CARD ================= */
-
-function updateSelectedAddress(type, address) {
-
-	const selectedCard = document.getElementById("selectedAddressCard");
-	const selectedText = document.getElementById("selectedAddressText");
-	const selectedTitle = document.getElementById("selectedAddressTitle");
-
-	if (selectedCard) {
-		selectedCard.style.display = "flex";
-	}
-
-	if (selectedText) {
-		selectedText.innerText = address;
-	}
-
-	if (selectedTitle) {
-		selectedTitle.innerText = type;
-	}
 }
 
 /* ================= MANUAL ADDRESS ================= */
 
-function clearLocation() {
-
-	const addressBox = document.getElementById("deliveryAddress");
-	const status = document.getElementById("locationStatus");
-	const selectedCard = document.getElementById("selectedAddressCard");
-	const mapSection = document.getElementById("mapSection");
-	const manualAddressSection = document.getElementById("manualAddressSection");
-
-	addressBox.value = "";
-
-	if (mapSection) {
-		mapSection.style.display = "none";
-	}
-
-	if (selectedCard) {
-		selectedCard.style.display = "none";
-	}
-
-	if (manualAddressSection) {
-		manualAddressSection.style.display = "block";
-	}
-
-	status.innerText = "✏️ Enter your delivery address manually.";
-}
-/* ================= SHOW MANUAL ADDRESS ================= */
-
 function showManualAddress() {
-
-	const mapSection = document.getElementById("mapSection");
-	const manualSection = document.getElementById("manualAddressSection");
-	const selectedCard = document.getElementById("selectedAddressCard");
-	const status = document.getElementById("locationStatus");
-
-	if (mapSection) {
-		mapSection.style.display = "none";
-	}
-
-	if (selectedCard) {
-		selectedCard.style.display = "none";
-	}
-
-	if (manualSection) {
-		manualSection.style.display = "block";
-	}
-
-	if (status) {
-		status.innerText = "✏️ Enter your delivery address manually.";
-	}
+	document.getElementById("mapSection").style.display = "none";
+	document.getElementById("selectedAddressCard").style.display = "none";
+	document.getElementById("manualAddressSection").style.display = "block";
+	document.getElementById("locationStatus").innerText =
+		"✏️ Enter your delivery address manually.";
 }
-
-/* ================= CONFIRM MANUAL ADDRESS ================= */
 
 function confirmManualAddress() {
-
 	const manualInput = document.getElementById("manualAddressInput");
-	const hiddenAddress = document.getElementById("deliveryAddress");
 
 	if (manualInput.value.trim() === "") {
 		alert("Please enter your delivery address.");
 		return;
 	}
 
-	hiddenAddress.value = manualInput.value;
+	document.getElementById("deliveryAddress").value = manualInput.value.trim();
 
-	updateSelectedAddress("Manual Address", manualInput.value);
-
-	document.getElementById("selectedAddressCard").style.display = "flex";
+	updateSelectedAddress("Manual Address", manualInput.value.trim());
 
 	document.getElementById("manualAddressSection").style.display = "none";
 }
-/* ================= SAVED ADDRESS SELECTION ================= */
 
-function selectSavedAddress(type, address) {
-
-	const addressBox = document.getElementById("deliveryAddress");
-	const status = document.getElementById("locationStatus");
-	const selectedCard = document.getElementById("selectedAddressCard");
-	const mapSection = document.getElementById("mapSection");
-	const manualAddressSection = document.getElementById("manualAddressSection");
-
-	addressBox.value = address;
-	setDeliveryCoordinates(lat, lon);
-	updateSelectedAddress(type, address);
-
-	if (selectedCard) {
-		selectedCard.style.display = "flex";
-	}
-
-	if (mapSection) {
-		mapSection.style.display = "none";
-	}
-
-	if (manualAddressSection) {
-		manualAddressSection.style.display = "none";
-	}
-
-	status.innerText = "✅ " + type + " address selected.";
-}
-
-/* ================= LOAD MAP ================= */
-
-window.onload = function() {
-	initMap();
-	loadSavedAddresses();
-};
-
-
-function saveCurrentAddressAs(type) {
-
-	const addressBox = document.getElementById("deliveryAddress");
-
-	if (!addressBox.value.trim()) {
-		alert("Please select or enter address first.");
-		return;
-	}
-
-	localStorage.setItem("cravecart_" + type, addressBox.value.trim());
-
-	alert(type + " address saved successfully.");
-
-	loadSavedAddresses();
-}
-
-function loadSavedAddresses() {
-
-	const homeAddress = localStorage.getItem("cravecart_Home");
-	const officeAddress = localStorage.getItem("cravecart_Office");
-
-	if (homeAddress) {
-		document.getElementById("homeAddressText").innerText =
-			homeAddress.substring(0, 35) + "...";
-	}
-
-	if (officeAddress) {
-		document.getElementById("officeAddressText").innerText =
-			officeAddress.substring(0, 35) + "...";
-	}
-}
-
-function handleSavedAddressClick(type) {
-
-	alert(type + " clicked");
-
-	const address = localStorage.getItem("cravecart_" + type);
-
-	if (address == null || address.trim() === "") {
-		alert(type + " address not saved yet.");
-		return;
-	}
-
-	document.getElementById("deliveryAddress").value = address;
-
-	document.getElementById("selectedAddressTitle").innerText = type;
-	document.getElementById("selectedAddressText").innerText = address;
-	document.getElementById("selectedAddressBadge").innerText = "🟢 Saved Address";
-
-	document.getElementById("selectedAddressCard").style.display = "flex";
-
-	document.getElementById("mapSection").style.display = "none";
-	document.getElementById("manualAddressSection").style.display = "none";
-
-	document.getElementById("locationStatus").innerText =
-		"✅ " + type + " address selected.";
-}
-
-
-function searchAddress() {
-	const input = document.getElementById("addressSearchInput");
-	const resultsBox = document.getElementById("searchResults");
-
-	const query = input.value.trim();
-
-	if (query === "") {
-		alert("Please enter address to search.");
-		return;
-	}
-
-	resultsBox.innerHTML = "<p>🔎 Searching address...</p>";
-
-	const url =
-		"https://nominatim.openstreetmap.org/search?format=json&q=" +
-		encodeURIComponent(query) +
-		"&limit=5";
-
-	fetch(url)
-		.then(response => response.json())
-		.then(data => {
-			resultsBox.innerHTML = "";
-
-			if (!data || data.length === 0) {
-				resultsBox.innerHTML = "<p>No address found.</p>";
-				return;
-			}
-
-			data.forEach(place => {
-				const card = document.createElement("div");
-				card.className = "search-result-card";
-				card.innerText = "📍 " + place.display_name;
-
-				card.onclick = function() {
-					selectSearchedAddress(
-						place.display_name,
-						parseFloat(place.lat),
-						parseFloat(place.lon)
-					);
-				};
-
-				resultsBox.appendChild(card);
-			});
-		})
-		.catch(() => {
-			resultsBox.innerHTML = "<p>Search failed. Try again.</p>";
-		});
-}
-
-function selectSearchedAddress(address, lat, lon) {
-	const addressBox = document.getElementById("deliveryAddress");
-	const resultsBox = document.getElementById("searchResults");
-	const mapSection = document.getElementById("mapSection");
-	const manualSection = document.getElementById("manualAddressSection");
-
-	addressBox.value = address;
-
-	updateSelectedAddress("Searched Address", address);
-
-	if (manualSection) {
-		manualSection.style.display = "none";
-	}
-
-	if (mapSection) {
-		mapSection.style.display = "block";
-	}
-
-	if (marker) {
-		map.removeLayer(marker);
-	}
-
-	marker = L.marker([lat, lon]).addTo(map)
-		.bindPopup("📍 Deliver Here")
-		.openPopup();
-
-	map.invalidateSize();
-
-	map.flyTo([lat, lon], 15, {
-		animate: true,
-		duration: 1.2
-	});
-	
-	calculateETA(lat, lon);
-	
-	resultsBox.innerHTML = "";
-
-	document.getElementById("locationStatus").innerText =
-		"✅ Address selected from search.";
-}
-
-let searchTimer;
+/* ================= LIVE SEARCH ================= */
 
 function liveSearchAddress() {
 	const input = document.getElementById("addressSearchInput");
@@ -462,8 +155,7 @@ function liveSearchAddress() {
 	resultsBox.style.display = "block";
 	resultsBox.innerHTML = "<div class='search-result-card'>🔎 Searching...</div>";
 
-	searchTimer = setTimeout(function() {
-
+	searchTimer = setTimeout(function () {
 		const url =
 			"https://nominatim.openstreetmap.org/search?format=json&q=" +
 			encodeURIComponent(query) +
@@ -491,7 +183,7 @@ function liveSearchAddress() {
 						"<span class='search-title'>📍 " + title + "</span>" +
 						"<span class='search-sub'>" + sub + "</span>";
 
-					card.onclick = function() {
+					card.onclick = function () {
 						selectSearchedAddress(
 							place.display_name,
 							parseFloat(place.lat),
@@ -502,12 +194,7 @@ function liveSearchAddress() {
 
 					resultsBox.appendChild(card);
 				});
-			})
-			.catch(() => {
-				resultsBox.innerHTML =
-					"<div class='search-result-card'>Search failed. Try again.</div>";
 			});
-
 	}, 500);
 }
 
@@ -517,8 +204,6 @@ function getShortTitle(place) {
 			place.address.neighbourhood ||
 			place.address.road ||
 			place.address.city ||
-			place.address.town ||
-			place.address.village ||
 			place.display_name.split(",")[0];
 	}
 
@@ -532,29 +217,18 @@ function getShortSub(place) {
 		return area + (pin !== "" ? " - " + pin : "");
 	}
 
-	const parts = place.display_name.split(",");
-	return parts.slice(1, 3).join(",");
+	return place.display_name.split(",").slice(1, 3).join(",");
 }
 
 function selectSearchedAddress(address, lat, lon, title) {
-	const addressBox = document.getElementById("deliveryAddress");
-	const resultsBox = document.getElementById("searchResults");
-	const input = document.getElementById("addressSearchInput");
-	const mapSection = document.getElementById("mapSection");
-	const manualSection = document.getElementById("manualAddressSection");
+	document.getElementById("deliveryAddress").value = address;
+	document.getElementById("addressSearchInput").value = title;
 
-	addressBox.value = address;
-	input.value = title;
-
+	setDeliveryCoordinates(lat, lon);
 	updateSelectedAddress("Searched Address", address);
 
-	if (manualSection) {
-		manualSection.style.display = "none";
-	}
-
-	if (mapSection) {
-		mapSection.style.display = "block";
-	}
+	document.getElementById("manualAddressSection").style.display = "none";
+	document.getElementById("mapSection").style.display = "block";
 
 	if (marker) {
 		map.removeLayer(marker);
@@ -565,25 +239,129 @@ function selectSearchedAddress(address, lat, lon, title) {
 		.openPopup();
 
 	map.invalidateSize();
+	map.flyTo([lat, lon], 15);
 
-	map.flyTo([lat, lon], 15, {
-		animate: true,
-		duration: 1.2
-	});
-
-	resultsBox.style.display = "none";
-	resultsBox.innerHTML = "";
-
+	document.getElementById("searchResults").style.display = "none";
+	document.getElementById("searchResults").innerHTML = "";
 	document.getElementById("locationStatus").innerText =
 		"✅ Address selected from search.";
+
+	calculateETA(lat, lon);
 }
 
+/* ================= SAVE HOME / OFFICE ================= */
+
+function saveCurrentAddressAs(type) {
+	const address = document.getElementById("deliveryAddress").value.trim();
+	const lat = document.getElementById("deliveryLatitude").value;
+	const lon = document.getElementById("deliveryLongitude").value;
+
+	if (address === "") {
+		alert("Please select or enter address first.");
+		return;
+	}
+
+	const savedData = {
+		address: address,
+		lat: lat,
+		lon: lon
+	};
+
+	localStorage.setItem("cravecart_" + type, JSON.stringify(savedData));
+
+	alert(type + " address saved successfully.");
+	loadSavedAddresses();
+}
+
+function loadSavedAddresses() {
+	loadOneSavedAddress("Home", "homeAddressText");
+	loadOneSavedAddress("Office", "officeAddressText");
+}
+
+function loadOneSavedAddress(type, textId) {
+	const saved = localStorage.getItem("cravecart_" + type);
+	const textBox = document.getElementById(textId);
+
+	if (!textBox) return;
+
+	if (!saved) {
+		textBox.innerText = "Not saved yet";
+		return;
+	}
+
+	try {
+		const data = JSON.parse(saved);
+		textBox.innerText = data.address.substring(0, 35) + "...";
+	} catch (e) {
+		textBox.innerText = saved.substring(0, 35) + "...";
+	}
+}
+
+function handleSavedAddressClick(type) {
+	const saved = localStorage.getItem("cravecart_" + type);
+
+	if (!saved) {
+		alert(type + " address not saved yet.");
+		return;
+	}
+
+	let address = "";
+	let lat = "";
+	let lon = "";
+
+	try {
+		const data = JSON.parse(saved);
+		address = data.address;
+		lat = data.lat;
+		lon = data.lon;
+	} catch (e) {
+		address = saved;
+	}
+
+	document.getElementById("deliveryAddress").value = address;
+
+	updateSelectedAddress(type, address);
+
+	document.getElementById("selectedAddressBadge").innerText =
+		"🟢 Saved Address";
+
+	document.getElementById("selectedAddressCard").style.display = "flex";
+
+	hideManualAndMap();
+
+	if (lat !== "" && lon !== "") {
+		setDeliveryCoordinates(lat, lon);
+		calculateETA(parseFloat(lat), parseFloat(lon));
+	} else {
+		findCoordinatesForSavedAddress(address);
+	}
+
+	document.getElementById("locationStatus").innerText =
+		"✅ " + type + " address selected.";
+}
+
+function findCoordinatesForSavedAddress(address) {
+	const url =
+		"https://nominatim.openstreetmap.org/search?format=json&q=" +
+		encodeURIComponent(address) +
+		"&limit=1";
+
+	fetch(url)
+		.then(response => response.json())
+		.then(data => {
+			if (data && data.length > 0) {
+				const lat = parseFloat(data[0].lat);
+				const lon = parseFloat(data[0].lon);
+
+				setDeliveryCoordinates(lat, lon);
+				calculateETA(lat, lon);
+			}
+		});
+}
+
+/* ================= ETA ================= */
+
 function calculateETA(customerLat, customerLon) {
-
-	// Restaurant location for now.
-	// Later we can take this from restaurant table.
-	
-
 	const R = 6371;
 
 	const dLat = (customerLat - restaurantLat) * Math.PI / 180;
@@ -602,7 +380,6 @@ function calculateETA(customerLat, customerLon) {
 
 	const preparationTime = 12;
 	const averageSpeed = 18;
-
 	const travelTime = (distance / averageSpeed) * 60;
 
 	let minEta = Math.round(preparationTime + travelTime);
@@ -621,24 +398,37 @@ function calculateETA(customerLat, customerLon) {
 
 	document.getElementById("etaCard").style.display = "flex";
 }
-function setDeliveryCoordinates(lat, lon) {
-	const latBox = document.getElementById("deliveryLatitude");
-	const lonBox = document.getElementById("deliveryLongitude");
 
-	if (latBox && lonBox) {
-		latBox.value = lat;
-		lonBox.value = lon;
-	}
-}
+/* ================= ON LOAD ================= */
+
 window.onload = function () {
 	initMap();
 	loadSavedAddresses();
 
-	document.getElementById("homeAddressCard").addEventListener("click", function () {
+	document.getElementById("homeAddressCard").onclick = function () {
 		handleSavedAddressClick("Home");
-	});
+	};
 
-	document.getElementById("officeAddressCard").addEventListener("click", function () {
+	document.getElementById("officeAddressCard").onclick = function () {
 		handleSavedAddressClick("Office");
-	});
+	};
 };
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+	const homeCard = document.getElementById("homeAddressCard");
+	const officeCard = document.getElementById("officeAddressCard");
+
+	if (homeCard) {
+		homeCard.onclick = function () {
+			handleSavedAddressClick("Home");
+		};
+	}
+
+	if (officeCard) {
+		officeCard.onclick = function () {
+			handleSavedAddressClick("Office");
+		};
+	}
+});

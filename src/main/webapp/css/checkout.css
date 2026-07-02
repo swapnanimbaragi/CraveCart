@@ -609,53 +609,41 @@ select:focus{
 ======================================================= */
 
 .saved-addresses {
-
 	margin: 28px 0;
+	text-align: center;
 }
 
 .saved-addresses h3 {
-
 	font-size: 23px;
-
-	margin-bottom: 15px;
-
+	margin-bottom: 20px;
 	color: #1f2937;
+	text-align: left;
 }
 
 .saved-grid {
-
-	display: grid;
-
-	grid-template-columns: repeat(3,1fr);
-
-	gap: 15px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+	flex-wrap: wrap;
 }
 
 .saved-card {
-
+	width: 300px;
 	background: white;
-
 	padding: 20px;
-
 	border-radius: 22px;
-
 	border: 1px solid #e3ece2;
-
 	cursor: pointer;
-
 	transition: .3s;
-
 	text-align: center;
-
 	box-shadow: 0 10px 25px rgba(0,0,0,.05);
 }
 
 .saved-card:hover {
-
 	transform: translateY(-4px);
-
 	border-color: #82c784;
-
 	box-shadow: 0 18px 35px rgba(130,199,132,.18);
 }
 

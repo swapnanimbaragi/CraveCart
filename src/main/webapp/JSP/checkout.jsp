@@ -233,32 +233,25 @@ if (grandTotal < 0) {
 					<!-- ================= SAVED ADDRESSES ================= -->
 					<div class="saved-addresses">
 
-						<h3>Saved Addresses</h3>
-
-						<div class="saved-grid">
-
-							<!-- These cards are updated from localStorage using checkout.js -->
-							<div id="homeAddressCard" class="saved-card" onclick="handleSavedAddressClick('Home')">
-								<div>🏠</div>
-								<strong>Home</strong>
-								<p id="homeAddressText">Not saved yet</p>
-							</div>
-							
-							<div id="officeAddressCard" class="saved-card" onclick="handleSavedAddressClick('Office')">
-								<div>🏢</div>
-								<strong>Office</strong>
-								<p id="officeAddressText">Not saved yet</p>
-							</div>
-
-							<div class="saved-card" onclick="useCurrentLocation()">
-								<div>📍</div>
-								<strong>Current</strong>
-								<p>Use GPS</p>
-							</div>
-
+					<h3>Saved Addresses</h3>
+				
+					<div class="saved-grid">
+				
+						<div id="homeAddressCard" class="saved-card">
+							<div>🏠</div>
+							<strong>Home</strong>
+							<p id="homeAddressText">Not saved yet</p>
 						</div>
-
+				
+						<div id="officeAddressCard" class="saved-card">
+							<div>🏢</div>
+							<strong>Office</strong>
+							<p id="officeAddressText">Not saved yet</p>
+						</div>
+				
 					</div>
+				
+				</div>
 
 					<!-- ================= SPECIAL INSTRUCTIONS ================= -->
 					<label>Special Instructions</label>

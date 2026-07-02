@@ -1,0 +1,284 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', Arial, sans-serif;
+}
+
+body {
+	background: #f4faef;
+	color: #1f1f1f;
+}
+
+/* LOGIN PAGE */
+
+.login-container {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: linear-gradient(135deg, #f4faef, #e8f6df);
+}
+
+.login-card {
+	width: 400px;
+	background: #ffffff;
+	padding: 40px;
+	border-radius: 26px;
+	box-shadow: 0 20px 40px rgba(76, 175, 80, 0.18);
+}
+
+.login-card h1 {
+	text-align: center;
+	color: #66bb6a;
+	font-size: 34px;
+	margin-bottom: 10px;
+}
+
+.login-card p {
+	text-align: center;
+	color: #666;
+	margin-bottom: 28px;
+}
+
+.login-card label {
+	font-weight: 700;
+	color: #222;
+}
+
+.login-card input {
+	width: 100%;
+	padding: 14px;
+	margin: 8px 0 20px;
+	border: 1px solid #d8ead0;
+	border-radius: 14px;
+	outline: none;
+	font-size: 15px;
+}
+
+.login-card input:focus {
+	border-color: #84c983;
+}
+
+.login-card button {
+	width: 100%;
+	padding: 14px;
+	background: #84c983;
+	color: white;
+	border: none;
+	border-radius: 18px;
+	font-size: 18px;
+	font-weight: 800;
+	cursor: pointer;
+}
+
+.login-card button:hover {
+	background: #66bb6a;
+}
+
+.error {
+	background: #ffe3e3;
+	color: #d60000;
+	padding: 12px;
+	margin-bottom: 15px;
+	border-radius: 14px;
+	text-align: center;
+}
+
+/* ADMIN DASHBOARD */
+
+.admin-layout {
+	display: flex;
+	min-height: 100vh;
+}
+
+.sidebar {
+	width: 260px;
+	background: #ffffff;
+	padding: 30px 22px;
+	box-shadow: 10px 0 30px rgba(76, 175, 80, 0.12);
+}
+
+.sidebar h2 {
+	color: #66bb6a;
+	font-size: 32px;
+	margin-bottom: 35px;
+}
+
+.sidebar a {
+	display: block;
+	text-decoration: none;
+	color: #2b2b2b;
+	font-weight: 700;
+	padding: 15px 18px;
+	border-radius: 18px;
+	margin-bottom: 12px;
+}
+
+.sidebar a:hover {
+	background: #dff3d8;
+	color: #4caf50;
+}
+
+.main-content {
+	flex: 1;
+	padding: 40px;
+	background: #f4faef;
+}
+
+.main-content h1 {
+	font-size: 42px;
+	color: #111;
+	margin-bottom: 8px;
+}
+
+.main-content h1 span {
+	color: #66bb6a;
+	font-style: italic;
+}
+
+.main-content p {
+	color: #666;
+	font-size: 18px;
+}
+
+.cards {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 25px;
+	margin-top: 35px;
+}
+
+.card {
+	background: #ffffff;
+	padding: 28px;
+	border-radius: 26px;
+	box-shadow: 0 15px 30px rgba(76, 175, 80, 0.13);
+}
+
+.card h3 {
+	color: #555;
+	font-size: 18px;
+	margin-bottom: 18px;
+}
+
+.card p {
+	font-size: 34px;
+	font-weight: 900;
+	color: #66bb6a;
+}
+
+/* TABLE */
+
+.table-container {
+	margin-top: 35px;
+	background: #ffffff;
+	padding: 25px;
+	border-radius: 26px;
+	box-shadow: 0 15px 30px rgba(76, 175, 80, 0.13);
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th {
+	background: #dff3d8;
+	color: #333;
+	padding: 15px;
+	text-align: left;
+}
+
+td {
+	padding: 15px;
+	border-bottom: 1px solid #eee;
+	color: #555;
+}
+
+.btn {
+	padding: 10px 18px;
+	border-radius: 16px;
+	text-decoration: none;
+	font-weight: 700;
+	border: none;
+	cursor: pointer;
+}
+
+.btn-green {
+	background: #84c983;
+	color: white;
+}
+
+.btn-red {
+	background: #ffdddd;
+	color: #d60000;
+}
+
+.btn-green:hover {
+	background: #66bb6a;
+}
+
+.table-container h2 {
+	color: #111;
+	margin-bottom: 8px;
+}
+
+.section-subtitle {
+	color: #666;
+	margin-bottom: 20px;
+	font-size: 16px;
+}
+
+table tr:hover {
+	background: #f4faef;
+}
+
+td:first-child {
+	font-weight: 900;
+	color: #66bb6a;
+}
+
+.page-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 30px;
+}
+
+.add-btn {
+	background: #84c983;
+	color: white;
+	text-decoration: none;
+	padding: 14px 24px;
+	border-radius: 18px;
+	font-weight: 800;
+}
+
+.add-btn:hover {
+	background: #66bb6a;
+}
+
+.table-img {
+	width: 80px;
+	height: 55px;
+	object-fit: cover;
+	border-radius: 12px;
+}
+
+.status {
+	padding: 8px 14px;
+	border-radius: 20px;
+	font-weight: 800;
+	font-size: 13px;
+}
+
+.status.active {
+	background: #dff3d8;
+	color: #4caf50;
+}
+
+.status.inactive {
+	background: #ffe3e3;
+	color: #d60000;
+}
