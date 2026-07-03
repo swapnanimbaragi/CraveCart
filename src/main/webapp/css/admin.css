@@ -384,6 +384,7 @@ td:first-child {
 	padding: 32px;
 }
 
+
 .restaurant-title-row {
 	display: flex;
 	justify-content: space-between;
@@ -435,4 +436,120 @@ td:first-child {
 	padding: 18px 20px;
 	border-radius: 18px;
 	margin-bottom: 14px;
+}
+
+.owner-restaurant-card {
+	background: #ffffff;
+	border-radius: 28px;
+	padding: 28px;
+	display: grid;
+	grid-template-columns: 320px 1fr;
+	gap: 30px;
+	box-shadow: 0 18px 35px rgba(76, 175, 80, 0.14);
+	max-width: 1100px;
+	margin-bottom: 28px;
+}
+
+.owner-restaurant-img {
+	width: 320px;
+	height: 230px;
+	border-radius: 24px;
+	overflow: hidden;
+	background: #f4faef;
+}
+
+.owner-restaurant-img img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.owner-title-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 25px;
+}
+
+.owner-title-row h2 {
+	font-size: 36px;
+	color: #111;
+}
+
+.owner-status {
+	background: #dff3d8;
+	color: #28a745;
+	padding: 10px 18px;
+	border-radius: 22px;
+	font-weight: 900;
+}
+
+.owner-stat-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 18px;
+}
+
+.owner-stat-box {
+	background: #f4faef;
+	padding: 18px;
+	border-radius: 18px;
+}
+
+.owner-stat-box span {
+	display: block;
+	color: #666;
+	font-size: 15px;
+	margin-bottom: 8px;
+}
+
+.owner-stat-box strong {
+	color: #222;
+	font-size: 20px;
+}
+
+.owner-section-card {
+	background: #ffffff;
+	border-radius: 26px;
+	padding: 26px;
+	max-width: 1100px;
+	margin-bottom: 24px;
+	box-shadow: 0 15px 30px rgba(76, 175, 80, 0.12);
+}
+
+.owner-section-card h2 {
+	color: #111;
+	margin-bottom: 18px;
+}
+
+.owner-section-card p {
+	color: #555;
+	font-size: 17px;
+	line-height: 1.6;
+}
+
+.owner-detail-row {
+	display: grid;
+	grid-template-columns: 220px 1fr;
+	padding: 14px 0;
+	border-bottom: 1px solid #edf3ea;
+}
+
+.owner-detail-row:last-child {
+	border-bottom: none;
+}
+
+.owner-detail-row span {
+	color: #666;
+	font-weight: 700;
+}
+
+.owner-detail-row strong {
+	color: #222;
+}
+
+.owner-edit-wrap {
+	max-width: 1100px;
+	text-align: center;
+	margin-top: 20px;
 }
