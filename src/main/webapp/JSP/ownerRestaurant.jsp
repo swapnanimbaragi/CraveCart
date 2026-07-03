@@ -146,7 +146,7 @@ Restaurant restaurant = (Restaurant) request.getAttribute("restaurant");
 		<div class="restaurant-edit-center">
 			<a class="restaurant-edit-btn"
 			   href="<%=request.getContextPath()%>/editOwnerRestaurant?restaurantId=<%=restaurant.getRestaurantId()%>">
-				✎ Edit Restaurant
+				Edit Restaurant
 			</a>
 		</div>
 
