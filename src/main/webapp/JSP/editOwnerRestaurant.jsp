@@ -63,18 +63,16 @@ href="<%=request.getContextPath()%>/css/editOwnerRestaurant.css">
 
 			<h1>Edit <span>Restaurant</span></h1>
 
-			<p>Update your restaurant details.</p>
+			
 
 		</div>
 
 
 <form action="<%=request.getContextPath()%>/updateOwnerRestaurant"
-method="post"
-class="restaurant-form">
+      method="post"
+      class="restaurant-form">
 
-<input type="hidden"
-name="restaurantId"
-value="<%=restaurant.getRestaurantId()%>">
+<input type="hidden" name="restaurantId" value="<%=restaurant.getRestaurantId()%>">
 
 
 <div class="form-grid">
@@ -252,22 +250,9 @@ value="<%=restaurant.getRestaurantTag()%>">
 
 <div class="button-group">
 
-<button
-type="submit"
-class="save-btn">
+<button type="submit" class="restaurant-save-btn">Save Changes</button>
 
-Save Changes
-
-</button>
-
-
-<a
-href="<%=request.getContextPath()%>/ownerRestaurant"
-class="cancel-btn">
-
-Cancel
-
-</a>
+<a href="<%=request.getContextPath()%>/ownerRestaurant" class="restaurant-cancel-btn">Cancel</a>
 
 </div>
 

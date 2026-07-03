@@ -157,17 +157,27 @@
 }
 
 .restaurant-edit-btn {
-	display: inline-block;
-	background: #32a846;
-	color: white;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+
+	background: #7CC576;
+	color: #fff;
 	text-decoration: none;
-	padding: 15px 55px;
-	border-radius: 9px;
+
+	padding: 16px 55px;
+	border-radius: 14px;
+
 	font-size: 18px;
-	font-weight: 900;
-	box-shadow: 0 12px 22px rgba(50, 168, 70, 0.25);
+	font-weight: 700;
+
+	transition: all 0.3s ease;
+	box-shadow: 0 10px 25px rgba(124, 197, 118, 0.35);
 }
 
 .restaurant-edit-btn:hover {
-	background: #258b36;
+	background: #68B462;
+	transform: translateY(-3px);
+	box-shadow: 0 14px 28px rgba(104, 180, 98, 0.4);
 }
