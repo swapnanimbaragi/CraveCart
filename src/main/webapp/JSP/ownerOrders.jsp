@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.Map"%>
 <%@ page import="com.tap.model.User"%>
 <%@ page import="com.tap.model.Restaurant"%>
+<%@ page import="com.tap.model.Order"%>
+<%@ page import="com.tap.model.OrderItem"%>
 
 <%
 User owner = (User) session.getAttribute("loggedInUser");
@@ -13,13 +17,22 @@ if (owner == null || !"RESTAURANT_OWNER".equals(owner.getRole())) {
 }
 
 Restaurant restaurant = (Restaurant) request.getAttribute("restaurant");
+List<Order> orders = (List<Order>) request.getAttribute("orders");
+
+Map<Integer, List<OrderItem>> orderItemsMap =
+	(Map<Integer, List<OrderItem>>) request.getAttribute("orderItemsMap");
+
+Map<Integer, String> menuNameMap =
+	(Map<Integer, String>) request.getAttribute("menuNameMap");
+
+String message = (String) request.getAttribute("message");
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>My Restaurant | CraveCart</title>
+<title>Owner Orders | CraveCart</title>
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin.css">
 </head>
@@ -42,145 +55,133 @@ Restaurant restaurant = (Restaurant) request.getAttribute("restaurant");
 
 		<div class="page-header">
 			<div>
-				<h1>My <span>Restaurant</span></h1>
-				<p>Manage your restaurant profile and details.</p>
+				<h1>Restaurant <span>Orders</span></h1>
+
+				<% if (restaurant != null) { %>
+					<p>Orders for <b><%=restaurant.getRestaurantName()%></b></p>
+				<% } %>
 			</div>
 		</div>
 
-		<%
-		if (restaurant == null) {
-		%>
+		<% if (message != null) { %>
+
 			<div class="table-container">
-				<p>No restaurant assigned to you yet.</p>
-			</div>
-		<%
-		} else {
-		%>
-
-		<div class="restaurant-modern-card">
-
-			<div class="restaurant-modern-image">
-				<img src="<%=request.getContextPath() + "/images/" + restaurant.getRestaurantImg()%>"
-					alt="<%=restaurant.getRestaurantName()%>">
+				<p><%=message%></p>
 			</div>
 
-			<div class="restaurant-modern-content">
+		<% } else { %>
 
-				<div class="restaurant-modern-header">
-					<h2><%=restaurant.getRestaurantName()%></h2>
+		<div class="table-container">
 
-					<span class="restaurant-active-badge">
-						● <%=restaurant.isActive() ? "Active" : "Inactive"%>
-					</span>
-				</div>
+			<table>
+				<thead>
+					<tr>
+						<th>Order ID</th>
+						<th>Items</th>
+						<th>Total</th>
+						<th>Payment</th>
+						<th>Status</th>
+						<th>Address</th>
+						<th>Date</th>
+						<th>Update</th>
+					</tr>
+				</thead>
 
-				<div class="restaurant-modern-grid">
+				<tbody>
 
-					<div class="restaurant-info-box">
-						<div class="info-icon">⭐</div>
-						<div>
-							<span>Rating</span>
-							<strong><%=restaurant.getRating()%></strong>
-						</div>
-					</div>
+				<%
+				if (orders != null && !orders.isEmpty()) {
+					for (Order order : orders) {
+				%>
 
-					<div class="restaurant-info-box">
-						<div class="info-icon">🍕</div>
-						<div>
-							<span>Cuisine</span>
-							<strong><%=restaurant.getCuisineType()%></strong>
-						</div>
-					</div>
+					<tr>
+						<td>#<%=order.getOrderId()%></td>
 
-					<div class="restaurant-info-box">
-						<div class="info-icon">⏱</div>
-						<div>
-							<span>Delivery Time</span>
-							<strong><%=restaurant.getDeliveryTime()%> mins</strong>
-						</div>
-					</div>
+						<td>
+							<%
+							List<OrderItem> items = orderItemsMap.get(order.getOrderId());
 
-					<div class="restaurant-info-box">
-						<div class="info-icon">📞</div>
-						<div>
-							<span>Contact</span>
-							<strong><%=restaurant.getContactNumber()%></strong>
-						</div>
-					</div>
+							if (items != null && !items.isEmpty()) {
+								for (OrderItem item : items) {
+									String itemName = menuNameMap.get(item.getMenuId());
 
-					<div class="restaurant-info-box">
-						<div class="info-icon">₹</div>
-						<div>
-							<span>Minimum Order</span>
-							<strong>₹<%=restaurant.getMinimumOrderAmount()%></strong>
-						</div>
-					</div>
+									if (itemName == null) {
+										itemName = "Menu ID: " + item.getMenuId();
+									}
+							%>
+									<div>
+										<%=itemName%> × <%=item.getQuantity()%>
+									</div>
+							<%
+								}
+							} else {
+							%>
+								No items
+							<%
+							}
+							%>
+						</td>
 
-					<div class="restaurant-info-box">
-						<div class="info-icon">🚚</div>
-						<div>
-							<span>Delivery Fee</span>
-							<strong>₹<%=restaurant.getDeliveryFee()%></strong>
-						</div>
-					</div>
+						<td>₹<%=order.getTotalAmount()%></td>
+						<td><%=order.getPaymentMode()%></td>
 
-				</div>
+						<td>
+							<span class="status active">
+								<%=order.getOrderStatus()%>
+							</span>
+						</td>
 
-			</div>
+						<td><%=order.getDeliveryAddress()%></td>
+						<td><%=order.getOrderDate()%></td>
+
+						<td>
+							<form action="<%=request.getContextPath()%>/updateOwnerOrderStatus"
+								method="post">
+
+								<input type="hidden" name="orderId"
+									value="<%=order.getOrderId()%>">
+
+								<select name="orderStatus" class="status-select">
+									<option value="PLACED" <%=order.getOrderStatus().equals("PLACED") ? "selected" : ""%>>PLACED</option>
+									<option value="ACCEPTED" <%=order.getOrderStatus().equals("ACCEPTED") ? "selected" : ""%>>ACCEPTED</option>
+									<option value="PREPARING" <%=order.getOrderStatus().equals("PREPARING") ? "selected" : ""%>>PREPARING</option>
+									<option value="READY_FOR_PICKUP" <%=order.getOrderStatus().equals("READY_FOR_PICKUP") ? "selected" : ""%>>READY FOR PICKUP</option>
+									<option value="CANCELLED" <%=order.getOrderStatus().equals("CANCELLED") ? "selected" : ""%>>CANCELLED</option>
+								</select>
+
+								<button type="submit" class="small-btn">
+									Save
+								</button>
+
+							</form>
+						</td>
+					</tr>
+
+				<%
+					}
+				} else {
+				%>
+
+					<tr>
+						<td colspan="8">No orders available for this restaurant</td>
+					</tr>
+
+				<%
+				}
+				%>
+
+				</tbody>
+			</table>
 
 		</div>
 
-		<div class="restaurant-section-card">
-			<h2>📄 Description</h2>
-			<p><%=restaurant.getDescription()%></p>
-		</div>
-
-		<div class="restaurant-section-card">
-			<h2>🏪 Restaurant Details</h2>
-
-			<div class="restaurant-details-grid">
-
-				<div class="restaurant-detail-item">
-					<span>📍 Address</span>
-					<strong><%=restaurant.getAddress()%></strong>
-				</div>
-
-				<div class="restaurant-detail-item">
-					<span>⏰ Opening Time</span>
-					<strong><%=restaurant.getOpeningTime()%></strong>
-				</div>
-
-				<div class="restaurant-detail-item">
-					<span>🍽 Signature Dish</span>
-					<strong><%=restaurant.getSignatureDish()%></strong>
-				</div>
-
-				<div class="restaurant-detail-item">
-					<span>🌙 Closing Time</span>
-					<strong><%=restaurant.getClosingTime()%></strong>
-				</div>
-
-				<div class="restaurant-detail-item">
-					<span>🏷 Restaurant Tag</span>
-					<strong><%=restaurant.getRestaurantTag()%></strong>
-				</div>
-
-			</div>
-		</div>
-
-		<div class="restaurant-edit-center">
-			<a class="restaurant-edit-btn" href="#">
-				✏ Edit Restaurant
-			</a>
-		</div>
-
-		<%
-		}
-		%>
+		<% } %>
 
 	</main>
 
 </div>
 
+<script src="<%=request.getContextPath()%>/js/admin.js"></script>
+
 </body>
-</html>
+</html> 
