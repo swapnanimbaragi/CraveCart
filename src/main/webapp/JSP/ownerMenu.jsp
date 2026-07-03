@@ -37,8 +37,8 @@ String message = (String) request.getAttribute("message");
 
 		<a href="<%=request.getContextPath()%>/ownerDashboard">Dashboard</a>
 		<a href="<%=request.getContextPath()%>/ownerMenu">Menu</a>
-		<a href="#">Orders</a>
-		<a href="#">My Restaurant</a>
+		<a href="<%=request.getContextPath()%>/ownerOrders">Orders</a>
+		<a href="<%=request.getContextPath()%>/ownerRestaurant">My Restaurant</a>
 		<a href="<%=request.getContextPath()%>/adminLogout">Logout</a>
 	</aside>
 
@@ -136,11 +136,14 @@ String message = (String) request.getAttribute("message");
 						<td>⭐ <%=menu.getRating()%></td>
 
 						<td>
-							<a class="btn btn-green" href="#">
+							<a class="btn btn-green"
+								href="<%=request.getContextPath()%>/editOwnerMenu?menuId=<%=menu.getMenuId()%>">
 								Edit
 							</a>
-
-							<a class="btn btn-red" href="#">
+							
+							<a class="btn btn-red"
+								href="<%=request.getContextPath()%>/deleteOwnerMenu?menuId=<%=menu.getMenuId()%>"
+								onclick="return confirm('Delete this menu item?')">
 								Delete
 							</a>
 						</td>

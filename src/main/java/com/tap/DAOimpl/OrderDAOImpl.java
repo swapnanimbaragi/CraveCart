@@ -244,4 +244,32 @@ public class OrderDAOImpl implements OrderDAO {
 				res.getTimestamp("updatedAt")
 		);
 	}
+	public List<Order> getOrdersByStatus(String status) {
+
+	    Connection connection = DBConnection.getConnection();
+
+	    List<Order> list = new ArrayList<>();
+
+	    try {
+
+	        String query = "SELECT * FROM ordertable WHERE orderStatus=?";
+
+	        PreparedStatement pstmt =
+	                connection.prepareStatement(query);
+
+	        pstmt.setString(1, status);
+
+	        ResultSet rs = pstmt.executeQuery();
+
+	        while(rs.next()) {
+	            list.add(extractOrder(rs));
+	        }
+
+	    }
+	    catch(Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return list;
+	}
 }

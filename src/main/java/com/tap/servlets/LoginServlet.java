@@ -39,8 +39,8 @@ public class LoginServlet extends HttpServlet {
 				resp.sendRedirect(req.getContextPath() + "/home");
 
 			} else if ("RESTAURANT_OWNER".equals(role)) {
-
-				resp.sendRedirect(req.getContextPath() + "/ownerMenu");
+				resp.sendRedirect(req.getContextPath() + "/ownerDashboard");
+			
 
 			} else if ("DELIVERY_PARTNER".equals(role)) {
 

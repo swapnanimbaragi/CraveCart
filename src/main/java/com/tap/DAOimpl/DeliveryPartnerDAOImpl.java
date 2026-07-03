@@ -147,4 +147,20 @@ public class DeliveryPartnerDAOImpl implements DeliveryPartnerDAO {
 				rs.getDouble("rating")
 		);
 	}
+	public void incrementDeliveryCount(int deliveryPartnerId) {
+
+		String sql = "UPDATE delivery_partner SET totalDeliveries = totalDeliveries + 1 WHERE deliveryPartnerId=?";
+
+		try {
+			Connection con = DBConnection.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql);
+
+			pstmt.setInt(1, deliveryPartnerId);
+
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

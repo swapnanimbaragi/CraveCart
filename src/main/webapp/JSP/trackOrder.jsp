@@ -24,7 +24,47 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 Order order = (Order) request.getAttribute("order");
 Restaurant restaurant = (Restaurant) request.getAttribute("restaurant");
 
-String deliveryAddress = order != null && order.getDeliveryAddress() != null ? order.getDeliveryAddress() : "";
+if (order == null) {
+	response.sendRedirect(request.getContextPath() + "/orders");
+	return;
+}
+
+String status = order.getOrderStatus();
+
+boolean orderPlaced =
+	status.equals("PLACED") ||
+	status.equals("ACCEPTED") ||
+	status.equals("PREPARING") ||
+	status.equals("READY_FOR_PICKUP") ||
+	status.equals("PICKED_UP") ||
+	status.equals("OUT_FOR_DELIVERY") ||
+	status.equals("DELIVERED");
+
+boolean preparing =
+	status.equals("PREPARING") ||
+	status.equals("READY_FOR_PICKUP") ||
+	status.equals("PICKED_UP") ||
+	status.equals("OUT_FOR_DELIVERY") ||
+	status.equals("DELIVERED");
+
+boolean packing =
+	status.equals("READY_FOR_PICKUP") ||
+	status.equals("PICKED_UP") ||
+	status.equals("OUT_FOR_DELIVERY") ||
+	status.equals("DELIVERED");
+
+boolean pickedUp =
+	status.equals("PICKED_UP") ||
+	status.equals("OUT_FOR_DELIVERY") ||
+	status.equals("DELIVERED");
+
+boolean outForDelivery =
+	status.equals("OUT_FOR_DELIVERY") ||
+	status.equals("DELIVERED");
+
+boolean delivered = status.equals("DELIVERED");
+
+String deliveryAddress = order.getDeliveryAddress() != null ? order.getDeliveryAddress() : "";
 deliveryAddress = deliveryAddress.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", " ");
 
 double restaurantLat = restaurant != null ? restaurant.getLatitude() : 12.934533;
@@ -56,73 +96,73 @@ String restaurantName = restaurant != null ? restaurant.getRestaurantName() : "R
 			</div>
 
 			<div>
-				<span>ETA</span>
-				<strong id="topEta">-- mins</strong>
+				<span>Current Status</span>
+				<strong><%=status%></strong>
 				<small>Updated live</small>
 			</div>
 		</div>
 
 		<div class="timeline">
 
-			<div class="track-step" id="stepPlaced">
+			<div class="track-step <%=orderPlaced ? "active" : ""%>">
 				<div class="circle">✅</div>
 				<div>
 					<h3>Order Placed</h3>
 					<p>Your order has been received.</p>
 				</div>
-				<span class="status-badge">Pending</span>
+				<span class="status-badge"><%=orderPlaced ? "Done" : "Pending"%></span>
 			</div>
 
-			<div class="track-step" id="stepPreparing">
+			<div class="track-step <%=preparing ? "active" : ""%>">
 				<div class="circle">👨‍🍳</div>
 				<div>
 					<h3>Preparing</h3>
 					<p>Restaurant is preparing your food.</p>
 				</div>
-				<span class="status-badge">Pending</span>
+				<span class="status-badge"><%=preparing ? "Done" : "Pending"%></span>
 			</div>
 
-			<div class="track-step" id="stepPacking">
+			<div class="track-step <%=packing ? "active" : ""%>">
 				<div class="circle">📦</div>
 				<div>
 					<h3>Packing</h3>
-					<p>Your food is being packed safely.</p>
+					<p>Your food is ready for pickup.</p>
 				</div>
-				<span class="status-badge">Pending</span>
+				<span class="status-badge"><%=packing ? "Done" : "Pending"%></span>
 			</div>
 
-			<div class="track-step" id="stepPicked">
+			<div class="track-step <%=pickedUp ? "active" : ""%>">
 				<div class="circle">🛵</div>
 				<div>
 					<h3>Picked Up</h3>
 					<p>Delivery partner has picked your order.</p>
 				</div>
-				<span class="status-badge">Pending</span>
+				<span class="status-badge"><%=pickedUp ? "Done" : "Pending"%></span>
 			</div>
 
-			<div class="track-step" id="stepOut">
+			<div class="track-step <%=outForDelivery ? "active" : ""%>">
 				<div class="circle">📍</div>
 				<div>
 					<h3>Out For Delivery</h3>
 					<p>Delivery partner is coming to your location.</p>
 				</div>
-				<span class="status-badge">Pending</span>
+				<span class="status-badge"><%=outForDelivery ? "Done" : "Pending"%></span>
 			</div>
 
-			<div class="track-step" id="stepDelivered">
+			<div class="track-step <%=delivered ? "active" : ""%>">
 				<div class="circle">🏠</div>
 				<div>
 					<h3>Delivered</h3>
 					<p>Enjoy your food!</p>
 				</div>
-				<span class="status-badge">Pending</span>
+				<span class="status-badge"><%=delivered ? "Done" : "Pending"%></span>
 			</div>
 
 		</div>
 
 		<div class="reach-box">
-			⏱️ We'll reach you in <b id="reachEta">-- mins</b>
-			<p>Your order status updates live on this page.</p>
+			Current order status: <b><%=status%></b>
+			<p>Your order status changes when restaurant owner or delivery partner updates it.</p>
 		</div>
 
 	</div>
@@ -178,31 +218,20 @@ String restaurantName = restaurant != null ? restaurant.getRestaurantName() : "R
 </section>
 
 <script>
-
 const contextPath = "${pageContext.request.contextPath}";
+const currentStatus = "<%=status%>";
 
 const restaurantLat = <%=restaurantLat%>;
 const restaurantLon = <%=restaurantLon%>;
 
 const restaurantName = "<%=restaurantName.replace("\"", "\\\"")%>";
-
 const customerAddress = "<%=deliveryAddress%>";
 
-const customerLat =
-<%= order != null ? order.getDeliveryLatitude() : 0 %>;
-
-const customerLon =
-<%= order != null ? order.getDeliveryLongitude() : 0 %>;
-
-console.log("Restaurant :", restaurantLat, restaurantLon);
-console.log("Customer Address :", customerAddress);
-console.log("Customer Lat :", customerLat);
-console.log("Customer Lon :", customerLon);
-
+const customerLat = <%=order.getDeliveryLatitude()%>;
+const customerLon = <%=order.getDeliveryLongitude()%>;
 </script>
 
 <script src="${pageContext.request.contextPath}/js/trackOrder.js"></script>
-
 
 </body>
 </html>

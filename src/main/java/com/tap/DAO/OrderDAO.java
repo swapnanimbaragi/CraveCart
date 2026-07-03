@@ -11,4 +11,5 @@ public interface OrderDAO {
 	void deleteOrder(int orderId);
 	List<Order> getAllOrder();
 	List<Order> getOrdersByUser(int userId);
+	List<Order> getOrdersByStatus(String status);
 }
