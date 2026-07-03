@@ -31,7 +31,7 @@ Restaurant restaurant = (Restaurant) request.getAttribute("restaurant");
 
 		<a href="<%=request.getContextPath()%>/ownerDashboard"> Dashboard</a>
 		<a href="<%=request.getContextPath()%>/ownerMenu"> Menu</a>
-		<a href="<%=request.getContextPath()%>/ownerRestaurant">Orders</a>
+		<a href="<%=request.getContextPath()%>/ownerOrders">Orders</a>
 		<a class="active" href="<%=request.getContextPath()%>/ownerRestaurant">My Restaurant</a>
 		<a href="<%=request.getContextPath()%>/adminLogout">Logout</a>
 	</aside>
