@@ -23,13 +23,13 @@ public class AdminDashboardDAOImpl implements AdminDashboardDAO {
 			"SELECT COUNT(*) FROM ordertable";
 
 	private static final String TOTAL_DELIVERY_PARTNERS =
-			"SELECT COUNT(*) FROM user WHERE role='DELIVERY'";
+	        "SELECT COUNT(*) FROM user WHERE role='DELIVERY_PARTNER'";
 
 	private static final String TOP_RESTAURANTS =
-			"SELECT r.name AS restaurantName, COUNT(o.orderId) AS totalOrders " +
+			"SELECT r.restaurantName AS restaurantName, COUNT(o.orderId) AS totalOrders " +
 			"FROM restaurant r " +
 			"JOIN ordertable o ON r.restaurantId = o.restaurantId " +
-			"GROUP BY r.restaurantId, r.name " +
+			"GROUP BY r.restaurantId, r.restaurantName " +
 			"ORDER BY totalOrders DESC " +
 			"LIMIT 5";
 

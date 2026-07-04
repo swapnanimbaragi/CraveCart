@@ -188,10 +188,12 @@
 								Edit
 							</a>
 
-							<a class="btn btn-red"
-								href="<%=request.getContextPath()%>/deleteRestaurant?restaurantId=<%=restaurant.getRestaurantId()%>"
-								onclick="return confirm('Are you sure you want to delete this restaurant?')">
-								Delete
+							<a class="btn <%=restaurant.isActive() ? "btn-red" : "btn-green"%>"
+							   href="<%=request.getContextPath()%>/toggleRestaurantStatus?restaurantId=<%=restaurant.getRestaurantId()%>"
+							   onclick="return confirm('Are you sure you want to change restaurant status?')">
+							
+								<%=restaurant.isActive() ? "Make Inactive" : "Make Active"%>
+							
 							</a>
 
 						</td>

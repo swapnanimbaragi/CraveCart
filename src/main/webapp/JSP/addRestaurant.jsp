@@ -104,7 +104,7 @@ if (admin == null) {
 				<label>Restaurant Tag</label>
 				<input type="text" name="restaurantTag" placeholder="Best Seller / Open Late" required>
 
-				<label>Admin User ID</label>
+				<label>Restaurant Owner User ID</label>
 				<input type="number" name="adminUserId" value="1" required>
 
 				<label>Latitude</label>

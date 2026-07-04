@@ -41,9 +41,20 @@ public class UpdateRestaurantServlet extends HttpServlet {
 		boolean isActive = Boolean.parseBoolean(req.getParameter("isActive"));
 		String description = req.getParameter("description");
 
-		Time openingTime = Time.valueOf(req.getParameter("openingTime") + ":00");
-		Time closingTime = Time.valueOf(req.getParameter("closingTime") + ":00");
+		String opening = req.getParameter("openingTime");
+		String closing = req.getParameter("closingTime");
 
+		if (opening.length() == 5) {
+			opening = opening + ":00";
+		}
+
+		if (closing.length() == 5) {
+			closing = closing + ":00";
+		}
+
+		Time openingTime = Time.valueOf(opening);
+		Time closingTime = Time.valueOf(closing);
+		
 		String contactNumber = req.getParameter("contactNumber");
 		double minimumOrderAmount = Double.parseDouble(req.getParameter("minimumOrderAmount"));
 		double deliveryFee = Double.parseDouble(req.getParameter("deliveryFee"));

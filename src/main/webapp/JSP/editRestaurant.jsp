@@ -133,7 +133,7 @@ if (restaurant == null) {
 				<input type="text" name="restaurantTag"
 					value="<%=restaurant.getRestaurantTag()%>" required>
 
-				<label>Admin User ID</label>
+				<label>Restaurant Owner User ID</label>
 				<input type="number" name="adminUserId"
 					value="<%=restaurant.getAdminUserId()%>" required>
 

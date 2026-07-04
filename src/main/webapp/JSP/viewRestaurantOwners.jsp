@@ -43,10 +43,17 @@ List<User> owners = (List<User>) request.getAttribute("owners");
 	<main class="main-content">
 
 		<div class="page-header">
+
 			<div>
 				<h1>Restaurant Owner <span>Management</span></h1>
 				<p>View all registered restaurant owners.</p>
 			</div>
+		
+			<a class="add-btn"
+			   href="<%=request.getContextPath()%>/JSP/addRestaurantOwner.jsp">
+				 Add Owner
+			</a>
+		
 		</div>
 
 		<div class="table-container">
