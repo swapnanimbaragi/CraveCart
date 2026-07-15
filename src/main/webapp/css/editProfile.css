@@ -71,5 +71,9 @@ button{
 
 button:hover{
 
-    background:#28b84c;
+    background:linear-gradient(135deg,#69B769,#54A95A);
+
+    transform:translateY(-2px);
+
+    box-shadow:0 8px 20px rgba(98,184,106,.35);
 }
