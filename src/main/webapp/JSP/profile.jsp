@@ -79,9 +79,9 @@ href="<%=request.getContextPath()%>/css/profile.css">
             </div>
 
             <a href="<%=request.getContextPath()%>/editProfile"
-               class="edit-btn">
-                Edit
-            </a>
+			class="edit-btn">
+			    Edit
+			</a>
 
         </div>
 
