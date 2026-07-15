@@ -3,7 +3,11 @@
 
 <%@ page import="java.util.List" %>
 <%@ page import="com.tap.model.Restaurant" %>
+<%@ page import="com.tap.model.User" %>
 
+<%
+User user = (User)request.getAttribute("user");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,16 +24,51 @@
     <div class="logo">CraveCart</div>
 
     <nav>
-        <a href="${pageContext.request.contextPath}/home">Home</a>
+   		<!--  <a href="${pageContext.request.contextPath}/home">Home</a
         <a href="#restaurants">Restaurants</a>
         <a href="#categories">Categories</a>
-        <a href="#">My Orders</a>
+        <a href="#orderhistroy">My Orders</a>
         <a href="#">Contact</a>
-        <a href="#cart">Cart</a>
-    </nav>
+        <a href="#cart">Cart</a> -->
+        
+       	<a href="<%=request.getContextPath()%>/home">Home</a>
 
-    <a href="${pageContext.request.contextPath}/logout" class="logout-btn">Logout</a>
-</header>
+		<a href="#restaurants">Restaurants</a>
+        <a href="#categories">Categories</a>
+		
+		<a href="<%=request.getContextPath()%>/orderHistory">
+		    My Orders
+		</a>
+		
+		<a href="#">
+		    Contact
+		</a>
+		
+		<a href="<%=request.getContextPath()%>/cart">
+		    Cart
+		</a>
+		
+		<%
+			if(user != null){
+		%>
+		<a href="<%=request.getContextPath()%>/profile" class="profile-btn">
+		    👤 <%=user.getUserName()%>
+		</a>
+		<%
+		}else{
+		%>
+		<a href="<%=request.getContextPath()%>/login" class="profile-btn">
+		    Login
+		</a>
+		<%
+		}
+		%>
+	
+	</nav>
+		
+		    
+		
+		</header>
 
 
 <section class="hero">
